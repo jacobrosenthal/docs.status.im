@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DocuAPI Example Site</title>
+    <link>http://docuapi.com/</link>
+    <description>Recent content on DocuAPI Example Site</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    
+	<atom:link href="http://docuapi.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>API Reference</title>
+      <link>http://docuapi.com/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docuapi.com/</guid>
+      <description>Introduction Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+This example API documentation page was created with DocuAPI, a multilingual documentation theme for the static site generator Hugo.</description>
+    </item>
+    
+    <item>
+      <title>Errors</title>
+      <link>http://docuapi.com/errors/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docuapi.com/errors/</guid>
+      <description>Errors This error section is stored in a separate file, errors.md. DocuAPI allows you to split the single page documentation in as many files as needed. Files are included in the default Hugo page order . One way of ordering the pages is by setting the page `weight` in the front matter. Pages with lower weight will be listed first. The Kittn API uses the following error codes:
+   Error Code Meaning     400 Bad Request &amp;ndash; Your request sucks   401 Unauthorized &amp;ndash; Your API key is wrong   403 Forbidden &amp;ndash; The kitten requested is hidden for administrators only   404 Not Found &amp;ndash; The specified kitten could not be found   405 Method Not Allowed &amp;ndash; You tried to access a kitten with an invalid method   406 Not Acceptable &amp;ndash; You requested a format that isn&amp;rsquo;t json   410 Gone &amp;ndash; The kitten requested has been removed from our servers   418 I&amp;rsquo;m a teapot   429 Too Many Requests &amp;ndash; You&amp;rsquo;re requesting too many kittens!</description>
+    </item>
+    
+    <item>
+      <title>Status API Reference</title>
+      <link>http://docuapi.com/status/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docuapi.com/status/</guid>
+      <description> status (API) https://github.com/status-im/status-react/blob/develop/resources/status.js#L160
+status status.command status.response status.addListener status.localizeNumber status.types status.types.TEXT status.types.NUMBER status.types.PHONE status.types.PASSWORD status.events status.events.SET_VALUE status.events.SET_COMMAND_ARGUMENT status.components status.components.view status.components.text status.components.slider status.components.image status.components.touchable status.components.scrollView status.components.webView status.components.validationMessage status.components.bridgedWebview status.components.subscribe status.components.dispatch status.setSuggestions status.setDefaultDb status.updateDb status.sendMessage status.addLogMessage status.defineSubscription </description>
+    </item>
+    
+    <item>
+      <title>Web3 API Reference</title>
+      <link>http://docuapi.com/web3/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docuapi.com/web3/</guid>
+      <description>web3 (API) To make your Ðapp work on Ethereum, you can use the web3 object provided by the web3.js library. Under the hood it communicates to a local node through RPC calls. web3.js works with any Ethereum node, which exposes an RPC layer.
+web3 contains the eth object - web3.eth (for specifically Ethereum blockchain interactions) and the shh object - web3.shh (for Whisper interaction). Over time we&amp;rsquo;ll introduce other objects for each of the other web3 protocols.</description>
+    </item>
+    
+  </channel>
+</rss>
