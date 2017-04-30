@@ -362,13 +362,41 @@ Remember — a happy kitten is an authenticated kitten!
 
 <h2 id="status-command">status.command</h2>
 
+<p>TODO
+name
+title
+description
+handler != null
+registeredOnly
+validator
+color
+icon
+params
+preview
+shortPreview
+onSend
+fullscreen
+request
+executeImmediately
+sequentialParams</p>
+
 <h2 id="status-response">status.response</h2>
 
 <h2 id="status-addlistener">status.addListener</h2>
 
+<p>TODO ask roman more</p>
+
+<p>on-message-input-change
+<a href="https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L75" target="_blank">https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L75</a></p>
+
+<p>on-message-send
+<a href="https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L76" target="_blank">https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L76</a></p>
+
 <h2 id="status-localizenumber">status.localizeNumber</h2>
 
 <h2 id="status-types">status.types</h2>
+
+<p>change keyboard?</p>
 
 <h2 id="status-types-text">status.types.TEXT</h2>
 
@@ -419,6 +447,36 @@ Remember — a happy kitten is an authenticated kitten!
 <h2 id="status-addlogmessage">status.addLogMessage</h2>
 
 <h2 id="status-definesubscription">status.defineSubscription</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">round</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">round</span><span class="p">(</span><span class="nx">n</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">doubledValueLabel</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">round</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="k">return</span> <span class="s2">&quot;sliderValue = &quot;</span> <span class="o">+</span> <span class="nx">value</span> <span class="o">+</span>
+        <span class="s2">&quot;; (2 * sliderValue) = &quot;</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">status</span><span class="p">.</span><span class="nx">defineSubscription</span><span class="p">(</span>
+    <span class="c1">// the name of subscription and the name of the value in bot-db</span>
+    <span class="c1">// associated with this subscription</span>
+    <span class="s2">&quot;doubledValue&quot;</span><span class="p">,</span>
+    <span class="c1">// the map of values on which subscription depends: keys are arbitrary names</span>
+    <span class="c1">// and values are db paths to another value</span>
+    <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;sliderValue&quot;</span><span class="p">]},</span>
+    <span class="c1">// the function which will be called as reaction on changes of values above,</span>
+    <span class="c1">// should be pure. Returned result will be associated with subscription in bot-db</span>
+    <span class="nx">doubledValueLabel</span>
+<span class="p">);</span>
+
+<span class="nx">status</span><span class="p">.</span><span class="nx">defineSubscription</span><span class="p">(</span>
+    <span class="s2">&quot;roundedValue&quot;</span><span class="p">,</span>
+    <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;sliderValue&quot;</span><span class="p">]},</span>
+    <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">round</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</code></pre></div>
 
     
         
