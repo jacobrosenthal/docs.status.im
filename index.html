@@ -1,0 +1,2530 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="generator" content="Hugo 0.20.6" />
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Status Developer Documentation</title>
+    <link href='/slate/stylesheets/monokai.css' rel="stylesheet" media="screen" />
+<link href='/slate/stylesheets/screen.css' rel="stylesheet" media="screen" />
+<link href='/slate/stylesheets/print.css' rel="stylesheet" media="print" />
+
+    
+<script src='/slate/javascripts/all.js'></script>
+
+    
+</head>
+<body class="index" data-languages="[ &#34;js&#34; ,  &#34;cljs&#34; ]">
+    <a href="#" id="nav-button">
+        <span>
+        NAV
+        <img src='/slate/images/navbar.png'/>
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        
+         <img src='/images/logo.png' />
+        
+        <div class="lang-selector">
+            
+            <a href="#" data-language-name="js">Javascript</a>
+            
+            <a href="#" data-language-name="cljs">Clojurescript</a>
+            
+        </div>
+         
+        
+        <div class="search">
+            <input type="text" class="search" id="input-search" placeholder='Search'>
+        </div>
+        <ul class="search-results"></ul>
+        
+        <div id="toc">
+        </div>
+         
+        
+        <ul class="toc-footer">
+            
+            <li><a href='#'>Sign Up for a Developer Key</a></li>
+            
+            <li>Documentation Powered by <a href="https://github.com/bep/docuapi" target="_blank">DocuAPI</a></li>
+            
+            <li>Hugo Theme by <a href="https://github.com/bep" target="_blank">bep</a></li>
+            
+        </ul>
+        
+        
+
+    </div>
+    <div class="page-wrapper">
+        <div class="dark-box"></div>
+        <div class="content">
+            
+    
+        
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+
+<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+
+<p><strong>This example API documentation page was created with <a href="https://github.com/bep/docuapi/" target="_blank">DocuAPI</a>, a multilingual documentation theme for the static site generator <a href="http://gohugo.io/" target="_blank">Hugo</a>.</strong></p>
+
+<h1 id="authentication">Authentication</h1>
+
+<blockquote>
+<p>To authorize, use this code:</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/bep/kittn/auth&quot;</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">api</span> <span class="o">:=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Authorize</span><span class="p">(</span><span class="s">&quot;meowmeowmeow&quot;</span><span class="p">)</span>
+
+	<span class="c1">// Just to make it compile</span>
+	<span class="nx">_</span> <span class="p">=</span> <span class="nx">api</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="nb">require</span> <span class="s1">&#39;kittn&#39;</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="o">.</span><span class="n">authorize!</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># With shell, you can just pass the correct header with each request</span>
+curl <span class="s2">&quot;api_endpoint_here&quot;</span>
+  -H <span class="s2">&quot;Authorization: meowmeowmeow&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kittn&#39;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">);</span>
+</code></pre></div>
+
+<blockquote>
+<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+</blockquote>
+
+<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers" target="_blank">developer portal</a>.</p>
+
+<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+
+<p><code>Authorization: meowmeowmeow</code></p>
+
+<aside class="notice">
+You must replace <code>meowmeowmeow</code> with your personal API key.
+</aside>
+
+<h1 id="kittens">Kittens</h1>
+
+<h2 id="get-all-kittens">Get All Kittens</h2>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/bep/kittn/auth&quot;</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">api</span> <span class="o">:=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Authorize</span><span class="p">(</span><span class="s">&quot;meowmeowmeow&quot;</span><span class="p">)</span>
+
+	<span class="nx">_</span> <span class="p">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">GetKittens</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="nb">require</span> <span class="s1">&#39;kittn&#39;</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="o">.</span><span class="n">authorize!</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>curl <span class="s2">&quot;http://example.com/api/kittens&quot;</span>
+  -H <span class="s2">&quot;Authorization: meowmeowmeow&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kittn&#39;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
+</code></pre></div>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span></span><span class="p">[</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Fluffums&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;breed&quot;</span><span class="p">:</span> <span class="s2">&quot;calico&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fluffiness&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+    <span class="nt">&quot;cuteness&quot;</span><span class="p">:</span> <span class="mi">7</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Max&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;breed&quot;</span><span class="p">:</span> <span class="s2">&quot;unknown&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;fluffiness&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+    <span class="nt">&quot;cuteness&quot;</span><span class="p">:</span> <span class="mi">10</span>
+  <span class="p">}</span>
+<span class="p">]</span>
+</code></pre></div>
+
+<p>This endpoint retrieves all kittens.</p>
+
+<h3 id="http-request">HTTP Request</h3>
+
+<p><code>GET http://example.com/api/kittens</code></p>
+
+<h3 id="query-parameters">Query Parameters</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>include_cats</td>
+<td>false</td>
+<td>If set to true, the result will also include cats.</td>
+</tr>
+
+<tr>
+<td>available</td>
+<td>true</td>
+<td>If set to false, the result will include kittens that have already been adopted.</td>
+</tr>
+</tbody>
+</table>
+
+<aside class="success">
+Remember — a happy kitten is an authenticated kitten!
+</aside>
+
+<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
+<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">package</span> <span class="nx">main</span>
+
+<span class="kn">import</span> <span class="s">&quot;github.com/bep/kittn/auth&quot;</span>
+
+<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
+	<span class="nx">api</span> <span class="o">:=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Authorize</span><span class="p">(</span><span class="s">&quot;meowmeowmeow&quot;</span><span class="p">)</span>
+
+	<span class="nx">_</span> <span class="p">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">GetKitten</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="nb">require</span> <span class="s1">&#39;kittn&#39;</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="o">.</span><span class="n">authorize!</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">kittn</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>curl <span class="s2">&quot;http://example.com/api/kittens/2&quot;</span>
+  -H <span class="s2">&quot;Authorization: meowmeowmeow&quot;</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kittn&#39;</span><span class="p">);</span>
+
+<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span></span><span class="p">{</span>
+  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Max&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;breed&quot;</span><span class="p">:</span> <span class="s2">&quot;unknown&quot;</span><span class="p">,</span>
+  <span class="nt">&quot;fluffiness&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
+  <span class="nt">&quot;cuteness&quot;</span><span class="p">:</span> <span class="mi">10</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>This endpoint retrieves a specific kitten.</p>
+
+<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+
+<h3 id="http-request-1">HTTP Request</h3>
+
+<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+
+<h3 id="url-parameters">URL Parameters</h3>
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>ID</td>
+<td>The ID of the kitten to retrieve</td>
+</tr>
+</tbody>
+</table>
+
+    
+        
+
+<h1 id="errors">Errors</h1>
+
+<aside class="notice">This error section is stored in a separate file, errors.md. DocuAPI allows you to split the single page documentation in as many files as needed. Files are included in the  default Hugo page order . One way of ordering the pages is by setting the page `weight` in the front matter. Pages with lower weight will be listed first.</aside>
+
+<p>The Kittn API uses the following error codes:</p>
+
+<table>
+<thead>
+<tr>
+<th>Error Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>400</td>
+<td>Bad Request &ndash; Your request sucks</td>
+</tr>
+
+<tr>
+<td>401</td>
+<td>Unauthorized &ndash; Your API key is wrong</td>
+</tr>
+
+<tr>
+<td>403</td>
+<td>Forbidden &ndash; The kitten requested is hidden for administrators only</td>
+</tr>
+
+<tr>
+<td>404</td>
+<td>Not Found &ndash; The specified kitten could not be found</td>
+</tr>
+
+<tr>
+<td>405</td>
+<td>Method Not Allowed &ndash; You tried to access a kitten with an invalid method</td>
+</tr>
+
+<tr>
+<td>406</td>
+<td>Not Acceptable &ndash; You requested a format that isn&rsquo;t json</td>
+</tr>
+
+<tr>
+<td>410</td>
+<td>Gone &ndash; The kitten requested has been removed from our servers</td>
+</tr>
+
+<tr>
+<td>418</td>
+<td>I&rsquo;m a teapot</td>
+</tr>
+
+<tr>
+<td>429</td>
+<td>Too Many Requests &ndash; You&rsquo;re requesting too many kittens! Slow down!</td>
+</tr>
+
+<tr>
+<td>500</td>
+<td>Internal Server Error &ndash; We had a problem with our server. Try again later.</td>
+</tr>
+
+<tr>
+<td>503</td>
+<td>Service Unavailable &ndash; We&rsquo;re temporarially offline for maintanance. Please try again later.</td>
+</tr>
+</tbody>
+</table>
+
+    
+        
+
+<h1 id="status-api">status (API)</h1>
+
+<p><a href="https://github.com/status-im/status-react/blob/develop/resources/status.js#L160" target="_blank">https://github.com/status-im/status-react/blob/develop/resources/status.js#L160</a></p>
+
+<h2 id="status">status</h2>
+
+<h2 id="status-command">status.command</h2>
+
+<h2 id="status-response">status.response</h2>
+
+<h2 id="status-addlistener">status.addListener</h2>
+
+<h2 id="status-localizenumber">status.localizeNumber</h2>
+
+<h2 id="status-types">status.types</h2>
+
+<h2 id="status-types-text">status.types.TEXT</h2>
+
+<h2 id="status-types-number">status.types.NUMBER</h2>
+
+<h2 id="status-types-phone">status.types.PHONE</h2>
+
+<h2 id="status-types-password">status.types.PASSWORD</h2>
+
+<h2 id="status-events">status.events</h2>
+
+<h2 id="status-events-set-value">status.events.SET_VALUE</h2>
+
+<h2 id="status-events-set-command-argument">status.events.SET_COMMAND_ARGUMENT</h2>
+
+<h2 id="status-components">status.components</h2>
+
+<h2 id="status-components-view">status.components.view</h2>
+
+<h2 id="status-components-text">status.components.text</h2>
+
+<h2 id="status-components-slider">status.components.slider</h2>
+
+<h2 id="status-components-image">status.components.image</h2>
+
+<h2 id="status-components-touchable">status.components.touchable</h2>
+
+<h2 id="status-components-scrollview">status.components.scrollView</h2>
+
+<h2 id="status-components-webview">status.components.webView</h2>
+
+<h2 id="status-components-validationmessage">status.components.validationMessage</h2>
+
+<h2 id="status-components-bridgedwebview">status.components.bridgedWebview</h2>
+
+<h2 id="status-components-subscribe">status.components.subscribe</h2>
+
+<h2 id="status-components-dispatch">status.components.dispatch</h2>
+
+<h2 id="status-setsuggestions">status.setSuggestions</h2>
+
+<h2 id="status-setdefaultdb">status.setDefaultDb</h2>
+
+<h2 id="status-updatedb">status.updateDb</h2>
+
+<h2 id="status-sendmessage">status.sendMessage</h2>
+
+<h2 id="status-addlogmessage">status.addLogMessage</h2>
+
+<h2 id="status-definesubscription">status.defineSubscription</h2>
+
+    
+        
+
+<h1 id="web3-api">web3 (API)</h1>
+
+<p>To make your Ðapp work on Ethereum, you can use the <code>web3</code> object provided by the <a href="https://github.com/ethereum/web3.js" target="_blank">web3.js library</a>. Under the hood it communicates to a local node through <a href="https://github.com/ethereum/wiki/wiki/JSON-RPC" target="_blank">RPC calls</a>. web3.js works with any Ethereum node, which exposes an RPC layer.</p>
+
+<p><code>web3</code> contains the <code>eth</code> object - <code>web3.eth</code> (for specifically Ethereum blockchain interactions) and the <code>shh</code> object - <code>web3.shh</code> (for Whisper interaction). Over time we&rsquo;ll introduce other objects for each of the other web3 protocols. Working  <a href="https://github.com/ethereum/web3.js/tree/master/example" target="_blank">examples can be found here</a>.</p>
+
+<p>If you want to look at some more sophisticated examples using web3.js check out these <a href="https://github.com/ethereum/wiki/wiki/Useful-Ðapp-Patterns" target="_blank">useful Ðapp patterns</a>.</p>
+
+<h2 id="getting-started">Getting Started</h2>
+
+<p>TODO check how metamask suggests to embed</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">web3</span> <span class="o">!==</span> <span class="s1">&#39;undefined&#39;</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">web3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">(</span><span class="nx">web3</span><span class="p">.</span><span class="nx">currentProvider</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="c1">// set the provider you want from Web3.providers</span>
+  <span class="nx">web3</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Web3</span><span class="p">(</span><span class="k">new</span> <span class="nx">Web3</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">HttpProvider</span><span class="p">(</span><span class="s2">&quot;http://localhost:8545&quot;</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>First you need to get web3.js into your project. This can be done using the following methods:</p>
+
+<ul>
+<li>npm: <code>npm install web3</code></li>
+<li>bower: <code>bower install web3</code></li>
+<li>meteor: <code>meteor add ethereum:web3</code></li>
+<li>vanilla: link the <code>dist./web3.min.js</code></li>
+</ul>
+
+<p>Then you need to create a web3 instance, setting a provider.
+To make sure you don&rsquo;t overwrite the already set provider when in mist, check first if the web3 is available:</p>
+
+<p>After that you can use the API of the <code>web3</code> object.</p>
+
+<h2 id="using-callbacks">Using callbacks</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getBlock</span><span class="p">(</span><span class="mi">48</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span>
+    <span class="k">else</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="nx">error</span><span class="p">);</span>
+<span class="p">})</span>
+</code></pre></div>
+
+<p>As this API is designed to work with a local RPC node, all its functions use synchronous HTTP requests by default.</p>
+
+<p>If you want to make an asynchronous request, you can pass an optional callback as the last parameter to most functions.
+All callbacks are using an <a href="http://fredkschott.com/post/2014/03/understanding-error-first-callbacks-in-node-js/" target="_blank">error first callback</a> style:</p>
+
+<h2 id="batch-requests">Batch requests</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">batch</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">createBatch</span><span class="p">();</span>
+<span class="nx">batch</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span> <span class="s1">&#39;latest&#39;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">));</span>
+<span class="nx">batch</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="nx">address</span><span class="p">).</span><span class="nx">balance</span><span class="p">.</span><span class="nx">request</span><span class="p">(</span><span class="nx">address</span><span class="p">,</span> <span class="nx">callback2</span><span class="p">));</span>
+<span class="nx">batch</span><span class="p">.</span><span class="nx">execute</span><span class="p">();</span>
+</code></pre></div>
+
+<p>Batch requests allow queuing up requests and processing them at once.</p>
+
+<p><strong>Note</strong> Batch requests are not faster! In fact making many requests at once will in some cases be faster, as requests are processed asynchronous. Batch requests are mainly useful to ensure the serial processing of requests.</p>
+
+<h2 id="web3-bignumber">web3 &amp; BigNumber</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="s2">&quot;101010100324325345346456456456456456456&quot;</span>
+<span class="c1">// &quot;101010100324325345346456456456456456456&quot;</span>
+<span class="mi">101010100324325345346456456456456456456</span>
+<span class="c1">// 1.0101010032432535e+38</span>
+</code></pre></div>
+
+<p>You will always get a BigNumber object for number values as JavaScript is not able to handle big numbers correctly.
+Look at the following examples:</p>
+
+<p>web3.js depends on the <a href="https://github.com/MikeMcl/bignumber.js/" target="_blank">BigNumber Library</a> and adds it automatically.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">balance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BigNumber</span><span class="p">(</span><span class="s1">&#39;131242344353464564564574574567456&#39;</span><span class="p">);</span>
+<span class="c1">// or var balance = web3.eth.getBalance(someAddress);</span>
+
+<span class="c1">// toString(10) converts it to a number string</span>
+<span class="nx">balance</span><span class="p">.</span><span class="nx">plus</span><span class="p">(</span><span class="mi">21</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> 
+<span class="c1">// &quot;131242344353464564564574574567477&quot;</span>
+</code></pre></div>
+
+<p>The next example wouldn&rsquo;t work as we have more than 20 floating points, therefore it is recommended to keep you balance always in <em>wei</em> and only transform it to other units when presenting to the user:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">balance</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">BigNumber</span><span class="p">(</span><span class="s1">&#39;13124.234435346456466666457455567456&#39;</span><span class="p">);</span>
+
+<span class="c1">// toString(10) converts it to a number string, but can only show max 20 floating points</span>
+<span class="nx">balance</span><span class="p">.</span><span class="nx">plus</span><span class="p">(</span><span class="mi">21</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="mi">10</span><span class="p">);</span> 
+<span class="c1">// &quot;13145.23443534645646666646&quot; // you number would be cut after the 20 floating point</span>
+</code></pre></div>
+
+<h2 id="web3">web3</h2>
+
+<h2 id="web3-version-api">web3.version.api</h2>
+
+<h3 id="returns">Returns</h3>
+
+<p><code>String</code> - The ethereum js api version.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">version</span><span class="p">.</span><span class="nx">api</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">version</span><span class="p">);</span> <span class="c1">// &quot;0.2.0&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-version-node">web3.version.node</h2>
+
+<pre><code>web3.version.node
+// or async
+web3.version.getNode(callback(error, result){ ... })
+</code></pre>
+
+<h3 id="returns-1">Returns</h3>
+
+<p><code>String</code> - The client/node version.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">version</span><span class="p">.</span><span class="nx">node</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">version</span><span class="p">);</span> <span class="c1">// &quot;Mist/v0.9.3/darwin/go1.4.1&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-version-network">web3.version.network</h2>
+
+<pre><code>web3.version.network
+// or async
+web3.version.getNetwork(callback(error, result){ ... })
+</code></pre>
+
+<h3 id="returns-2">Returns</h3>
+
+<p><code>String</code> - The network protocol version.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">version</span><span class="p">.</span><span class="nx">network</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">version</span><span class="p">);</span> <span class="c1">// 54</span>
+</code></pre></div>
+
+<h2 id="web3-version-ethereum">web3.version.ethereum</h2>
+
+<pre><code>web3.version.ethereum
+// or async
+web3.version.getEthereum(callback(error, result){ ... })
+</code></pre>
+
+<h3 id="returns-3">Returns</h3>
+
+<p><code>String</code> - The ethereum protocol version.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">version</span><span class="p">.</span><span class="nx">ethereum</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">version</span><span class="p">);</span> <span class="c1">// 60</span>
+</code></pre></div>
+
+<h2 id="web3-version-whisper">web3.version.whisper</h2>
+
+<pre><code>web3.version.whisper
+// or async
+web3.version.getWhisper(callback(error, result){ ... })
+</code></pre>
+
+<h3 id="returns-4">Returns</h3>
+
+<p><code>String</code> - The whisper protocol version.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">version</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">version</span><span class="p">.</span><span class="nx">whisper</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">version</span><span class="p">);</span> <span class="c1">// 20</span>
+</code></pre></div>
+
+<hr />
+
+<h3 id="web3-isconnected">web3.isConnected</h3>
+
+<pre><code>web3.isConnected()
+</code></pre>
+
+<p>Should be called to check if a connection to a node exists</p>
+
+<h3 id="parameters">Parameters</h3>
+
+<p>none</p>
+
+<h3 id="returns-5">Returns</h3>
+
+<p><code>Boolean</code></p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">web3</span><span class="p">.</span><span class="nx">isConnected</span><span class="p">())</span> <span class="p">{</span>
+  
+   <span class="c1">// show some dialog to ask the user to start a node</span>
+
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+ 
+   <span class="c1">// start web3 filters, calls, etc</span>
+  
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="web3-setprovider">web3.setProvider</h2>
+
+<pre><code>web3.setProvider(provider)
+</code></pre>
+
+<p>Should be called to set provider.</p>
+
+<h3 id="parameters-1">Parameters</h3>
+
+<p>none</p>
+
+<h3 id="returns-6">Returns</h3>
+
+<p><code>undefined</code></p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">web3</span><span class="p">.</span><span class="nx">setProvider</span><span class="p">(</span><span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">HttpProvider</span><span class="p">(</span><span class="s1">&#39;http://localhost:8545&#39;</span><span class="p">));</span> <span class="c1">// 8080 for cpp/AZ, 8545 for go/mist</span>
+</code></pre></div>
+
+<h2 id="web3-currentprovider">web3.currentProvider</h2>
+
+<pre><code>web3.currentProvider
+</code></pre>
+
+<p>Will contain the current provider, if one is set. This can be used to check if mist etc. set already a provider.</p>
+
+<h3 id="returns-7">Returns</h3>
+
+<p><code>Object</code> - The provider set or <code>null</code>;</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Check if mist etc. already set a provider</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">web3</span><span class="p">.</span><span class="nx">currentProvider</span><span class="p">)</span>
+    <span class="nx">web3</span><span class="p">.</span><span class="nx">setProvider</span><span class="p">(</span><span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">providers</span><span class="p">.</span><span class="nx">HttpProvider</span><span class="p">(</span><span class="s2">&quot;http://localhost:8545&quot;</span><span class="p">));</span>
+</code></pre></div>
+
+<h2 id="web3-reset">web3.reset</h2>
+
+<pre><code>web3.reset(keepIsSyncing)
+</code></pre>
+
+<p>Should be called to reset state of web3. Resets everything except manager. Uninstalls all filters. Stops polling.</p>
+
+<h3 id="parameters-2">Parameters</h3>
+
+<ol>
+<li><code>Boolean</code> - If <code>true</code> it will uninstall all filters, but will keep the <a href="#web3ethissyncing">web3.eth.isSyncing()</a> polls</li>
+</ol>
+
+<h3 id="returns-8">Returns</h3>
+
+<p><code>undefined</code></p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">web3</span><span class="p">.</span><span class="nx">reset</span><span class="p">();</span>
+</code></pre></div>
+
+<h2 id="web3-sha3">web3.sha3</h2>
+
+<pre><code>web3.sha3(string, options)
+</code></pre>
+
+<h3 id="parameters-3">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The string to hash using the Keccak-256 SHA3 algorithm</li>
+<li><code>Object</code> - Set <code>encoding</code> to <code>hex</code> if the string to hash is encoded in hex. A leading <code>0x</code> will be automatically ignored.</li>
+</ol>
+
+<h3 id="returns-9">Returns</h3>
+
+<p><code>String</code> - The Keccak-256 SHA3 of the given data.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">hash</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">sha3</span><span class="p">(</span><span class="s2">&quot;Some string to be hashed&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hash</span><span class="p">);</span> <span class="c1">// &quot;0xed973b234cf2238052c9ac87072c71bcf33abc1bbd721018e0cca448ef79b379&quot;</span>
+
+<span class="kd">var</span> <span class="nx">hashOfHash</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">sha3</span><span class="p">(</span><span class="nx">hash</span><span class="p">,</span> <span class="p">{</span><span class="nx">encoding</span><span class="o">:</span> <span class="s1">&#39;hex&#39;</span><span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hashOfHash</span><span class="p">);</span> <span class="c1">// &quot;0x85dd39c91a64167ba20732b228251e67caed1462d4bcf036af88dc6856d0fdcc&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-tohex">web3.toHex</h2>
+
+<pre><code>web3.toHex(mixed);
+</code></pre>
+
+<p>Converts any value into HEX.</p>
+
+<h3 id="parameters-4">Parameters</h3>
+
+<ol>
+<li><code>String|Number|Object|Array|BigNumber</code> - The value to parse to HEX. If its an object or array it will be <code>JSON.stringify</code> first. If its a BigNumber it will make it the HEX value of a number.</li>
+</ol>
+
+<h3 id="returns-10">Returns</h3>
+
+<p><code>String</code> - The hex string of <code>mixed</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">toHex</span><span class="p">({</span><span class="nx">test</span><span class="o">:</span> <span class="s1">&#39;test&#39;</span><span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// &#39;0x7b2274657374223a2274657374227d&#39;</span>
+</code></pre></div>
+
+<h2 id="web3-toascii">web3.toAscii</h2>
+
+<pre><code>web3.toAscii(hexString);
+</code></pre>
+
+<p>Converts a HEX string into a ASCII string.</p>
+
+<h3 id="parameters-5">Parameters</h3>
+
+<ol>
+<li><code>String</code> - A HEX string to be converted to ascii.</li>
+</ol>
+
+<h3 id="returns-11">Returns</h3>
+
+<p><code>String</code> - An ASCII string made from the given <code>hexString</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">toAscii</span><span class="p">(</span><span class="s2">&quot;0x657468657265756d000000000000000000000000000000000000000000000000&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// &quot;ethereum&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-fromascii">web3.fromAscii</h2>
+
+<pre><code>web3.fromAscii(string [, padding]);
+</code></pre>
+
+<p>Converts any ASCII string to a HEX string.</p>
+
+<h3 id="parameters-6">Parameters</h3>
+
+<ol>
+<li><code>String</code> - An ASCII string to be converted to HEX.</li>
+<li><code>Number</code> - The number of bytes the returned HEX string should have.</li>
+</ol>
+
+<h3 id="returns-12">Returns</h3>
+
+<p><code>String</code> - The converted HEX string.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">str</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">fromAscii</span><span class="p">(</span><span class="s1">&#39;ethereum&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str</span><span class="p">);</span> <span class="c1">// &quot;0x657468657265756d&quot;</span>
+
+<span class="kd">var</span> <span class="nx">str2</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">fromAscii</span><span class="p">(</span><span class="s1">&#39;ethereum&#39;</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">str2</span><span class="p">);</span> <span class="c1">// &quot;0x657468657265756d000000000000000000000000000000000000000000000000&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-todecimal">web3.toDecimal</h2>
+
+<pre><code>web3.toDecimal(hexString);
+</code></pre>
+
+<p>Converts a HEX string to its number representation.</p>
+
+<h3 id="parameters-7">Parameters</h3>
+
+<ol>
+<li><code>String</code> - An HEX string to be converted to a number.</li>
+</ol>
+
+<h3 id="returns-13">Returns</h3>
+
+<p><code>Number</code> - The number representing the data <code>hexString</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">toDecimal</span><span class="p">(</span><span class="s1">&#39;0x15&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">number</span><span class="p">);</span> <span class="c1">// 21</span>
+</code></pre></div>
+
+<h2 id="web3-fromdecimal">web3.fromDecimal</h2>
+
+<pre><code>web3.fromDecimal(number);
+</code></pre>
+
+<p>Converts a number or number string to its HEX representation.</p>
+
+<h3 id="parameters-8">Parameters</h3>
+
+<ol>
+<li><code>Number|String</code> - A number to be converted to a HEX string.</li>
+</ol>
+
+<h3 id="returns-14">Returns</h3>
+
+<p><code>String</code> - The HEX string representing of the given <code>number</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">fromDecimal</span><span class="p">(</span><span class="s1">&#39;21&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> <span class="c1">// &quot;0x15&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-fromwei">web3.fromWei</h2>
+
+<pre><code>web3.fromWei(number, unit)
+</code></pre>
+
+<p>Converts a number of wei into the following ethereum units:</p>
+
+<ul>
+<li><code>kwei</code>/<code>ada</code></li>
+<li><code>mwei</code>/<code>babbage</code></li>
+<li><code>gwei</code>/<code>shannon</code></li>
+<li><code>szabo</code></li>
+<li><code>finney</code></li>
+<li><code>ether</code></li>
+<li><code>kether</code>/<code>grand</code>/<code>einstein</code></li>
+<li><code>mether</code></li>
+<li><code>gether</code></li>
+<li><code>tether</code></li>
+</ul>
+
+<h3 id="parameters-9">Parameters</h3>
+
+<ol>
+<li><code>Number|String|BigNumber</code> - A number or BigNumber instance.</li>
+<li><code>String</code> - One of the above ether units.</li>
+</ol>
+
+<h3 id="returns-15">Returns</h3>
+
+<p><code>String|BigNumber</code> - Either a number string, or a BigNumber instance, depending on the given <code>number</code> parameter.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">fromWei</span><span class="p">(</span><span class="s1">&#39;21000000000000&#39;</span><span class="p">,</span> <span class="s1">&#39;finney&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> <span class="c1">// &quot;0.021&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-towei">web3.toWei</h2>
+
+<pre><code>web3.toWei(number, unit)
+</code></pre>
+
+<p>Converts an ethereum unit into wei. Possible units are:</p>
+
+<ul>
+<li><code>kwei</code>/<code>ada</code></li>
+<li><code>mwei</code>/<code>babbage</code></li>
+<li><code>gwei</code>/<code>shannon</code></li>
+<li><code>szabo</code></li>
+<li><code>finney</code></li>
+<li><code>ether</code></li>
+<li><code>kether</code>/<code>grand</code>/<code>einstein</code></li>
+<li><code>mether</code></li>
+<li><code>gether</code></li>
+<li><code>tether</code></li>
+</ul>
+
+<h3 id="parameters-10">Parameters</h3>
+
+<ol>
+<li><code>Number|String|BigNumber</code> - A number or BigNumber instance.</li>
+<li><code>String</code> - One of the above ether units.</li>
+</ol>
+
+<h3 id="returns-16">Returns</h3>
+
+<p><code>String|BigNumber</code> - Either a number string, or a BigNumber instance, depending on the given <code>number</code> parameter.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">toWei</span><span class="p">(</span><span class="s1">&#39;1&#39;</span><span class="p">,</span> <span class="s1">&#39;ether&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> <span class="c1">// &quot;1000000000000000000&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-tobignumber">web3.toBigNumber</h2>
+
+<pre><code>web3.toBigNumber(numberOrHexString);
+</code></pre>
+
+<p>Converts a given number into a BigNumber instance.</p>
+
+<p>See the <a href="#a-note-on-big-numbers-in-web3js">note on BigNumber</a>.</p>
+
+<h3 id="parameters-11">Parameters</h3>
+
+<ol>
+<li><code>Number|String</code> - A number, number string or HEX string of a number.</li>
+</ol>
+
+<h3 id="returns-17">Returns</h3>
+
+<p><code>BigNumber</code> - A BigNumber instance representing the given value.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">toBigNumber</span><span class="p">(</span><span class="s1">&#39;200000000000000000000001&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> <span class="c1">// instanceOf BigNumber</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">toNumber</span><span class="p">());</span> <span class="c1">// 2.0000000000000002e+23</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span> <span class="c1">// &#39;200000000000000000000001&#39;</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="web3-net">web3.net</h2>
+
+<h3 id="web3-net-listening">web3.net.listening</h3>
+
+<pre><code>web3.net.listening
+// or async
+web3.net.getListening(callback(error, result){ ... })
+</code></pre>
+
+<p>This property is read only and says whether the node is actively listening for network connections or not.</p>
+
+<h3 id="returns-18">Returns</h3>
+
+<p><code>Boolean</code> - <code>true</code> if the client is actively listening for network connections, otherwise <code>false</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">listening</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">net</span><span class="p">.</span><span class="nx">listening</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">listening</span><span class="p">);</span> <span class="c1">// true of false</span>
+</code></pre></div>
+
+<h2 id="web3-net-peercount">web3.net.peerCount</h2>
+
+<pre><code>web3.net.peerCount
+// or async
+web3.net.getPeerCount(callback(error, result){ ... })
+</code></pre>
+
+<p>This property is read only and returns the number of connected peers.</p>
+
+<h3 id="returns-19">Returns</h3>
+
+<p><code>Number</code> - The number of peers currently connected to the client.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">peerCount</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">net</span><span class="p">.</span><span class="nx">peerCount</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">peerCount</span><span class="p">);</span> <span class="c1">// 4</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="web3-eth">web3.eth</h2>
+
+<p>Contains the ethereum blockchain related methods.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">eth</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-defaultaccount">web3.eth.defaultAccount</h2>
+
+<pre><code>web3.eth.defaultAccount
+</code></pre>
+
+<p>This default address is used for the following methods (optionally you can overwrite it by specifying the <code>from</code> property):</p>
+
+<ul>
+<li><a href="#web3ethsendtransaction">web3.eth.sendTransaction()</a></li>
+<li><a href="#web3ethcall">web3.eth.call()</a></li>
+</ul>
+
+<h5 id="values">Values</h5>
+
+<p><code>String</code>, 20 Bytes - Any address you own, or where you have the private key for.</p>
+
+<p><em>Default is</em> <code>undefined</code>.</p>
+
+<h3 id="returns-20">Returns</h3>
+
+<p><code>String</code>, 20 Bytes - The currently set default address.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">defaultAccount</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">defaultAccount</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">defaultAccount</span><span class="p">);</span> <span class="c1">// &#39;&#39;</span>
+
+<span class="c1">// set the default account</span>
+<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">defaultAccount</span> <span class="o">=</span> <span class="s1">&#39;0x8888f1f195afa192cfee860698584c030f4c9db1&#39;</span><span class="p">;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-defaultblock">web3.eth.defaultBlock</h2>
+
+<pre><code>web3.eth.defaultBlock
+</code></pre>
+
+<p>This default block is used for the following methods (optionally you can override it by passing the defaultBlock parameter):</p>
+
+<ul>
+<li><a href="#web3ethgetbalance">web3.eth.getBalance()</a></li>
+<li><a href="#web3ethgetcode">web3.eth.getCode()</a></li>
+<li><a href="#web3ethgettransactioncount">web3.eth.getTransactionCount()</a></li>
+<li><a href="#web3ethgetstorageat">web3.eth.getStorageAt()</a></li>
+<li><a href="#web3ethcall">web3.eth.call()</a></li>
+<li><a href="#contract-methods">contract.myMethod.call()</a></li>
+<li><a href="#contract-methods">contract.myMethod.estimateGas()</a></li>
+</ul>
+
+<h5 id="values-1">Values</h5>
+
+<p>Default block parameters can be one of the following:</p>
+
+<ul>
+<li><code>Number</code> - a block number</li>
+<li><code>String</code> - <code>&quot;earliest&quot;</code>, the genisis block</li>
+<li><code>String</code> - <code>&quot;latest&quot;</code>, the latest block (current head of the blockchain)</li>
+<li><code>String</code> - <code>&quot;pending&quot;</code>, the currently mined block (including pending transactions)</li>
+</ul>
+
+<p><em>Default is</em> <code>latest</code></p>
+
+<h3 id="returns-21">Returns</h3>
+
+<p><code>Number|String</code> - The default block number to use when querying a state.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">defaultBlock</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">defaultBlock</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">defaultBlock</span><span class="p">);</span> <span class="c1">// &#39;latest&#39;</span>
+
+<span class="c1">// set the default block</span>
+<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">defaultBlock</span> <span class="o">=</span> <span class="mi">231</span><span class="p">;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-syncing">web3.eth.syncing</h2>
+
+<pre><code>web3.eth.syncing
+// or async
+web3.eth.getSyncing(callback(error, result){ ... })
+</code></pre>
+
+<p>This property is read only and returns the either a sync object, when the node is syncing or <code>false</code>.</p>
+
+<h3 id="returns-22">Returns</h3>
+
+<p><code>Object|Boolean</code> - A sync object as follows, when the node is currently syncing or <code>false</code>:
+   - <code>startingBlock</code>: <code>Number</code> - The block number where the sync started.
+   - <code>currentBlock</code>: <code>Number</code> - The block number where at which block the node currently synced to already.
+   - <code>highestBlock</code>: <code>Number</code> - The estimated block number to sync to.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">sync</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">syncing</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sync</span><span class="p">);</span>
+<span class="cm">/*</span>
+<span class="cm">{</span>
+<span class="cm">   startingBlock: 300,</span>
+<span class="cm">   currentBlock: 312,</span>
+<span class="cm">   highestBlock: 512</span>
+<span class="cm">}</span>
+<span class="cm">*/</span>
+</code></pre></div>
+
+<h2 id="web3-eth-issyncing">web3.eth.isSyncing</h2>
+
+<pre><code>web3.eth.isSyncing(callback);
+</code></pre>
+
+<p>This convenience function calls the <code>callback</code> everytime a sync starts, updates and stops.</p>
+
+<h3 id="returns-23">Returns</h3>
+
+<p><code>Object</code> - a isSyncing object with the following methods:</p>
+
+<ul>
+<li><code>syncing.addCallback()</code>: Adds another callback, which will be called when the node starts or stops syncing.</li>
+<li><code>syncing.stopWatching()</code>: Stops the syncing callbacks.</li>
+</ul>
+
+<h5 id="callback-return-value">Callback return value</h5>
+
+<ul>
+<li><code>Boolean</code> - The callback will be fired with <code>true</code> when the syncing starts and with <code>false</code> when it stopped.</li>
+<li><code>Object</code> - While syncing it will return the syncing object:
+
+<ul>
+<li><code>startingBlock</code>: <code>Number</code> - The block number where the sync started.</li>
+<li><code>currentBlock</code>: <code>Number</code> - The block number where at which block the node currently synced to already.</li>
+<li><code>highestBlock</code>: <code>Number</code> - The estimated block number to sync to.</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">isSyncing</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">sync</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// stop all app activity</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">sync</span> <span class="o">===</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+           <span class="c1">// we use `true`, so it stops all filters, but not the web3.eth.syncing polling</span>
+           <span class="nx">web3</span><span class="p">.</span><span class="nx">reset</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+        
+        <span class="c1">// show sync info</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="nx">sync</span><span class="p">)</span> <span class="p">{</span>
+           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">sync</span><span class="p">.</span><span class="nx">currentBlock</span><span class="p">);</span>
+        
+        <span class="c1">// re-gain app operation</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// run your app init function...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h2 id="web3-eth-coinbase">web3.eth.coinbase</h2>
+
+<pre><code>web3.eth.coinbase
+// or async
+web3.eth.getCoinbase(callback(error, result){ ... })
+</code></pre>
+
+<p>This property is read only and returns the coinbase address were the mining rewards go to.</p>
+
+<h3 id="returns-24">Returns</h3>
+
+<p><code>String</code> - The coinbase address of the client.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">coinbase</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">coinbase</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">coinbase</span><span class="p">);</span> <span class="c1">// &quot;0x407d73d8a49eeb85d32cf465507dd71d507100c1&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-mining">web3.eth.mining</h2>
+
+<pre><code>web3.eth.mining
+// or async
+web3.eth.getMining(callback(error, result){ ... })
+</code></pre>
+
+<p>This property is read only and says whether the node is mining or not.</p>
+
+<h3 id="returns-25">Returns</h3>
+
+<p><code>Boolean</code> - <code>true</code> if the client is mining, otherwise <code>false</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">mining</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">mining</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">mining</span><span class="p">);</span> <span class="c1">// true or false</span>
+</code></pre></div>
+
+<h2 id="web3-eth-hashrate">web3.eth.hashrate</h2>
+
+<pre><code>web3.eth.hashrate
+// or async
+web3.eth.getHashrate(callback(error, result){ ... })
+</code></pre>
+
+<p>This property is read only and returns the number of hashes per second that the node is mining with.</p>
+
+<h3 id="returns-26">Returns</h3>
+
+<p><code>Number</code> - number of hashes per second.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">hashrate</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">hashrate</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hashrate</span><span class="p">);</span> <span class="c1">// 493736</span>
+</code></pre></div>
+
+<h2 id="web3-eth-gasprice">web3.eth.gasPrice</h2>
+
+<pre><code>web3.eth.gasPrice
+// or async
+web3.eth.getGasPrice(callback(error, result){ ... })
+</code></pre>
+
+<p>This property is read only and returns the current gas price.
+The gas price is determined by the x latest blocks median gas price.</p>
+
+<h3 id="returns-27">Returns</h3>
+
+<p><code>BigNumber</code> - A BigNumber instance of the current gas price in wei.</p>
+
+<p>See the <a href="#a-note-on-big-numbers-in-javascript">note on BigNumber</a>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">gasPrice</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">gasPrice</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">gasPrice</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span> <span class="c1">// &quot;10000000000000&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-accounts">web3.eth.accounts</h2>
+
+<pre><code>web3.eth.accounts
+// or async
+web3.eth.getAccounts(callback(error, result){ ... })
+</code></pre>
+
+<p>This property is read only and returns a list of accounts the node controls.</p>
+
+<h3 id="returns-28">Returns</h3>
+
+<p><code>Array</code> - An array of addresses controlled by client.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">accounts</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">accounts</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">accounts</span><span class="p">);</span> <span class="c1">// [&quot;0x407d73d8a49eeb85d32cf465507dd71d507100c1&quot;] </span>
+</code></pre></div>
+
+<h2 id="web3-eth-blocknumber">web3.eth.blockNumber</h2>
+
+<pre><code>web3.eth.blockNumber
+// or async
+web3.eth.getBlockNumber(callback(error, result){ ... })
+</code></pre>
+
+<p>This property is read only and returns the current block number.</p>
+
+<h3 id="returns-29">Returns</h3>
+
+<p><code>Number</code> - The number of the most recent block.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">blockNumber</span><span class="p">;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">number</span><span class="p">);</span> <span class="c1">// 2744</span>
+</code></pre></div>
+
+<h2 id="web3-eth-register">web3.eth.register</h2>
+
+<pre><code>web3.eth.register(addressHexString [, callback])
+</code></pre>
+
+<p>(Not Implemented yet)
+Registers the given address to be included in <code>web3.eth.accounts</code>. This allows non-private-key owned accounts to be associated as an owned account (e.g., contract wallets).</p>
+
+<h3 id="parameters-12">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The address to register</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-30">Returns</h3>
+
+<p>?</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s2">&quot;0x407d73d8a49eeb85d32cf465507dd71d507100ca&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="web3-eth-unregister">web3.eth.unRegister</h2>
+
+<pre><code> web3.eth.unRegister(addressHexString [, callback])
+</code></pre>
+
+<p>(Not Implemented yet)
+Unregisters a given address.</p>
+
+<h3 id="parameters-13">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The address to unregister.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-31">Returns</h3>
+
+<p>?</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">unregister</span><span class="p">(</span><span class="s2">&quot;0x407d73d8a49eeb85d32cf465507dd71d507100ca&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<h2 id="web3-eth-getbalance">web3.eth.getBalance</h2>
+
+<pre><code>web3.eth.getBalance(addressHexString [, defaultBlock] [, callback])
+</code></pre>
+
+<p>Get the balance of an address at a given block.</p>
+
+<h3 id="parameters-14">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The address to get the balance of.</li>
+<li><code>Number|String</code> - (optional) If you pass this parameter it will not use the default block set with <a href="#web3ethdefaultblock">web3.eth.defaultBlock</a>.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-32">Returns</h3>
+
+<p><code>String</code> - A BigNumber instance of the current balance for the given address in wei.</p>
+
+<p>See the <a href="#a-note-on-big-numbers-in-javascript">note on BigNumber</a>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">balance</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="s2">&quot;0x407d73d8a49eeb85d32cf465507dd71d507100c1&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">balance</span><span class="p">);</span> <span class="c1">// instanceof BigNumber</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">balance</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">10</span><span class="p">));</span> <span class="c1">// &#39;1000000000000&#39;</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">balance</span><span class="p">.</span><span class="nx">toNumber</span><span class="p">());</span> <span class="c1">// 1000000000000</span>
+</code></pre></div>
+
+<h2 id="web3-eth-getstorageat">web3.eth.getStorageAt</h2>
+
+<pre><code>web3.eth.getStorageAt(addressHexString, position [, defaultBlock] [, callback])
+</code></pre>
+
+<p>Get the storage at a specific position of an address.</p>
+
+<h3 id="parameters-15">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The address to get the storage from.</li>
+<li><code>Number</code> - The index position of the storage.</li>
+<li><code>Number|String</code> - (optional) If you pass this parameter it will not use the default block set with <a href="#web3ethdefaultblock">web3.eth.defaultBlock</a>.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-33">Returns</h3>
+
+<p><code>String</code> - The value in storage at the given position.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">state</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getStorageAt</span><span class="p">(</span><span class="s2">&quot;0x407d73d8a49eeb85d32cf465507dd71d507100c1&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span> <span class="c1">// &quot;0x03&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-getcode">web3.eth.getCode</h2>
+
+<pre><code>web3.eth.getCode(addressHexString [, defaultBlock] [, callback])
+</code></pre>
+
+<p>Get the code at a specific address.</p>
+
+<h3 id="parameters-16">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The address to get the code from.</li>
+<li><code>Number|String</code> - (optional) If you pass this parameter it will not use the default block set with <a href="#web3ethdefaultblock">web3.eth.defaultBlock</a>.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-34">Returns</h3>
+
+<p><code>String</code> - The data at given address <code>addressHexString</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">code</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getCode</span><span class="p">(</span><span class="s2">&quot;0xd5677cf67b5aa051bb40496e68ad359eb97cfbf8&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">code</span><span class="p">);</span> <span class="c1">// &quot;0x600160008035811a818181146012578301005b601b6001356025565b8060005260206000f25b600060078202905091905056&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-getblock">web3.eth.getBlock</h2>
+
+<pre><code> web3.eth.getBlock(blockHashOrBlockNumber [, returnTransactionObjects] [, callback])
+</code></pre>
+
+<p>Returns a block matching the block number or block hash.</p>
+
+<h3 id="parameters-17">Parameters</h3>
+
+<ol>
+<li><code>String|Number</code> - The block number or hash. Or the string <code>&quot;earliest&quot;</code>, <code>&quot;latest&quot;</code> or <code>&quot;pending&quot;</code> as in the <a href="#web3ethdefaultblock">default block parameter</a>.</li>
+<li><code>Boolean</code> - (optional, default <code>false</code>) If <code>true</code>, the returned block will contain all transactions as objects, if <code>false</code> it will only contains the transaction hashes.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-35">Returns</h3>
+
+<p><code>Object</code> - The block object:</p>
+
+<ul>
+<li><code>number</code>: <code>Number</code> - the block number. <code>null</code> when its pending block.</li>
+<li><code>hash</code>: <code>String</code>, 32 Bytes - hash of the block. <code>null</code> when its pending block.</li>
+<li><code>parentHash</code>: <code>String</code>, 32 Bytes - hash of the parent block.</li>
+<li><code>nonce</code>: <code>String</code>, 8 Bytes - hash of the generated proof-of-work. <code>null</code> when its pending block.</li>
+<li><code>sha3Uncles</code>: <code>String</code>, 32 Bytes - SHA3 of the uncles data in the block.</li>
+<li><code>logsBloom</code>: <code>String</code>, 256 Bytes - the bloom filter for the logs of the block. <code>null</code> when its pending block.</li>
+<li><code>transactionsRoot</code>: <code>String</code>, 32 Bytes - the root of the transaction trie of the block</li>
+<li><code>stateRoot</code>: <code>String</code>, 32 Bytes - the root of the final state trie of the block.</li>
+<li><code>miner</code>: <code>String</code>, 20 Bytes - the address of the beneficiary to whom the mining rewards were given.</li>
+<li><code>difficulty</code>: <code>BigNumber</code> - integer of the difficulty for this block.</li>
+<li><code>totalDifficulty</code>: <code>BigNumber</code> - integer of the total difficulty of the chain until this block.</li>
+<li><code>extraData</code>: <code>String</code> - the &ldquo;extra data&rdquo; field of this block.</li>
+<li><code>size</code>: <code>Number</code> - integer the size of this block in bytes.</li>
+<li><code>gasLimit</code>: <code>Number</code> - the maximum gas allowed in this block.</li>
+<li><code>gasUsed</code>: <code>Number</code> - the total used gas by all transactions in this block.</li>
+<li><code>timestamp</code>: <code>Number</code> - the unix timestamp for when the block was collated.</li>
+<li><code>transactions</code>: <code>Array</code> - Array of transaction objects, or 32 Bytes transaction hashes depending on the last given parameter.</li>
+<li><code>uncles</code>: <code>Array</code> - Array of uncle hashes.</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">info</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getBlock</span><span class="p">(</span><span class="mi">3150</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">info</span><span class="p">);</span>
+<span class="cm">/*</span>
+<span class="cm">{</span>
+<span class="cm">  &quot;number&quot;: 3,</span>
+<span class="cm">  &quot;hash&quot;: &quot;0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46&quot;,</span>
+<span class="cm">  &quot;parentHash&quot;: &quot;0x2302e1c0b972d00932deb5dab9eb2982f570597d9d42504c05d9c2147eaf9c88&quot;,</span>
+<span class="cm">  &quot;nonce&quot;: &quot;0xfb6e1a62d119228b&quot;,</span>
+<span class="cm">  &quot;sha3Uncles&quot;: &quot;0x1dcc4de8dec75d7aab85b567b6ccd41ad312451b948a7413f0a142fd40d49347&quot;,</span>
+<span class="cm">  &quot;logsBloom&quot;: &quot;0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000&quot;,</span>
+<span class="cm">  &quot;transactionsRoot&quot;: &quot;0x3a1b03875115b79539e5bd33fb00d8f7b7cd61929d5a3c574f507b8acf415bee&quot;,</span>
+<span class="cm">  &quot;stateRoot&quot;: &quot;0xf1133199d44695dfa8fd1bcfe424d82854b5cebef75bddd7e40ea94cda515bcb&quot;,</span>
+<span class="cm">  &quot;miner&quot;: &quot;0x8888f1f195afa192cfee860698584c030f4c9db1&quot;,</span>
+<span class="cm">  &quot;difficulty&quot;: BigNumber,</span>
+<span class="cm">  &quot;totalDifficulty&quot;: BigNumber,</span>
+<span class="cm">  &quot;size&quot;: 616,</span>
+<span class="cm">  &quot;extraData&quot;: &quot;0x&quot;,</span>
+<span class="cm">  &quot;gasLimit&quot;: 3141592,</span>
+<span class="cm">  &quot;gasUsed&quot;: 21662,</span>
+<span class="cm">  &quot;timestamp&quot;: 1429287689,</span>
+<span class="cm">  &quot;transactions&quot;: [</span>
+<span class="cm">    &quot;0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b&quot;</span>
+<span class="cm">  ],</span>
+<span class="cm">  &quot;uncles&quot;: []</span>
+<span class="cm">}</span>
+<span class="cm">*/</span>
+</code></pre></div>
+
+<h2 id="web3-eth-getblocktransactioncount">web3.eth.getBlockTransactionCount</h2>
+
+<pre><code>web3.eth.getBlockTransactionCount(hashStringOrBlockNumber [, callback])
+</code></pre>
+
+<p>Returns the number of transaction in a given block.</p>
+
+<h3 id="parameters-18">Parameters</h3>
+
+<ol>
+<li><code>String|Number</code> - The block number or hash. Or the string <code>&quot;earliest&quot;</code>, <code>&quot;latest&quot;</code> or <code>&quot;pending&quot;</code> as in the <a href="#web3ethdefaultblock">default block parameter</a>.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-36">Returns</h3>
+
+<p><code>Number</code> - The number of transactions in the given block.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getBlockTransactionCount</span><span class="p">(</span><span class="s2">&quot;0x407d73d8a49eeb85d32cf465507dd71d507100c1&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">number</span><span class="p">);</span> <span class="c1">// 1</span>
+</code></pre></div>
+
+<h2 id="web3-eth-getuncle">web3.eth.getUncle</h2>
+
+<pre><code>web3.eth.getUncle(blockHashStringOrNumber, uncleNumber [, returnTransactionObjects] [, callback])
+</code></pre>
+
+<p>Returns a blocks uncle by a given uncle index position.</p>
+
+<h3 id="parameters-19">Parameters</h3>
+
+<ol>
+<li><code>String|Number</code> - The block number or hash. Or the string <code>&quot;earliest&quot;</code>, <code>&quot;latest&quot;</code> or <code>&quot;pending&quot;</code> as in the <a href="#web3ethdefaultblock">default block parameter</a>.</li>
+<li><code>Number</code> - The index position of the uncle.</li>
+<li><code>Boolean</code> - (optional, default <code>false</code>) If <code>true</code>, the returned block will contain all transactions as objects, if <code>false</code> it will only contains the transaction hashes.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-37">Returns</h3>
+
+<p><code>Object</code> - the returned uncle. For a return value see <a href="#web3ethgetblock">web3.eth.getBlock()</a>.</p>
+
+<p><strong>Note</strong>: An uncle doesn&rsquo;t contain individual transactions.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">uncle</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getUncle</span><span class="p">(</span><span class="mi">500</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">uncle</span><span class="p">);</span> <span class="c1">// see web3.eth.getBlock</span>
+</code></pre></div>
+
+<hr />
+
+<h5 id="web3-eth-gettransaction">web3.eth.getTransaction</h5>
+
+<pre><code>web3.eth.getTransaction(transactionHash [, callback])
+</code></pre>
+
+<p>Returns a transaction matching the given transaction hash.</p>
+
+<h3 id="parameters-20">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The transaction hash.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-38">Returns</h3>
+
+<p><code>Object</code> - A transaction object its hash <code>transactionHash</code>:</p>
+
+<ul>
+<li><code>hash</code>: <code>String</code>, 32 Bytes - hash of the transaction.</li>
+<li><code>nonce</code>: <code>Number</code> - the number of transactions made by the sender prior to this one.</li>
+<li><code>blockHash</code>: <code>String</code>, 32 Bytes - hash of the block where this transaction was in. <code>null</code> when its pending.</li>
+<li><code>blockNumber</code>: <code>Number</code> - block number where this transaction was in. <code>null</code> when its pending.</li>
+<li><code>transactionIndex</code>: <code>Number</code> - integer of the transactions index position in the block. <code>null</code> when its pending.</li>
+<li><code>from</code>: <code>String</code>, 20 Bytes - address of the sender.</li>
+<li><code>to</code>: <code>String</code>, 20 Bytes - address of the receiver. <code>null</code> when its a contract creation transaction.</li>
+<li><code>value</code>: <code>BigNumber</code> - value transferred in Wei.</li>
+<li><code>gasPrice</code>: <code>BigNumber</code> - gas price provided by the sender in Wei.</li>
+<li><code>gas</code>: <code>Number</code> - gas provided by the sender.</li>
+<li><code>input</code>: <code>String</code> - the data sent along with the transaction.</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">blockNumber</span> <span class="o">=</span> <span class="mi">668</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">indexOfTransaction</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="kd">var</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getTransaction</span><span class="p">(</span><span class="nx">blockNumber</span><span class="p">,</span> <span class="nx">indexOfTransaction</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">transaction</span><span class="p">);</span>
+<span class="cm">/*</span>
+<span class="cm">{</span>
+<span class="cm">  &quot;hash&quot;: &quot;0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b&quot;,</span>
+<span class="cm">  &quot;nonce&quot;: 2,</span>
+<span class="cm">  &quot;blockHash&quot;: &quot;0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46&quot;,</span>
+<span class="cm">  &quot;blockNumber&quot;: 3,</span>
+<span class="cm">  &quot;transactionIndex&quot;: 0,</span>
+<span class="cm">  &quot;from&quot;: &quot;0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b&quot;,</span>
+<span class="cm">  &quot;to&quot;: &quot;0x6295ee1b4f6dd65047762f924ecd367c17eabf8f&quot;,</span>
+<span class="cm">  &quot;value&quot;: BigNumber,</span>
+<span class="cm">  &quot;gas&quot;: 314159,</span>
+<span class="cm">  &quot;gasPrice&quot;: BigNumber,</span>
+<span class="cm">  &quot;input&quot;: &quot;0x57cb2fc4&quot;</span>
+<span class="cm">}</span>
+<span class="cm">*/</span>
+</code></pre></div>
+
+<h2 id="web3-eth-gettransactionfromblock">web3.eth.getTransactionFromBlock</h2>
+
+<pre><code>getTransactionFromBlock(hashStringOrNumber, indexNumber [, callback])
+</code></pre>
+
+<p>Returns a transaction based on a block hash or number and the transactions index position.</p>
+
+<h3 id="parameters-21">Parameters</h3>
+
+<ol>
+<li><code>String</code> - A block number or hash. Or the string <code>&quot;earliest&quot;</code>, <code>&quot;latest&quot;</code> or <code>&quot;pending&quot;</code> as in the <a href="#web3ethdefaultblock">default block parameter</a>.</li>
+<li><code>Number</code> - The transactions index position.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-39">Returns</h3>
+
+<p><code>Object</code> - A transaction object, see <a href="#web3ethgettransaction">web3.eth.getTransaction</a>:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">transaction</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getTransactionFromBlock</span><span class="p">(</span><span class="s1">&#39;0x4534534534&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">transaction</span><span class="p">);</span> <span class="c1">// see web3.eth.getTransaction</span>
+</code></pre></div>
+
+<h2 id="web3-eth-gettransactionreceipt">web3.eth.getTransactionReceipt</h2>
+
+<pre><code>web3.eth.getTransactionReceipt(hashString [, callback])
+</code></pre>
+
+<p>Returns the receipt of a transaction by transaction hash.</p>
+
+<p><strong>Note</strong> That the receipt is not available for pending transactions.</p>
+
+<h3 id="parameters-22">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The transaction hash.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-40">Returns</h3>
+
+<p><code>Object</code> - A transaction receipt object, or <code>null</code> when no receipt was found:</p>
+
+<ul>
+<li><code>blockHash</code>: <code>String</code>, 32 Bytes - hash of the block where this transaction was in.</li>
+<li><code>blockNumber</code>: <code>Number</code> - block number where this transaction was in.</li>
+<li><code>transactionHash</code>: <code>String</code>, 32 Bytes - hash of the transaction.</li>
+<li><code>transactionIndex</code>: <code>Number</code> - integer of the transactions index position in the block.</li>
+<li><code>from</code>: <code>String</code>, 20 Bytes - address of the sender.</li>
+<li><code>to</code>: <code>String</code>, 20 Bytes - address of the receiver. <code>null</code> when its a contract creation transaction.</li>
+<li><code>cumulativeGasUsed</code>: <code>Number</code> - The total amount of gas used when this transaction was executed in the block.</li>
+<li><code>gasUsed</code>: <code>Number</code> -  The amount of gas used by this specific transaction alone.</li>
+<li><code>contractAddress</code>: <code>String</code> - 20 Bytes - The contract address created, if the transaction was a contract creation, otherwise <code>null</code>.</li>
+<li><code>logs</code>:  <code>Array</code> - Array of log objects, which this transaction generated.</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">receipt</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getTransactionReceipt</span><span class="p">(</span><span class="s1">&#39;0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">receipt</span><span class="p">);</span>
+<span class="p">{</span>
+  <span class="s2">&quot;transactionHash&quot;</span><span class="o">:</span> <span class="s2">&quot;0x9fc76417374aa880d4449a1f7f31ec597f00b1f6f3dd2d66f4c9c6c445836d8b&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;transactionIndex&quot;</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="s2">&quot;blockHash&quot;</span><span class="o">:</span> <span class="s2">&quot;0xef95f2f1ed3ca60b048b4bf67cde2195961e0bba6f70bcbea9a2c4e133e34b46&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;blockNumber&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+  <span class="s2">&quot;contractAddress&quot;</span><span class="o">:</span> <span class="s2">&quot;0xa94f5374fce5edbc8e2a8697c15331677e6ebf0b&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;cumulativeGasUsed&quot;</span><span class="o">:</span> <span class="mi">314159</span><span class="p">,</span>
+  <span class="s2">&quot;gasUsed&quot;</span><span class="o">:</span> <span class="mi">30234</span><span class="p">,</span>
+  <span class="s2">&quot;logs&quot;</span><span class="o">:</span> <span class="p">[{</span>
+         <span class="c1">// logs as returned by getFilterLogs, etc.</span>
+     <span class="p">},</span> <span class="p">...]</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="web3-eth-gettransactioncount">web3.eth.getTransactionCount</h2>
+
+<pre><code>web3.eth.getTransactionCount(addressHexString [, defaultBlock] [, callback])
+</code></pre>
+
+<p>Get the numbers of transactions sent from this address.</p>
+
+<h3 id="parameters-23">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The address to get the numbers of transactions from.</li>
+<li><code>Number|String</code> - (optional) If you pass this parameter it will not use the default block set with <a href="#web3ethdefaultblock">web3.eth.defaultBlock</a>.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-41">Returns</h3>
+
+<p><code>Number</code> - The number of transactions sent from the given address.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getTransactionCount</span><span class="p">(</span><span class="s2">&quot;0x407d73d8a49eeb85d32cf465507dd71d507100c1&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">number</span><span class="p">);</span> <span class="c1">// 1</span>
+</code></pre></div>
+
+<h2 id="web3-eth-sendtransaction">web3.eth.sendTransaction</h2>
+
+<pre><code>web3.eth.sendTransaction(transactionObject [, callback])
+</code></pre>
+
+<p>Sends a transaction to the network.</p>
+
+<h3 id="parameters-24">Parameters</h3>
+
+<ol>
+<li><code>Object</code> - The transaction object to send:
+
+<ul>
+<li><code>from</code>: <code>String</code> - The address for the sending account. Uses the <a href="#web3ethdefaultaccount">web3.eth.defaultAccount</a> property, if not specified.</li>
+<li><code>to</code>: <code>String</code> - (optional) The destination address of the message, left undefined for a contract-creation transaction.</li>
+<li><code>value</code>: <code>Number|String|BigNumber</code> - (optional) The value transferred for the transaction in Wei, also the endowment if it&rsquo;s a contract-creation transaction.</li>
+<li><code>gas</code>: <code>Number|String|BigNumber</code> - (optional, default: To-Be-Determined) The amount of gas to use for the transaction (unused gas is refunded).</li>
+<li><code>gasPrice</code>: <code>Number|String|BigNumber</code> - (optional, default: To-Be-Determined) The price of gas for this transaction in wei, defaults to the mean network gas price.</li>
+<li><code>data</code>: <code>String</code> - (optional) Either a <a href="https://github.com/ethereum/wiki/wiki/Solidity,-Docs-and-ABI" target="_blank">byte string</a> containing the associated data of the message, or in the case of a contract-creation transaction, the initialisation code.</li>
+<li><code>nonce</code>: <code>Number</code>  - (optional) Integer of a nonce. This allows to overwrite your own pending transactions that use the same nonce.</li>
+</ul></li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-42">Returns</h3>
+
+<p><code>String</code> - The 32 Bytes transaction hash as HEX string.</p>
+
+<p>If the transaction was a contract creation use <a href="#web3gettransactionreceipt">web3.eth.getTransactionReceipt()</a> to get the contract address, after the transaction was mined.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// compiled solidity source code using https://chriseth.github.io/cpp-ethereum/</span>
+<span class="kd">var</span> <span class="nx">code</span> <span class="o">=</span> <span class="s2">&quot;603d80600c6000396000f3007c01000000000000000000000000000000000000000000000000000000006000350463c6888fa18114602d57005b6007600435028060005260206000f3&quot;</span><span class="p">;</span>
+
+<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sendTransaction</span><span class="p">({</span><span class="nx">data</span><span class="o">:</span> <span class="nx">code</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">address</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">address</span><span class="p">);</span> <span class="c1">// &quot;0x7f9fade1c0d57a7af66ab4ead7c2eb7b11a91385&quot;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h2 id="web3-eth-sendrawtransaction">web3.eth.sendRawTransaction</h2>
+
+<pre><code>web3.eth.sendRawTransaction(signedTransactionData [, callback])
+</code></pre>
+
+<p>Sends an already signed transaction. For example can be signed using: <a href="https://github.com/SilentCicero/ethereumjs-accounts" target="_blank">https://github.com/SilentCicero/ethereumjs-accounts</a></p>
+
+<h3 id="parameters-25">Parameters</h3>
+
+<ol>
+<li><code>String</code> - Signed transaction data in HEX format</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-43">Returns</h3>
+
+<p><code>String</code> - The 32 Bytes transaction hash as HEX string.</p>
+
+<p>If the transaction was a contract creation use <a href="#web3gettransactionreceipt">web3.eth.getTransactionReceipt()</a> to get the contract address, after the transaction was mined.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">Tx</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;ethereumjs-tx&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">privateKey</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Buffer</span><span class="p">(</span><span class="s1">&#39;e331b6d69882b4cb4ea581d88e0b604039a3de5967688d3dcffdd2270c0fd109&#39;</span><span class="p">,</span> <span class="s1">&#39;hex&#39;</span><span class="p">)</span>
+
+<span class="kd">var</span> <span class="nx">rawTx</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">nonce</span><span class="o">:</span> <span class="s1">&#39;0x00&#39;</span><span class="p">,</span>
+  <span class="nx">gasPrice</span><span class="o">:</span> <span class="s1">&#39;0x09184e72a000&#39;</span><span class="p">,</span> 
+  <span class="nx">gasLimit</span><span class="o">:</span> <span class="s1">&#39;0x2710&#39;</span><span class="p">,</span>
+  <span class="nx">to</span><span class="o">:</span> <span class="s1">&#39;0x0000000000000000000000000000000000000000&#39;</span><span class="p">,</span> 
+  <span class="nx">value</span><span class="o">:</span> <span class="s1">&#39;0x00&#39;</span><span class="p">,</span> 
+  <span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;0x7f7465737432000000000000000000000000000000000000000000000000000000600057&#39;</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">tx</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Tx</span><span class="p">(</span><span class="nx">rawTx</span><span class="p">);</span>
+<span class="nx">tx</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="nx">privateKey</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">serializedTx</span> <span class="o">=</span> <span class="nx">tx</span><span class="p">.</span><span class="nx">serialize</span><span class="p">();</span>
+
+<span class="c1">//console.log(serializedTx.toString(&#39;hex&#39;));</span>
+<span class="c1">//0xf889808609184e72a00082271094000000000000000000000000000000000000000080a47f74657374320000000000000000000000000000000000000000000000000000006000571ca08a8bbf888cfa37bbf0bb965423625641fc956967b81d12e23709cead01446075a01ce999b56a8a88504be365442ea61239198e23d1fce7d00fcfc5cd3b44b7215f</span>
+
+<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sendRawTransaction</span><span class="p">(</span><span class="nx">serializedTx</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="s1">&#39;hex&#39;</span><span class="p">),</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">hash</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">hash</span><span class="p">);</span> <span class="c1">// &quot;0x7f9fade1c0d57a7af66ab4ead79fade1c0d57a7af66ab4ead7c2c2eb7b11a91385&quot;</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<hr />
+
+<h3 id="web3-eth-sign">web3.eth.sign</h3>
+
+<pre><code>web3.eth.sign(address, dataToSign, [, callback])
+</code></pre>
+
+<p>Signs data from a specific account. This account needs to be unlocked.</p>
+
+<h3 id="parameters-26">Parameters</h3>
+
+<ol>
+<li><code>String</code> - Address to sign with.</li>
+<li><code>String</code> - Data to sign.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-44">Returns</h3>
+
+<p><code>String</code> - The signed data.</p>
+
+<p>After the hex prefix, characters correspond to ECDSA values like this:</p>
+
+<pre><code>r = signature[0:64]
+s = signature[64:128]
+v = signature[128:130]
+</code></pre>
+
+<p>Note that if you are using <code>ecrecover</code>, <code>v</code> will be either <code>&quot;00&quot;</code> or <code>&quot;01&quot;</code>. As a result, in order to use this value, you will have to parse it to an integer and then add <code>27</code>. This will result in either a <code>27</code> or a <code>28</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sign</span><span class="p">(</span><span class="s2">&quot;0x135a7de83802408321b74c322f8558db1679ac20&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;0x9dd2c369a187b4e6b9c402f030e50743e619301ea62aa4c0737d4ef7e10a3d49&quot;</span><span class="p">);</span> <span class="c1">// second argument is web3.sha3(&quot;xyz&quot;)</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// &quot;0x30755ed65396facf86c53e6217c52b4daebe72aa4941d89635409de4c9c7f9466d4e9aaec7977f05e923889b33c0d0dd27d7226b6e6f56ce737465c5cfd04be400&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-call">web3.eth.call</h2>
+
+<pre><code>web3.eth.call(callObject [, defaultBlock] [, callback])
+</code></pre>
+
+<p>Executes a message call transaction, which is directly executed in the VM of the node, but never mined into the blockchain.</p>
+
+<h3 id="parameters-27">Parameters</h3>
+
+<ol>
+<li><code>Object</code> - A transaction object see <a href="#web3ethsendtransaction">web3.eth.sendTransaction</a>, with the difference that for calls the <code>from</code> property is optional as well.</li>
+<li><code>Number|String</code> - (optional) If you pass this parameter it will not use the default block set with <a href="#web3ethdefaultblock">web3.eth.defaultBlock</a>.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-45">Returns</h3>
+
+<p><code>String</code> - The returned data of the call, e.g. a codes functions return value.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">call</span><span class="p">({</span>
+    <span class="nx">to</span><span class="o">:</span> <span class="s2">&quot;0xc4abd0339eb8d57087278718986382264244252f&quot;</span><span class="p">,</span> 
+    <span class="nx">data</span><span class="o">:</span> <span class="s2">&quot;0xc6888fa10000000000000000000000000000000000000000000000000000000000000003&quot;</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// &quot;0x0000000000000000000000000000000000000000000000000000000000000015&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-estimategas">web3.eth.estimateGas</h2>
+
+<pre><code>web3.eth.estimateGas(callObject [, callback])
+</code></pre>
+
+<p>Executes a message call or transaction, which is directly executed in the VM of the node, but never mined into the blockchain and returns the amount of the gas used.</p>
+
+<h3 id="parameters-28">Parameters</h3>
+
+<p>See <a href="#web3ethsendtransaction">web3.eth.sendTransaction</a>, except that all properties are optional.</p>
+
+<h3 id="returns-46">Returns</h3>
+
+<p><code>Number</code> - the used gas for the simulated call/transaction.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">estimateGas</span><span class="p">({</span>
+    <span class="nx">to</span><span class="o">:</span> <span class="s2">&quot;0xc4abd0339eb8d57087278718986382264244252f&quot;</span><span class="p">,</span> 
+    <span class="nx">data</span><span class="o">:</span> <span class="s2">&quot;0xc6888fa10000000000000000000000000000000000000000000000000000000000000003&quot;</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// &quot;0x0000000000000000000000000000000000000000000000000000000000000015&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-filter">web3.eth.filter</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// can be &#39;latest&#39; or &#39;pending&#39;</span>
+<span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">filterString</span><span class="p">);</span>
+<span class="c1">// OR object are log filter options</span>
+<span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">options</span><span class="p">);</span>
+
+<span class="c1">// watch for changes</span>
+<span class="nx">filter</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Additionally you can start watching right away, by passing a callback:</span>
+<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">options</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h3 id="parameters-29">Parameters</h3>
+
+<ol>
+<li><code>String|Object</code> - The string <code>&quot;latest&quot;</code> or <code>&quot;pending&quot;</code> to watch for changes in the latest block or pending transactions respectively. Or a filter options object as follows:
+
+<ul>
+<li><code>fromBlock</code>: <code>Number|String</code> - The number of the earliest block (<code>latest</code> may be given to mean the most recent and <code>pending</code> currently mining, block). By default <code>latest</code>.</li>
+<li><code>toBlock</code>: <code>Number|String</code> - The number of the latest block (<code>latest</code> may be given to mean the most recent and <code>pending</code> currently mining, block). By default <code>latest</code>.</li>
+<li><code>address</code>: <code>String</code> - An address or a list of addresses to only get logs from particular account(s).</li>
+<li><code>topics</code>: <code>Array of Strings</code> - An array of values which must each appear in the log entries. The order is important, if you want to leave topics out use <code>null</code>, e.g. <code>[null, '0x00...']</code>. You can also pass another array for each topic with options for that topic e.g. <code>[null, ['option1', 'option2']]</code></li>
+</ul></li>
+</ol>
+
+<h3 id="returns-47">Returns</h3>
+
+<p><code>Object</code> - A filter object with the following methods:</p>
+
+<ul>
+<li><code>filter.get(callback)</code>: Returns all of the log entries that fit the filter.</li>
+<li><code>filter.watch(callback)</code>: Watches for state changes that fit the filter and calls the callback. See <a href="#using-callbacks">this note</a> for details.</li>
+<li><code>filter.stopWatching()</code>: Stops the watch and uninstalls the filter in the node. Should always be called once it is done.</li>
+</ul>
+
+<h5 id="watch-callback-return-value">Watch callback return value</h5>
+
+<ul>
+<li><code>String</code> - When using the <code>&quot;latest&quot;</code> parameter, it returns the block hash of the last incoming block.</li>
+<li><code>String</code> - When using the <code>&quot;pending&quot;</code> parameter, it returns a transaction hash of the most recent pending transaction.</li>
+<li><code>Object</code> - When using manual filter options, it returns a log object as follows:
+
+<ul>
+<li><code>logIndex</code>: <code>Number</code> - integer of the log index position in the block. <code>null</code> when its pending log.</li>
+<li><code>transactionIndex</code>: <code>Number</code> - integer of the transactions index position log was created from. <code>null</code> when its pending log.</li>
+<li><code>transactionHash</code>: <code>String</code>, 32 Bytes - hash of the transactions this log was created from. <code>null</code> when its pending log.</li>
+<li><code>blockHash</code>: <code>String</code>, 32 Bytes - hash of the block where this log was in. <code>null</code> when its pending. <code>null</code> when its pending log.</li>
+<li><code>blockNumber</code>: <code>Number</code> - the block number where this log was in. <code>null</code> when its pending. <code>null</code> when its pending log.</li>
+<li><code>address</code>: <code>String</code>, 32 Bytes - address from which this log originated.</li>
+<li><code>data</code>: <code>String</code> - contains one or more 32 Bytes non-indexed arguments of the log.</li>
+<li><code>topics</code>: <code>Array of Strings</code> - Array of 0 to 4 32 Bytes <code>DATA</code> of indexed log arguments. (In <em>solidity</em>: The first topic is the <em>hash</em> of the signature of the event (e.g. <code>Deposit(address,bytes32,uint256)</code>), except if you declared the event with the <code>anonymous</code> specifier.)</li>
+</ul></li>
+</ul>
+
+<p><strong>Note</strong> For event filter return values see <a href="#contract-events">Contract Events</a></p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="s1">&#39;pending&#39;</span><span class="p">);</span>
+
+<span class="nx">filter</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">log</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">log</span><span class="p">);</span> <span class="c1">//  {&quot;address&quot;:&quot;0x0000000000000000000000000000000000000000&quot;, &quot;data&quot;:&quot;0x0000000000000000000000000000000000000000000000000000000000000000&quot;, ...}</span>
+<span class="p">});</span>
+
+<span class="c1">// get all past logs again.</span>
+<span class="kd">var</span> <span class="nx">myResults</span> <span class="o">=</span> <span class="nx">filter</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">logs</span><span class="p">){</span> <span class="p">...</span> <span class="p">});</span>
+
+<span class="p">...</span>
+
+<span class="c1">// stops and uninstalls the filter</span>
+<span class="nx">filter</span><span class="p">.</span><span class="nx">stopWatching</span><span class="p">();</span>
+</code></pre></div>
+
+<h2 id="web3-eth-contract">web3.eth.contract</h2>
+
+<pre><code>web3.eth.contract(abiArray)
+</code></pre>
+
+<p>Creates a contract object for a solidity contract, which can be used to initiate contracts on an address.
+You can read more about events <a href="https://github.com/ethereum/wiki/wiki/Ethereum-Contract-ABI#example-javascript-usage" target="_blank">here</a>.</p>
+
+<h3 id="parameters-30">Parameters</h3>
+
+<ol>
+<li><code>Array</code> - ABI array with descriptions of functions and events of the contract.</li>
+</ol>
+
+<h3 id="returns-48">Returns</h3>
+
+<p><code>Object</code> - A contract object, which can be initiated as follows:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">MyContract</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">contract</span><span class="p">(</span><span class="nx">abiArray</span><span class="p">);</span>
+
+<span class="c1">// instantiate by address</span>
+<span class="kd">var</span> <span class="nx">contractInstance</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="nx">at</span><span class="p">([</span><span class="nx">address</span><span class="p">]);</span>
+
+<span class="c1">// deploy new contract</span>
+<span class="kd">var</span> <span class="nx">contractInstance</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="k">new</span><span class="p">([</span><span class="nx">contructorParam1</span><span class="p">]</span> <span class="p">[,</span> <span class="nx">contructorParam2</span><span class="p">],</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;0x12345...&#39;</span><span class="p">,</span> <span class="nx">from</span><span class="o">:</span> <span class="nx">myAccount</span><span class="p">,</span> <span class="nx">gas</span><span class="o">:</span> <span class="mi">1000000</span><span class="p">});</span>
+
+<span class="c1">// Get the data to deploy the contract manually</span>
+<span class="kd">var</span> <span class="nx">contractData</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="k">new</span><span class="p">.</span><span class="nx">getData</span><span class="p">([</span><span class="nx">contructorParam1</span><span class="p">]</span> <span class="p">[,</span> <span class="nx">contructorParam2</span><span class="p">],</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="s1">&#39;0x12345...&#39;</span><span class="p">});</span>
+<span class="c1">// contractData = &#39;0x12345643213456000000000023434234&#39;</span>
+</code></pre></div>
+
+<p>And then you can either initiate an existing contract on an address,
+or deploy the contract using the compiled byte code:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Instantiate from an existing address:</span>
+<span class="kd">var</span> <span class="nx">myContractInstance</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="nx">myContractAddress</span><span class="p">);</span>
+
+
+<span class="c1">// Or deploy a new contract:</span>
+
+<span class="c1">// Deploy the contract asyncronous from Solidity file:</span>
+<span class="p">...</span>
+<span class="kr">const</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">solc</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;solc&#39;</span><span class="p">)</span>
+
+<span class="kd">let</span> <span class="nx">source</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="s1">&#39;nameContract.sol&#39;</span><span class="p">,</span> <span class="s1">&#39;utf8&#39;</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">compiledContract</span> <span class="o">=</span> <span class="nx">solc</span><span class="p">.</span><span class="nx">compile</span><span class="p">(</span><span class="nx">source</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">abi</span> <span class="o">=</span> <span class="nx">compiledContract</span><span class="p">.</span><span class="nx">contracts</span><span class="p">[</span><span class="s1">&#39;nameContract&#39;</span><span class="p">].</span><span class="kr">interface</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">bytecode</span> <span class="o">=</span> <span class="nx">compiledContract</span><span class="p">.</span><span class="nx">contracts</span><span class="p">[</span><span class="s1">&#39;nameContract&#39;</span><span class="p">].</span><span class="nx">bytecode</span><span class="p">;</span>
+<span class="kd">let</span> <span class="nx">gasEstimate</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">estimateGas</span><span class="p">({</span><span class="nx">data</span><span class="o">:</span> <span class="nx">bytecode</span><span class="p">});</span>
+<span class="kd">let</span> <span class="nx">MyContract</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">contract</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">abi</span><span class="p">));</span>
+
+<span class="kd">var</span> <span class="nx">myContractReturned</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">param1</span><span class="p">,</span> <span class="nx">param2</span><span class="p">,</span> <span class="p">{</span>
+   <span class="nx">from</span><span class="o">:</span><span class="nx">mySenderAddress</span><span class="p">,</span>
+   <span class="nx">data</span><span class="o">:</span><span class="nx">bytecode</span><span class="p">,</span>
+   <span class="nx">gas</span><span class="o">:</span><span class="nx">gasEstimate</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">myContract</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+       <span class="c1">// NOTE: The callback will fire twice!</span>
+       <span class="c1">// Once the contract has the transactionHash property set and once its deployed on an address.</span>
+
+       <span class="c1">// e.g. check tx hash on the first call (transaction send)</span>
+       <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">myContract</span><span class="p">.</span><span class="nx">address</span><span class="p">)</span> <span class="p">{</span>
+           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myContract</span><span class="p">.</span><span class="nx">transactionHash</span><span class="p">)</span> <span class="c1">// The hash of the transaction, which deploys the contract</span>
+       
+       <span class="c1">// check address on the second call (contract deployed)</span>
+       <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+           <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">myContract</span><span class="p">.</span><span class="nx">address</span><span class="p">)</span> <span class="c1">// the contract address</span>
+       <span class="p">}</span>
+
+       <span class="c1">// Note that the returned &quot;myContractReturned&quot; === &quot;myContract&quot;,</span>
+       <span class="c1">// so the returned &quot;myContractReturned&quot; object will also get the address set.</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+<span class="c1">// Deploy contract syncronous: The address will be added as soon as the contract is mined.</span>
+<span class="c1">// Additionally you can watch the transaction by using the &quot;transactionHash&quot; property</span>
+<span class="kd">var</span> <span class="nx">myContractInstance</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="k">new</span><span class="p">(</span><span class="nx">param1</span><span class="p">,</span> <span class="nx">param2</span><span class="p">,</span> <span class="p">{</span><span class="nx">data</span><span class="o">:</span> <span class="nx">myContractCode</span><span class="p">,</span> <span class="nx">gas</span><span class="o">:</span> <span class="mi">300000</span><span class="p">,</span> <span class="nx">from</span><span class="o">:</span> <span class="nx">mySenderAddress</span><span class="p">});</span>
+<span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">transactionHash</span> <span class="c1">// The hash of the transaction, which created the contract</span>
+<span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">address</span> <span class="c1">// undefined at start, but will be auto-filled later</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// contract abi</span>
+<span class="kd">var</span> <span class="nx">abi</span> <span class="o">=</span> <span class="p">[{</span>
+     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;myConstantMethod&#39;</span><span class="p">,</span>
+     <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;function&#39;</span><span class="p">,</span>
+     <span class="nx">constant</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+     <span class="nx">inputs</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span> <span class="p">}],</span>
+     <span class="nx">outputs</span><span class="o">:</span> <span class="p">[{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;d&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span> <span class="p">}]</span>
+<span class="p">},</span> <span class="p">{</span>
+     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;myStateChangingMethod&#39;</span><span class="p">,</span>
+     <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;function&#39;</span><span class="p">,</span>
+     <span class="nx">constant</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+     <span class="nx">inputs</span><span class="o">:</span> <span class="p">[{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;string&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;int&#39;</span> <span class="p">}],</span>
+     <span class="nx">outputs</span><span class="o">:</span> <span class="p">[]</span>
+<span class="p">},</span> <span class="p">{</span>
+     <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;myEvent&#39;</span><span class="p">,</span>
+     <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;event&#39;</span><span class="p">,</span>
+     <span class="nx">inputs</span><span class="o">:</span> <span class="p">[{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;int&#39;</span><span class="p">,</span> <span class="nx">indexed</span><span class="o">:</span> <span class="kc">true</span><span class="p">},{</span><span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;bool&#39;</span><span class="p">,</span> <span class="nx">indexed</span><span class="o">:</span> <span class="kc">false</span><span class="p">}]</span>
+<span class="p">}];</span>
+
+<span class="c1">// creation of contract object</span>
+<span class="kd">var</span> <span class="nx">MyContract</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">);</span>
+
+<span class="c1">// initiate contract for an address</span>
+<span class="kd">var</span> <span class="nx">myContractInstance</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="s1">&#39;0xc4abd0339eb8d57087278718986382264244252f&#39;</span><span class="p">);</span>
+
+<span class="c1">// call constant function</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">myConstantMethod</span><span class="p">(</span><span class="s1">&#39;myParam&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="c1">// &#39;0x25434534534&#39;</span>
+
+<span class="c1">// send a transaction to a function</span>
+<span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">myStateChangingMethod</span><span class="p">(</span><span class="s1">&#39;someParam1&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nx">gas</span><span class="o">:</span> <span class="mi">2000</span><span class="p">});</span>
+
+<span class="c1">// short hand style</span>
+<span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="nx">address</span><span class="p">).</span><span class="nx">myAwesomeMethod</span><span class="p">(...);</span>
+
+<span class="c1">// create filter</span>
+<span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">myEvent</span><span class="p">({</span><span class="nx">a</span><span class="o">:</span> <span class="mi">5</span><span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+    <span class="cm">/*</span>
+<span class="cm">    {</span>
+<span class="cm">        address: &#39;0x8718986382264244252fc4abd0339eb8d5708727&#39;,</span>
+<span class="cm">        topics: &quot;0x12345678901234567890123456789012&quot;, &quot;0x0000000000000000000000000000000000000000000000000000000000000005&quot;,</span>
+<span class="cm">        data: &quot;0x0000000000000000000000000000000000000000000000000000000000000001&quot;,</span>
+<span class="cm">        ...</span>
+<span class="cm">    }</span>
+<span class="cm">    */</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h2 id="contract-methods">Contract Methods</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Automatically determines the use of call or sendTransaction based on the method type</span>
+<span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">myMethod</span><span class="p">(</span><span class="nx">param1</span> <span class="p">[,</span> <span class="nx">param2</span><span class="p">,</span> <span class="p">...]</span> <span class="p">[,</span> <span class="nx">transactionObject</span><span class="p">]</span> <span class="p">[,</span> <span class="nx">defaultBlock</span><span class="p">]</span> <span class="p">[,</span> <span class="nx">callback</span><span class="p">]);</span>
+
+<span class="c1">// Explicitly calling this method</span>
+<span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">myMethod</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">param1</span> <span class="p">[,</span> <span class="nx">param2</span><span class="p">,</span> <span class="p">...]</span> <span class="p">[,</span> <span class="nx">transactionObject</span><span class="p">]</span> <span class="p">[,</span> <span class="nx">defaultBlock</span><span class="p">]</span> <span class="p">[,</span> <span class="nx">callback</span><span class="p">]);</span>
+
+<span class="c1">// Explicitly sending a transaction to this method</span>
+<span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">myMethod</span><span class="p">.</span><span class="nx">sendTransaction</span><span class="p">(</span><span class="nx">param1</span> <span class="p">[,</span> <span class="nx">param2</span><span class="p">,</span> <span class="p">...]</span> <span class="p">[,</span> <span class="nx">transactionObject</span><span class="p">]</span> <span class="p">[,</span> <span class="nx">callback</span><span class="p">]);</span>
+
+<span class="c1">// Get the call data, so you can call the contract through some other means</span>
+<span class="kd">var</span> <span class="nx">myCallData</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">myMethod</span><span class="p">.</span><span class="nx">getData</span><span class="p">(</span><span class="nx">param1</span> <span class="p">[,</span> <span class="nx">param2</span><span class="p">,</span> <span class="p">...]);</span>
+<span class="c1">// myCallData = &#39;0x45ff3ff6000000000004545345345345..&#39;</span>
+</code></pre></div>
+
+<p>The contract object exposes the contract&rsquo;s methods, which can be called using parameters and a transaction object.</p>
+
+<h3 id="parameters-31">Parameters</h3>
+
+<ul>
+<li><code>String|Number</code> - (optional) Zero or more parameters of the function. If passing in a string, it must be formatted as a hex number, e.g. &ldquo;0xdeadbeef&rdquo;.</li>
+<li><code>Object</code> - (optional) The (previous) last parameter can be a transaction object, see <a href="#web3ethsendtransaction">web3.eth.sendTransaction</a> parameter 1 for more. <strong>Note</strong>: <code>data</code> and <code>to</code> properties will not be taken into account.</li>
+<li><code>Number|String</code> - (optional) If you pass this parameter it will not use the default block set with <a href="#web3ethdefaultblock">web3.eth.defaultBlock</a>.</li>
+<li><code>Function</code> - (optional) If you pass a callback as the last parameter the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ul>
+
+<h3 id="returns-49">Returns</h3>
+
+<p><code>String</code> - If its a call the result data, if its a send transaction a created contract address, or the transaction hash, see <a href="#web3ethsendtransaction">web3.eth.sendTransaction</a> for details.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// creation of contract object</span>
+<span class="kd">var</span> <span class="nx">MyContract</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">);</span>
+
+<span class="c1">// initiate contract for an address</span>
+<span class="kd">var</span> <span class="nx">myContractInstance</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="s1">&#39;0x78e97bcc5b5dd9ed228fed7a4887c0d7287344a9&#39;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">myConstantMethod</span><span class="p">(</span><span class="s1">&#39;myParam&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">)</span> <span class="c1">// &#39;0x25434534534&#39;</span>
+
+<span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">myStateChangingMethod</span><span class="p">(</span><span class="s1">&#39;someParam1&#39;</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="p">{</span><span class="nx">value</span><span class="o">:</span> <span class="mi">200</span><span class="p">,</span> <span class="nx">gas</span><span class="o">:</span> <span class="mi">2000</span><span class="p">},</span> <span class="kd">function</span><span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span> <span class="p">...</span> <span class="p">});</span>
+</code></pre></div>
+
+<hr />
+
+<h3 id="contract-events">Contract Events</h3>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">event</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">MyEvent</span><span class="p">({</span><span class="nx">valueA</span><span class="o">:</span> <span class="mi">23</span><span class="p">}</span> <span class="p">[,</span> <span class="nx">additionalFilterObject</span><span class="p">])</span>
+
+<span class="c1">// watch for changes</span>
+<span class="nx">event</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Or pass a callback to start watching immediately</span>
+<span class="kd">var</span> <span class="nx">event</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">MyEvent</span><span class="p">([{</span><span class="nx">valueA</span><span class="o">:</span> <span class="mi">23</span><span class="p">}]</span> <span class="p">[,</span> <span class="nx">additionalFilterObject</span><span class="p">]</span> <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>You can use events like <a href="#web3ethfilter">filters</a> and they have the same methods, but you pass different objects to create the event filter.</p>
+
+<h3 id="parameters-32">Parameters</h3>
+
+<ol>
+<li><code>Object</code> - Indexed return values you want to filter the logs by, e.g. <code>{'valueA': 1, 'valueB': [myFirstAddress, mySecondAddress]}</code>. By default all filter values are set to <code>null</code>. It means, that they will match any event of given type sent from this contract.</li>
+<li><code>Object</code> - Additional filter options, see <a href="#web3ethfilter">filters</a> parameter 1 for more. By default filterObject has field &lsquo;address&rsquo; set to address of the contract. Also first topic is the signature of event.</li>
+<li><code>Function</code> - (optional) If you pass a callback as the last parameter it will immediately start watching and you don&rsquo;t need to call <code>myEvent.watch(function(){})</code>. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h5 id="callback-return">Callback return</h5>
+
+<p><code>Object</code> - An event object as follows:</p>
+
+<ul>
+<li><code>address</code>: <code>String</code>, 32 Bytes - address from which this log originated.</li>
+<li><code>args</code>: <code>Object</code> - The arguments coming from the event.</li>
+<li><code>blockHash</code>: <code>String</code>, 32 Bytes - hash of the block where this log was in. <code>null</code> when its pending.</li>
+<li><code>blockNumber</code>: <code>Number</code> - the block number where this log was in. <code>null</code> when its pending.</li>
+<li><code>logIndex</code>: <code>Number</code> - integer of the log index position in the block.</li>
+<li><code>event</code>: <code>String</code> - The event name.</li>
+<li><code>removed</code>: <code>bool</code> -  indicate if the transaction this event was created from was removed from the blockchain (due to orphaned block) or never get to it (due to rejected transaction).</li>
+<li><code>transactionIndex</code>: <code>Number</code> - integer of the transactions index position log was created from.</li>
+<li><code>transactionHash</code>: <code>String</code>, 32 Bytes - hash of the transactions this log was created from.</li>
+</ul>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">MyContract</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">myContractInstance</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="s1">&#39;0x78e97bcc5b5dd9ed228fed7a4887c0d7287344a9&#39;</span><span class="p">);</span>
+
+<span class="c1">// watch for an event with {some: &#39;args&#39;}</span>
+<span class="kd">var</span> <span class="nx">myEvent</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">MyEvent</span><span class="p">({</span><span class="nx">some</span><span class="o">:</span> <span class="s1">&#39;args&#39;</span><span class="p">},</span> <span class="p">{</span><span class="nx">fromBlock</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">toBlock</span><span class="o">:</span> <span class="s1">&#39;latest&#39;</span><span class="p">});</span>
+<span class="nx">myEvent</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+   <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// would get all past logs again.</span>
+<span class="kd">var</span> <span class="nx">myResults</span> <span class="o">=</span> <span class="nx">myEvent</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">logs</span><span class="p">){</span> <span class="p">...</span> <span class="p">});</span>
+
+<span class="p">...</span>
+
+<span class="c1">// would stop and uninstall the filter</span>
+<span class="nx">myEvent</span><span class="p">.</span><span class="nx">stopWatching</span><span class="p">();</span>
+</code></pre></div>
+
+<h2 id="contract-allevents">Contract allEvents</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">allEvents</span><span class="p">([</span><span class="nx">additionalFilterObject</span><span class="p">]);</span>
+
+<span class="c1">// watch for changes</span>
+<span class="nx">events</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">event</span><span class="p">){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">event</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Or pass a callback to start watching immediately</span>
+<span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">allEvents</span><span class="p">([</span><span class="nx">additionalFilterObject</span><span class="p">,]</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">log</span><span class="p">){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">log</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>Will call the callback for all events which are created by this contract.</p>
+
+<h3 id="parameters-33">Parameters</h3>
+
+<ol>
+<li><code>Object</code> - Additional filter options, see <a href="#web3ethfilter">filters</a> parameter 1 for more. By default filterObject has field &lsquo;address&rsquo; set to address of the contract. This method sets the topic to the signature of event, and does not support additional topics.</li>
+<li><code>Function</code> - (optional) If you pass a callback as the last parameter it will immediately start watching and you don&rsquo;t need to call <code>myEvent.watch(function(){})</code>. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h5 id="callback-return-1">Callback return</h5>
+
+<p><code>Object</code> - See <a href="#contract-events">Contract Events</a> for more.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">MyContract</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">contract</span><span class="p">(</span><span class="nx">abi</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">myContractInstance</span> <span class="o">=</span> <span class="nx">MyContract</span><span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="s1">&#39;0x78e97bcc5b5dd9ed228fed7a4887c0d7287344a9&#39;</span><span class="p">);</span>
+
+<span class="c1">// watch for an event with {some: &#39;args&#39;}</span>
+<span class="kd">var</span> <span class="nx">events</span> <span class="o">=</span> <span class="nx">myContractInstance</span><span class="p">.</span><span class="nx">allEvents</span><span class="p">({</span><span class="nx">fromBlock</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span> <span class="nx">toBlock</span><span class="o">:</span> <span class="s1">&#39;latest&#39;</span><span class="p">});</span>
+<span class="nx">events</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+   <span class="p">...</span>
+<span class="p">});</span>
+
+<span class="c1">// would get all past logs again.</span>
+<span class="nx">events</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">logs</span><span class="p">){</span> <span class="p">...</span> <span class="p">});</span>
+
+<span class="p">...</span>
+
+<span class="c1">// would stop and uninstall the filter</span>
+<span class="nx">myEvent</span><span class="p">.</span><span class="nx">stopWatching</span><span class="p">();</span>
+</code></pre></div>
+
+<p>*## web3.eth.getCompilers</p>
+
+<pre><code>web3.eth.getCompilers([callback])
+</code></pre>
+
+<p>Gets a list of available compilers.</p>
+
+<h3 id="parameters-34">Parameters</h3>
+
+<ol>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-50">Returns</h3>
+
+<p><code>Array</code> - An array of strings of available compilers.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">number</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getCompilers</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">number</span><span class="p">);</span> <span class="c1">// [&quot;lll&quot;, &quot;solidity&quot;, &quot;serpent&quot;]</span>
+</code></pre></div>
+
+<h2 id="web3-eth-compile-solidity">web3.eth.compile.solidity</h2>
+
+<pre><code>web3.eth.compile.solidity(sourceString [, callback])
+</code></pre>
+
+<p>Compiles solidity source code.</p>
+
+<h3 id="parameters-35">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The solidity source code.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-51">Returns</h3>
+
+<p><code>Object</code> - Contract and compiler info.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">source</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="o">+</span> 
+    <span class="s2">&quot;contract test {\n&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;   function multiply(uint a) returns(uint d) {\n&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;       return a * 7;\n&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;   }\n&quot;</span> <span class="o">+</span>
+    <span class="s2">&quot;}\n&quot;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">compiled</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">compile</span><span class="p">.</span><span class="nx">solidity</span><span class="p">(</span><span class="nx">source</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">compiled</span><span class="p">);</span> 
+<span class="c1">// {</span>
+  <span class="s2">&quot;test&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;code&quot;</span><span class="o">:</span> <span class="s2">&quot;0x605280600c6000396000f3006000357c010000000000000000000000000000000000000000000000000000000090048063c6888fa114602e57005b60376004356041565b8060005260206000f35b6000600782029050604d565b91905056&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;info&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;source&quot;</span><span class="o">:</span> <span class="s2">&quot;contract test {\n\tfunction multiply(uint a) returns(uint d) {\n\t\treturn a * 7;\n\t}\n}\n&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;language&quot;</span><span class="o">:</span> <span class="s2">&quot;Solidity&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;languageVersion&quot;</span><span class="o">:</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;compilerVersion&quot;</span><span class="o">:</span> <span class="s2">&quot;0.8.2&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;abiDefinition&quot;</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+          <span class="s2">&quot;constant&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+          <span class="s2">&quot;inputs&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+              <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;uint256&quot;</span>
+            <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;multiply&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;outputs&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+              <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;d&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;uint256&quot;</span>
+            <span class="p">}</span>
+          <span class="p">],</span>
+          <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;function&quot;</span>
+        <span class="p">}</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;userDoc&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;methods&quot;</span><span class="o">:</span> <span class="p">{}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;developerDoc&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;methods&quot;</span><span class="o">:</span> <span class="p">{}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<h2 id="web3-eth-compile-lll">web3.eth.compile.lll</h2>
+
+<pre><code>web3. eth.compile.lll(sourceString [, callback])
+</code></pre>
+
+<p>Compiles LLL source code.</p>
+
+<h3 id="parameters-36">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The LLL source code.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-52">Returns</h3>
+
+<p><code>String</code> - The compiled LLL code as HEX string.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">source</span> <span class="o">=</span> <span class="s2">&quot;...&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">code</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">compile</span><span class="p">.</span><span class="nx">lll</span><span class="p">(</span><span class="nx">source</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">code</span><span class="p">);</span> <span class="c1">// &quot;0x603880600c6000396000f3006001600060e060020a600035048063c6888fa114601857005b6021600435602b565b8060005260206000f35b600081600702905091905056&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-compile-serpent">web3.eth.compile.serpent</h2>
+
+<pre><code>web3.eth.compile.serpent(sourceString [, callback])
+</code></pre>
+
+<p>Compiles serpent source code.</p>
+
+<h3 id="parameters-37">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The serpent source code.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-53">Returns</h3>
+
+<p><code>String</code> - The compiled serpent code as HEX string.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">source</span> <span class="o">=</span> <span class="s2">&quot;...&quot;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">code</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">compile</span><span class="p">.</span><span class="nx">serpent</span><span class="p">(</span><span class="nx">source</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">code</span><span class="p">);</span> <span class="c1">// &quot;0x603880600c6000396000f3006001600060e060020a600035048063c6888fa114601857005b6021600435602b565b8060005260206000f35b600081600702905091905056&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-namereg">web3.eth.namereg</h2>
+
+<pre><code>web3.eth.namereg
+</code></pre>
+
+<p>Returns GlobalRegistrar object.</p>
+
+<h5 id="usage">Usage</h5>
+
+<p>see <a href="https://github.com/ethereum/web3.js/blob/master/example/namereg.html" target="_blank">namereg</a> example.</p>
+
+<hr />
+
+<h2 id="web3-db">web3.db</h2>
+
+<h3 id="web3-db-putstring">web3.db.putString</h3>
+
+<pre><code>web3.db.putString(db, key, value)
+</code></pre>
+
+<p>This method should be called, when we want to store a string in the local leveldb database.</p>
+
+<h3 id="parameters-38">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The database to store to.</li>
+<li><code>String</code> - The name of the store.</li>
+<li><code>String</code> - The string value to store.</li>
+</ol>
+
+<h3 id="returns-54">Returns</h3>
+
+<p><code>Boolean</code> - <code>true</code> if successfull, otherwise <code>false</code>.</p>
+
+<p>param is db name, second is the key, and third is the string value.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">web3</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">putString</span><span class="p">(</span><span class="s1">&#39;testDB&#39;</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;myString&#39;</span><span class="p">)</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<h2 id="web3-db-getstring">web3.db.getString</h2>
+
+<pre><code>web3.db.getString(db, key)
+</code></pre>
+
+<p>This method should be called, when we want to get string from the local leveldb database.</p>
+
+<h3 id="parameters-39">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The database string name to retrieve from.</li>
+<li><code>String</code> - The name of the store.</li>
+</ol>
+
+<h3 id="returns-55">Returns</h3>
+
+<p><code>String</code> - The stored value.</p>
+
+<p>param is db name and second is the key of string value.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">getString</span><span class="p">(</span><span class="s1">&#39;testDB&#39;</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> <span class="c1">// &quot;myString&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-db-puthex">web3.db.putHex</h2>
+
+<pre><code>web3.db.putHex(db, key, value)
+</code></pre>
+
+<p>This method should be called, when we want to store binary data in HEX form in the local leveldb database.</p>
+
+<h3 id="parameters-40">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The database to store to.</li>
+<li><code>String</code> - The name of the store.</li>
+<li><code>String</code> - The HEX string to store.</li>
+</ol>
+
+<h3 id="returns-56">Returns</h3>
+
+<p><code>Boolean</code> - <code>true</code> if successfull, otherwise <code>false</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">web3</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">putHex</span><span class="p">(</span><span class="s1">&#39;testDB&#39;</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">,</span> <span class="s1">&#39;0x4f554b443&#39;</span><span class="p">);</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<h2 id="web3-db-gethex">web3.db.getHex</h2>
+
+<pre><code>web3.db.getHex(db, key)
+</code></pre>
+
+<p>This method should be called, when we want to get a binary data in HEX form from the local leveldb database.</p>
+
+<h3 id="parameters-41">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The database to store to.</li>
+<li><code>String</code> - The name of the store.</li>
+</ol>
+
+<h3 id="returns-57">Returns</h3>
+
+<p><code>String</code> - The stored HEX value.</p>
+
+<p>param is db name and second is the key of value.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">getHex</span><span class="p">(</span><span class="s1">&#39;testDB&#39;</span><span class="p">,</span> <span class="s1">&#39;key&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span> <span class="c1">// &quot;0x4f554b443&quot;</span>
+</code></pre></div>
+
+<hr />
+
+<h2 id="web3-shh">web3.shh</h2>
+
+<p><a href="https://github.com/ethereum/wiki/wiki/Whisper-Overview" target="_blank">Whisper  Overview</a></p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">shh</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">shh</span><span class="p">;</span>
+</code></pre></div>
+
+<h2 id="web3-shh-post">web3.shh.post</h2>
+
+<p>web3.shh.post(object [, callback])</p>
+
+<p>This method should be called, when we want to post whisper message to the network.</p>
+
+<h3 id="parameters-42">Parameters</h3>
+
+<ol>
+<li><code>Object</code> - The post object:
+
+<ul>
+<li><code>from</code>: <code>String</code>, 60 Bytes HEX - (optional) The identity of the sender.</li>
+<li><code>to</code>: <code>String</code>, 60 Bytes  HEX - (optional) The identity of the receiver. When present whisper will encrypt the message so that only the receiver can decrypt it.</li>
+<li><code>topics</code>: <code>Array of Strings</code> - Array of topics <code>Strings</code>, for the receiver to identify messages.</li>
+<li><code>payload</code>: <code>String|Number|Object</code> - The payload of the message. Will be autoconverted to a HEX string before.</li>
+<li><code>priority</code>: <code>Number</code> - The integer of the priority in a rang from &hellip; (?).</li>
+<li><code>ttl</code>: <code>Number</code> - integer of the time to live in seconds.</li>
+</ul></li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-58">Returns</h3>
+
+<p><code>Boolean</code> - returns <code>true</code> if the message was send, otherwise <code>false</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">identity</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">shh</span><span class="p">.</span><span class="nx">newIdentity</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">topic</span> <span class="o">=</span> <span class="s1">&#39;example&#39;</span><span class="p">;</span>
+<span class="kd">var</span> <span class="nx">payload</span> <span class="o">=</span> <span class="s1">&#39;hello whisper world!&#39;</span><span class="p">;</span>
+
+<span class="kd">var</span> <span class="nx">message</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">from</span><span class="o">:</span> <span class="nx">identity</span><span class="p">,</span>
+  <span class="nx">topics</span><span class="o">:</span> <span class="p">[</span><span class="nx">topic</span><span class="p">],</span>
+  <span class="nx">payload</span><span class="o">:</span> <span class="nx">payload</span><span class="p">,</span>
+  <span class="nx">ttl</span><span class="o">:</span> <span class="mi">100</span><span class="p">,</span>
+  <span class="nx">workToProve</span><span class="o">:</span> <span class="mi">100</span> <span class="c1">// or priority TODO</span>
+<span class="p">};</span>
+
+<span class="nx">web3</span><span class="p">.</span><span class="nx">shh</span><span class="p">.</span><span class="nx">post</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+</code></pre></div>
+
+<h2 id="web3-shh-newidentity">web3.shh.newIdentity</h2>
+
+<pre><code>web3.shh.newIdentity([callback])
+</code></pre>
+
+<p>Should be called to create new identity.</p>
+
+<h3 id="parameters-43">Parameters</h3>
+
+<ol>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-59">Returns</h3>
+
+<p><code>String</code> - A new identity HEX string.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">identity</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">shh</span><span class="p">.</span><span class="nx">newIdentity</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">identity</span><span class="p">);</span> <span class="c1">// &quot;0xc931d93e97ab07fe42d923478ba2465f283f440fd6cabea4dd7a2c807108f651b7135d1d6ca9007d5b68aa497e4619ac10aa3b27726e1863c1fd9b570d99bbaf&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-shh-hasidentity">web3.shh.hasIdentity</h2>
+
+<pre><code>web3.shh.hasIdentity(identity, [callback])
+</code></pre>
+
+<p>Should be called, if we want to check if user has given identity.</p>
+
+<h3 id="parameters-44">Parameters</h3>
+
+<ol>
+<li><code>String</code> - The identity to check.</li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h3 id="returns-60">Returns</h3>
+
+<p><code>Boolean</code> - returns <code>true</code> if the identity exists, otherwise <code>false</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">identity</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">shh</span><span class="p">.</span><span class="nx">newIdentity</span><span class="p">();</span>
+<span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">shh</span><span class="p">.</span><span class="nx">hasIdentity</span><span class="p">(</span><span class="nx">identity</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span> <span class="c1">// true</span>
+
+<span class="kd">var</span> <span class="nx">result2</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">shh</span><span class="p">.</span><span class="nx">hasIdentity</span><span class="p">(</span><span class="nx">identity</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result2</span><span class="p">);</span> <span class="c1">// false</span>
+</code></pre></div>
+
+<h2 id="web3-shh-newgroup">web3.shh.newGroup</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// TODO: not implemented yet</span>
+</code></pre></div>
+
+<h2 id="web3-shh-addtogroup">web3.shh.addToGroup</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// TODO: not implemented yet</span>
+</code></pre></div>
+
+<h2 id="web3-shh-filter">web3.shh.filter</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">filter</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">shh</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">options</span><span class="p">)</span>
+
+<span class="c1">// watch for changes</span>
+<span class="nx">filter</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">result</span><span class="p">){</span>
+  <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">error</span><span class="p">)</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>Watch for incoming whisper messages.</p>
+
+<h3 id="parameters-45">Parameters</h3>
+
+<ol>
+<li><code>Object</code> - The filter options:
+
+<ul>
+<li><code>topics</code>: <code>Array of Strings</code> - Filters messages by this topic(s). You can use the following combinations:</li>
+<li><code>['topic1', 'topic2'] == 'topic1' &amp;&amp; 'topic2'</code></li>
+<li><code>['topic1', ['topic2', 'topic3']] == 'topic1' &amp;&amp; ('topic2' || 'topic3')</code></li>
+<li><code>[null, 'topic1', 'topic2'] == ANYTHING &amp;&amp; 'topic1' &amp;&amp; 'topic2'</code> -&gt; <code>null</code> works as a wildcard</li>
+<li><code>to</code>: Filter by identity of receiver of the message. If provided and the node has this identity, it will decrypt incoming encrypted messages.</li>
+</ul></li>
+<li><code>Function</code> - (optional) If you pass a callback the HTTP request is made asynchronous. See <a href="#using-callbacks">this note</a> for details.</li>
+</ol>
+
+<h5 id="callback-return-2">Callback return</h5>
+
+<p><code>Object</code> - The incoming message:</p>
+
+<ul>
+<li><code>from</code>: <code>String</code>, 60 Bytes - The sender of the message, if a sender was specified.</li>
+<li><code>to</code>: <code>String</code>, 60 Bytes - The receiver of the message, if a receiver was specified.</li>
+<li><code>expiry</code>: <code>Number</code> - Integer of the time in seconds when this message should expire (?).</li>
+<li><code>ttl</code>: <code>Number</code> -  Integer of the time the message should float in the system in seconds (?).</li>
+<li><code>sent</code>: <code>Number</code> -  Integer of the unix timestamp when the message was sent.</li>
+<li><code>topics</code>: <code>Array of String</code> - Array of <code>String</code> topics the message contained.</li>
+<li><code>payload</code>: <code>String</code> - The payload of the message.</li>
+<li><code>workProved</code>: <code>Number</code> - Integer of the work this message required before it was send (?).</li>
+</ul>
+
+<h2 id="web3-eth-sendibantransaction">web3.eth.sendIBANTransaction</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">txHash</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sendIBANTransaction</span><span class="p">(</span><span class="s1">&#39;0x00c5496aee77c1ba1f0854206a26dda82a81d6d8&#39;</span><span class="p">,</span> <span class="s1">&#39;XE81ETHXREGGAVOFYORK&#39;</span><span class="p">,</span> <span class="mh">0x100</span><span class="p">);</span>
+</code></pre></div>
+
+<p>Sends IBAN transaction from user account to destination IBAN address.</p>
+
+<h3 id="parameters-46">Parameters</h3>
+
+<ul>
+<li><code>string</code> - address from which we want to send transaction</li>
+<li><code>string</code> - IBAN address to which we want to send transaction</li>
+<li><code>value</code> - value that we want to send in IBAN transaction</li>
+</ul>
+
+<h2 id="web3-eth-iban">web3.eth.iban</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">(</span><span class="s2">&quot;XE81ETHXREGGAVOFYORK&quot;</span><span class="p">);</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-fromaddress">web3.eth.iban.fromAddress</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">.</span><span class="nx">fromAddress</span><span class="p">(</span><span class="s1">&#39;0x00c5496aee77c1ba1f0854206a26dda82a81d6d8&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span> <span class="c1">// &#39;XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-frombban">web3.eth.iban.fromBban</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">.</span><span class="nx">fromBban</span><span class="p">(</span><span class="s1">&#39;ETHXREGGAVOFYORK&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span> <span class="c1">// &quot;XE81ETHXREGGAVOFYORK&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-createindirect">web3.eth.iban.createIndirect</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">.</span><span class="nx">createIndirect</span><span class="p">({</span>
+  <span class="nx">institution</span><span class="o">:</span> <span class="s2">&quot;XREG&quot;</span><span class="p">,</span>
+  <span class="nx">identifier</span><span class="o">:</span> <span class="s2">&quot;GAVOFYORK&quot;</span>
+<span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span> <span class="c1">// &quot;XE81ETHXREGGAVOFYORK&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-isvalid">web3.eth.iban.isValid</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">valid</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">.</span><span class="nx">isValid</span><span class="p">(</span><span class="s2">&quot;XE81ETHXREGGAVOFYORK&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">valid</span><span class="p">);</span> <span class="c1">// true</span>
+
+<span class="kd">var</span> <span class="nx">valid2</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">.</span><span class="nx">isValid</span><span class="p">(</span><span class="s2">&quot;XE82ETHXREGGAVOFYORK&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">valid2</span><span class="p">);</span> <span class="c1">// false, cause checksum is incorrect</span>
+
+<span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">(</span><span class="s2">&quot;XE81ETHXREGGAVOFYORK&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">valid3</span> <span class="o">=</span> <span class="nx">i</span><span class="p">.</span><span class="nx">isValid</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">valid3</span><span class="p">);</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-isdirect">web3.eth.iban.isDirect</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">(</span><span class="s2">&quot;XE81ETHXREGGAVOFYORK&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">direct</span> <span class="o">=</span> <span class="nx">i</span><span class="p">.</span><span class="nx">isDirect</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">direct</span><span class="p">);</span> <span class="c1">// false</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-isindirect">web3.eth.iban.isIndirect</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">(</span><span class="s2">&quot;XE81ETHXREGGAVOFYORK&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">indirect</span> <span class="o">=</span> <span class="nx">i</span><span class="p">.</span><span class="nx">isIndirect</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">indirect</span><span class="p">);</span> <span class="c1">// true</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-checksum">web3.eth.iban.checksum</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">(</span><span class="s2">&quot;XE81ETHXREGGAVOFYORK&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">checksum</span> <span class="o">=</span> <span class="nx">i</span><span class="p">.</span><span class="nx">checksum</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">checksum</span><span class="p">);</span> <span class="c1">// &quot;81&quot;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-institution">web3.eth.iban.institution</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">(</span><span class="s2">&quot;XE81ETHXREGGAVOFYORK&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">institution</span> <span class="o">=</span> <span class="nx">i</span><span class="p">.</span><span class="nx">institution</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">institution</span><span class="p">);</span> <span class="c1">// &#39;XREG&#39;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-client">web3.eth.iban.client</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">(</span><span class="s2">&quot;XE81ETHXREGGAVOFYORK&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">client</span> <span class="o">=</span> <span class="nx">i</span><span class="p">.</span><span class="nx">client</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">client</span><span class="p">);</span> <span class="c1">// &#39;GAVOFYORK&#39;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-address">web3.eth.iban.address</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">(</span><span class="s1">&#39;XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS&#39;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">address</span> <span class="o">=</span> <span class="nx">i</span><span class="p">.</span><span class="nx">address</span><span class="p">();</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">address</span><span class="p">);</span> <span class="c1">// &#39;00c5496aee77c1ba1f0854206a26dda82a81d6d8&#39;</span>
+</code></pre></div>
+
+<h2 id="web3-eth-iban-tostring">web3.eth.iban.toString</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">iban</span><span class="p">(</span><span class="s1">&#39;XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">i</span><span class="p">.</span><span class="nx">toString</span><span class="p">());</span> <span class="c1">// &#39;XE7338O073KYGTWWZN0F2WZ0R8PX5ZPPZS&#39;</span>
+</code></pre></div>
+
+    
+
+        </div>
+        <div class="dark-box">
+            
+            <div class="lang-selector">
+                
+                <a href="#" data-language-name="js">Javascript</a>
+                
+                <a href="#" data-language-name="cljs">Clojurescript</a>
+                
+            </div>
+            
+        </div>
+    </div>
+    
+</body>
+</html>

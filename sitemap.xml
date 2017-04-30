@@ -2,33 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://docuapi.com/</loc>
+    <loc>http://docs.status.im/</loc>
   </url>
   
   <url>
-    <loc>http://docuapi.com/errors/</loc>
+    <loc>http://docs.status.im/errors/</loc>
   </url>
   
   <url>
-    <loc>http://docuapi.com/status/</loc>
+    <loc>http://docs.status.im/status/</loc>
   </url>
   
   <url>
-    <loc>http://docuapi.com/web3/</loc>
+    <loc>http://docs.status.im/web3/</loc>
   </url>
   
   <url>
-    <loc>http://docuapi.com/categories/</loc>
+    <loc>http://docs.status.im/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://docuapi.com/</loc>
+    <loc>http://docs.status.im/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>http://docuapi.com/tags/</loc>
+    <loc>http://docs.status.im/tags/</loc>
     <priority>0</priority>
   </url>
   
