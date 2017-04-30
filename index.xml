@@ -52,8 +52,8 @@ status.types.TEXT status.types.NUMBER status.types.PHONE status.types.PASSWORD s
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>http://docs.status.im/web3/</guid>
-      <description>web3 (API) To make your Ðapp work on Ethereum, you can use the web3 object provided by the web3.js library. Under the hood it communicates to a local node through RPC calls. web3.js works with any Ethereum node, which exposes an RPC layer.
-web3 contains the eth object - web3.eth (for specifically Ethereum blockchain interactions) and the shh object - web3.shh (for Whisper interaction). Over time we&amp;rsquo;ll introduce other objects for each of the other web3 protocols.</description>
+      <description>web3 (API) Status already provides the web3 object in both HTML5 DApps and Chatbots, so you can safely skip this step.  To make your Ðapp work on Ethereum, you can use the web3 object provided by the web3.js library. Under the hood it communicates to a local node through RPC calls. web3.js works with any Ethereum node, which exposes an RPC layer.
+web3 contains the eth object - web3.</description>
     </item>
     
   </channel>
