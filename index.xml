@@ -458,10 +458,6 @@ sequentialParams&lt;/p&gt;
 
 &lt;h1 id=&#34;web3-api&#34;&gt;web3 (API)&lt;/h1&gt;
 
-&lt;aside class=&#34;notice&#34;&gt;
-Status already provides the &lt;code&gt;web3&lt;/code&gt; object in both HTML5 DApps and Chatbots, so you can safely skip this step.
-&lt;/aside&gt;
-
 &lt;p&gt;To make your Ðapp work on Ethereum, you can use the &lt;code&gt;web3&lt;/code&gt; object provided by the &lt;a href=&#34;https://github.com/ethereum/web3.js&#34; target=&#34;_blank&#34;&gt;web3.js library&lt;/a&gt;. Under the hood it communicates to a local node through &lt;a href=&#34;https://github.com/ethereum/wiki/wiki/JSON-RPC&#34; target=&#34;_blank&#34;&gt;RPC calls&lt;/a&gt;. web3.js works with any Ethereum node, which exposes an RPC layer.&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;web3&lt;/code&gt; contains the &lt;code&gt;eth&lt;/code&gt; object - &lt;code&gt;web3.eth&lt;/code&gt; (for specifically Ethereum blockchain interactions) and the &lt;code&gt;shh&lt;/code&gt; object - &lt;code&gt;web3.shh&lt;/code&gt; (for Whisper interaction). Over time we&amp;rsquo;ll introduce other objects for each of the other web3 protocols. Working  &lt;a href=&#34;https://github.com/ethereum/web3.js/tree/master/example&#34; target=&#34;_blank&#34;&gt;examples can be found here&lt;/a&gt;.&lt;/p&gt;
@@ -469,6 +465,10 @@ Status already provides the &lt;code&gt;web3&lt;/code&gt; object in both HTML5 D
 &lt;p&gt;If you want to look at some more sophisticated examples using web3.js check out these &lt;a href=&#34;https://github.com/ethereum/wiki/wiki/Useful-Ðapp-Patterns&#34; target=&#34;_blank&#34;&gt;useful Ðapp patterns&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h2&gt;
+
+&lt;aside class=&#34;notice&#34;&gt;
+Status already provides the &lt;code&gt;web3&lt;/code&gt; object in both HTML5 DApps and Chatbots, so you can safely skip this step.
+&lt;/aside&gt;
 
 &lt;p&gt;TODO check how metamask suggests to embed&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;typeof&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;web3&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!==&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;undefined&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
