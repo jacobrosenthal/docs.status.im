@@ -74,215 +74,305 @@
 
 <h1 id="introduction">Introduction</h1>
 
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
+<p>Welcome to the Status API! Tread carefully, for you tread on the dreams of a better web.</p>
 
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
+<p>Status allows users to interact with a wide array of Decentralized Applications (DApps) using the same intuitive chat interface (it also does a bunch of other things, but we&rsquo;ll focus on this aspect for now). In the near future, Status users will be able to have group chats where most of the participants are DApp chatbots. All DApp developers will benefit from this synergy, because a common chat interface for multiple DApps makes using your specific DApp more convenient, and effectively makes your DApp more powerful by giving it access to potentially far wider and more powerful network effects.</p>
 
-<p><strong>This example API documentation page was created with <a href="https://github.com/bep/docuapi/" target="_blank">DocuAPI</a>, a multilingual documentation theme for the static site generator <a href="http://gohugo.io/" target="_blank">Hugo</a>.</strong></p>
+<p>In this guide, we’ll explore how you can use the Status Status API to develop your DApp and create custom commands for your users that will work in a beautifully-intuitive, mobile context. As a result of developing on Status, you’ll have a DApp that your users can access on MetaMask, Mist, and Status. It&rsquo;s really worth emphasising that using Status brings with it access to mobile users with native mobile commands. With little extra developer time invested, you’ll gain a mobile app.</p>
 
-<h1 id="authentication">Authentication</h1>
+<h1 id="quickstart">Quickstart</h1>
+
+<p>If you already have a DApp with a web interface, then this will be the quickest Quickstart ever (trademark pending). Simply open Status, navigate to Console, hit the <code>@browse</code> command and type in the url where you DApp is running.</p>
+
+<p>Voila! Users in Status can already see your DApp and interact with it (on the Ropsten Test Network). Make some mobile optimizations of your own and you&rsquo;re away. That is the power of decentralized, web3 technologies. Awesome, right?</p>
+
+<p>OK, but what if <code>(a)</code> I don&rsquo;t have a DApp yet, or <code>(b)</code> I want to use this awesome API to get access to native mobile commands and actual, fully decentralized, chatbot functionality for my DApp?</p>
+
+<h1 id="tutorials">Tutorials</h1>
+
+<h2 id="overview">Overview</h2>
+
+<p>We will be using only the bare-bones <code>status-dev-cli</code> tools in order to create our very first status DApp that can be accessed through Status. Just before we get started, it&rsquo;s well worth acquainting yourself with some of our terminology so you&rsquo;ll be able to make sense of it all. This anatomy establishes the different sections of the chat interface and establishes a common verbiage. The main components are:</p>
+
+<ul>
+<li>Message</li>
+<li>Input</li>
+<li>Keyboard</li>
+<li>Suggestions</li>
+</ul>
+
+<p><img src="https://github.com/status-im/docs.status.im/blob/develop/static/images/chat-anatomy.png" alt="Chat Anantomy" /></p>
+
+<p>Please take some time to familiarize yourself with all the areas and the different configurations possible depending on what you want to do. Missing from the above is what we refer to throughout this documentation as the &lsquo;markup&rsquo;, by which we mean the mobile equivalent of the &lsquo;view&rsquo;, i.e. where the message appear. Creating all of these native setups is totally possible through the API - just read on.</p>
+
+<h2 id="installing-status">Installing Status</h2>
+
+<p>To develop on Status, you need to have Status running either:</p>
+
+<ul>
+<li><p>on a real phone,</p></li>
+
+<li><p>in an Android simulator, or</p></li>
+
+<li><p>in an iOS simulator.</p></li>
+</ul>
+
+<p>You can go to <a href="https://test.status.im" target="_blank">https://test.status.im</a> to download for Android. At the time of writing, we’re out of invitations for Testflight iOS, but you can sign up for early iOS access  <a href="http://status.im" target="_blank">on our website</a>.</p>
+
+<p>If you are running in an Android simulator, you also need to run on the command line:</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>adb forward tcp:5561 tcp:5561
+</code></pre></div>
+
+<p>If you don’t have a smartphone, or you only have an iPhone but want to get started right away, you can build Status yourself, for either Android or iOS by following <a href="https://wiki.status.im/contributing/development/building-status/" target="_blank">these guidelines</a>. Following those guidelines, you can install an Android simulator, or start up Status in the Xcode simulator. Our wiki guidelines should be all you need, but if you get lost come ask around in <a href="https://slack.status.im" target="_blank">our Slack</a>.</p>
+
+<h2 id="enabling-debugging">Enabling Debugging</h2>
+
+<p><img src="images/starting-a-dapp-on-status-with-frameworks_01.png" alt="With your phone connected, /debug &quot;On&quot;" /></p>
+
+<p><em>With your phone connected, /debug &ldquo;On&rdquo;</em></p>
+
+<p>We’ll assume you have Status open, and that if you’re using a physical phone it’s connected to your computer. Now we need to enable debugging from within the Status app. After you’re logged in to Status, click on Console and run <code>/debug</code>, then pick &ldquo;On.&rdquo; You’ll get back a message telling that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools if you want. You don’t need those right now, because you’ll be using the pre-configured Status Truffle box or the Embark plugin.</p>
+
+<p>The message also shows you your IP address, which you’ll need later for Embark.</p>
+
+<h2 id="my-first-mobile-dapp">My First Mobile DApp</h2>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install -g status-dev-cli
+mkdir my-dapp <span class="o">&amp;&amp;</span> <span class="nb">cd</span> my-dapp
+touch index.html app.js
+</code></pre></div>
 
 <blockquote>
-<p>To authorize, use this code:</p>
+<p>In index.html, add:</p>
 </blockquote>
-<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">package</span> <span class="nx">main</span>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span></span><span class="p">&lt;</span><span class="nt">html</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">head</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">http-equiv</span><span class="o">=</span><span class="s">&quot;X-UA-Compatible&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;IE=edge,chrome=1&quot;</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;HandheldFriendly&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;True&quot;</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;MobileOptimized&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;320&quot;</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">meta</span> <span class="na">name</span><span class="o">=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content</span><span class="o">=</span><span class="s">&quot;width=device-width,minimum-scale=1,maximum-scale=1&quot;</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">title</span><span class="p">&gt;</span>My DApp<span class="p">&lt;/</span><span class="nt">title</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&quot;app.js&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">head</span><span class="p">&gt;</span>
+<span class="p">&lt;</span><span class="nt">body</span><span class="p">&gt;</span>
+ <span class="p">&lt;</span><span class="nt">h1</span><span class="p">&gt;</span>Hello world!<span class="p">&lt;/</span><span class="nt">h1</span><span class="p">&gt;</span>
+ Web3 account: <span class="p">&lt;</span><span class="nt">span</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;account&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">span</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">body</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
+</code></pre></div>
 
-<span class="kn">import</span> <span class="s">&quot;github.com/bep/kittn/auth&quot;</span>
-
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">api</span> <span class="o">:=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Authorize</span><span class="p">(</span><span class="s">&quot;meowmeowmeow&quot;</span><span class="p">)</span>
-
-	<span class="c1">// Just to make it compile</span>
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">api</span>
+<blockquote>
+<p>In app.js, add:</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">onContentLoaded</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">accountSpan</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;account&quot;</span><span class="p">);</span>
+  <span class="nx">accountSpan</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> 
+    <span class="p">(</span><span class="k">typeof</span> <span class="nx">web3</span> <span class="o">===</span> <span class="s2">&quot;undefined&quot;</span> <span class="o">?</span> <span class="s2">&quot;undefined&quot;</span> <span class="o">:</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">accounts</span><span class="p">);</span>
 <span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="nb">require</span> <span class="s1">&#39;kittn&#39;</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="o">.</span><span class="n">authorize!</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">&quot;api_endpoint_here&quot;</span>
-  -H <span class="s2">&quot;Authorization: meowmeowmeow&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kittn&#39;</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">);</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span> <span class="nx">onContentLoaded</span><span class="p">);</span>
 </code></pre></div>
 
 <blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
+<p>Install and start an HTTP server - we recommend NPM for ease-of-use. Make sure you are still in your my-dapp directory when running the 2nd command.</p>
 </blockquote>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install http-server -g
+http-server
+</code></pre></div>
 
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers" target="_blank">developer portal</a>.</p>
+<blockquote>
+<p>In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the <code>--ip</code> flag with the IP address listed by Console once you have selected the <code>debug</code> option and turned it on. You may also need to do adb port forwarding if you are using an Android device.</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>adb forward tcp:5561 tcp:5561  <span class="c1"># Android only</span>
+status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;my-dapp&quot;, &quot;dapp-url&quot;: &quot;http://&lt;Your IP&gt;:8080/&quot;, &quot;name&quot;: &quot;My DApp&quot;}&#39;</span> --ip &lt;IP listed in Status console&gt;
+</code></pre></div>
 
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
+<p>First, install the dev tools globally using NPM.</p>
 
-<p><code>Authorization: meowmeowmeow</code></p>
+<p>Then, create a directory for you app to live in, switch into it, and create an <code>index.html</code> file and an <code>app.js</code> file.</p>
 
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+<p>The index.html will be really simple. We are going to add several meta tags to make our DApp look good on small screens of mobile phones and add a span that will be used by our JavaScript.</p>
+
+<p>Our app.js file will also be simple. We are going to display the information about your account inside a span with account id. Status injects web3.js automatically, so you have an access to web3 variable from everywhere and you don’t need to care about including web3.js manually. However, you can do this and most probably you want to do this if you want to make your DApps work on other platforms.</p>
+
+<p>You then need to install a really simple <code>http-server</code> from NPM, and start it in the <code>my-dapp</code> directory we just created.</p>
+
+<p>Then, open your Status app, navigate to Console, select the <code>debug</code> option and turn it on. This should return a message with an IP address.</p>
+
+<p>Open a new terminal window and navigate back to you <code>my-dapp</code> directory and go ahead and add you dapp to Status! Make sure to pass in the <code>--ip</code> flag using the address returned to you by Console. <code>&lt;Your-IP&gt;</code> needs to be <code>127.0.0.1</code> if you are using a simulator, or whatever your PC&rsquo;s IP is if you are using a connected phone.</p>
+
+<p>You can also do live-reloading once you&rsquo;re happy with this by running <code>status-dev-cli watch-dapp . '{&quot;whisper-identity&quot;: &quot;my-dapp&quot;}'</code></p>
+
+<p>But wait, there&rsquo;s yet more! If you close the <code>webView</code> markup with your account listed in it, you will see that you already have access to the <code>@browse</code>, <code>/location</code>, <code>/send</code> and <code>/request</code> functionality - those come standard with any DApp that makes its home within Status. All you will need to do is learn how to handle them.</p>
+
+<p>Happy travels!</p>
+
+<aside class="warn">
+  You need not use NPM's http-server to serve content, there are innumerable ways of doing this. Just pick whatever is best for your environment.
 </aside>
 
-<h1 id="kittens">Kittens</h1>
-
-<h2 id="get-all-kittens">Get All Kittens</h2>
-<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="s">&quot;github.com/bep/kittn/auth&quot;</span>
-
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">api</span> <span class="o">:=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Authorize</span><span class="p">(</span><span class="s">&quot;meowmeowmeow&quot;</span><span class="p">)</span>
-
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">GetKittens</span><span class="p">()</span>
-<span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="nb">require</span> <span class="s1">&#39;kittn&#39;</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="o">.</span><span class="n">authorize!</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>curl <span class="s2">&quot;http://example.com/api/kittens&quot;</span>
-  -H <span class="s2">&quot;Authorization: meowmeowmeow&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kittn&#39;</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre></div>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span></span><span class="p">[</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Fluffums&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;breed&quot;</span><span class="p">:</span> <span class="s2">&quot;calico&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;fluffiness&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
-    <span class="nt">&quot;cuteness&quot;</span><span class="p">:</span> <span class="mi">7</span>
-  <span class="p">},</span>
-  <span class="p">{</span>
-    <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Max&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;breed&quot;</span><span class="p">:</span> <span class="s2">&quot;unknown&quot;</span><span class="p">,</span>
-    <span class="nt">&quot;fluffiness&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-    <span class="nt">&quot;cuteness&quot;</span><span class="p">:</span> <span class="mi">10</span>
-  <span class="p">}</span>
-<span class="p">]</span>
-</code></pre></div>
-
-<p>This endpoint retrieves all kittens.</p>
-
-<h3 id="http-request">HTTP Request</h3>
-
-<p><code>GET http://example.com/api/kittens</code></p>
-
-<h3 id="query-parameters">Query Parameters</h3>
-
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead>
-
-<tbody>
-<tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-
-<tr>
-<td>available</td>
-<td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
-</tr>
-</tbody>
-</table>
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-<h2 id="get-a-specific-kitten">Get a Specific Kitten</h2>
-<div class="highlight"><pre><code class="language-go" data-lang="go"><span></span><span class="kn">package</span> <span class="nx">main</span>
-
-<span class="kn">import</span> <span class="s">&quot;github.com/bep/kittn/auth&quot;</span>
-
-<span class="kd">func</span> <span class="nx">main</span><span class="p">()</span> <span class="p">{</span>
-	<span class="nx">api</span> <span class="o">:=</span> <span class="nx">auth</span><span class="p">.</span><span class="nx">Authorize</span><span class="p">(</span><span class="s">&quot;meowmeowmeow&quot;</span><span class="p">)</span>
-
-	<span class="nx">_</span> <span class="p">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">GetKitten</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span></span><span class="nb">require</span> <span class="s1">&#39;kittn&#39;</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="o">.</span><span class="n">authorize!</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span></span><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>curl <span class="s2">&quot;http://example.com/api/kittens/2&quot;</span>
-  -H <span class="s2">&quot;Authorization: meowmeowmeow&quot;</span>
-</code></pre></div>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;kittn&#39;</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">&#39;meowmeowmeow&#39;</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre></div>
-
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<div class="highlight"><pre><code class="language-json" data-lang="json"><span></span><span class="p">{</span>
-  <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-  <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;Max&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;breed&quot;</span><span class="p">:</span> <span class="s2">&quot;unknown&quot;</span><span class="p">,</span>
-  <span class="nt">&quot;fluffiness&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>
-  <span class="nt">&quot;cuteness&quot;</span><span class="p">:</span> <span class="mi">10</span>
+<h2 id="my-first-status-command">My First Status Command</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">sayHello</span><span class="p">()</span> <span class="p">{</span>
+ <span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+     <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+     <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;HelloBot&quot;</span><span class="p">,</span>
+     <span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;Helps you say hello&quot;</span><span class="p">,</span>
+     <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#7099e6&quot;</span><span class="p">,</span>
+ <span class="p">});</span>
 <span class="p">}</span>
 </code></pre></div>
 
-<p>This endpoint retrieves a specific kitten.</p>
+<p>Once you have worked through the first tutorial and understood the basic steps to building a DApp and adding it into Status, it&rsquo;s time to get our hands a little more dirty by actually writing some real commands that will begin to utilise the awesome power of the Status API. All we have done so far is added our DApp to Status and displayed our account in it using a <code>webView</code>. Now, it&rsquo;s time to start making use of the API proper, in order to leverage all that native mobile and chatbot functionality so that we can take your DApp to the next level.</p>
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<p>We kind of cheated a little in the previous tutorial. While it is totally possible to have your html5 DApp work perfectly in Status via <code>webView</code>, it&rsquo;s obviously not the most optimal way to do things. We use <a href="http://www.braveclojure.com/introduction/" target="_blank">ClojureScript</a> and React Native to handle all our things, but you don&rsquo;t have to. The main take away here is that the chat context itself is actually an Otto VM jail that executes the javascript you write and integrates that directly with Status. So, we can actually write bots that are purely javascript-based. Please see <a href="https://github.com/status-im/status-react/tree/develop/bots" target="_blank">here</a> for a full list of all our current bots and their source code.</p>
 
-<h3 id="http-request-1">HTTP Request</h3>
+<p><img src="https://github.com/status-im/docs.status.im/blob/develop/static/images/status-anatomy.png" alt="status-anantomy.png" /></p>
 
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
+<p>The <code>status.command()</code> function that we are calling in this example can take 12 different parameters, of which we are only using 4 to ensure that we can greet our user nicely and make them feel great about using all this new and awesome technology.</p>
 
-<h3 id="url-parameters">URL Parameters</h3>
+<p>It is possible to build up the different parameters we want in a variable, and then pass this in to <code>status.command()</code>. However, we are just building up the command ourselves as it is easy enough to keep track of four simple arguments.</p>
 
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead>
+<p>Obviously, this small <code>hello</code> example can be extended greatly so that we can get responses from users and do a bunch of other rad things, but that will all become clear in the sections below on interactive suggestion areas etc.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;faucet&quot;</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_title&#39;</span><span class="p">),</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_description&#39;</span><span class="p">),</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#7099e6&quot;</span><span class="p">,</span>
+    <span class="nx">registeredOnly</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span><span class="p">,</span>
+        <span class="nx">suggestions</span><span class="o">:</span> <span class="nx">faucetSuggestions</span><span class="p">,</span>
+        <span class="nx">placeholder</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_placeholder&#39;</span><span class="p">)</span>
+    <span class="p">}],</span>
+    <span class="nx">preview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">markup</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                <span class="p">{},</span>
+                <span class="nx">params</span><span class="p">.</span><span class="nx">url</span>
+            <span class="p">)</span>
+        <span class="p">};</span>
+    <span class="p">},</span>
+    <span class="nx">shortPreview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">markup</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                <span class="p">{},</span>
+                <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_title&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nx">params</span><span class="p">.</span><span class="nx">url</span>
+            <span class="p">)</span>
+        <span class="p">};</span>
+    <span class="p">},</span>
+    <span class="nx">validator</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">faucets</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+        <span class="p">});</span>
 
-<tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody>
-</table>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">validationMessage</span><span class="p">(</span>
+                <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_incorrect_title&#39;</span><span class="p">),</span>
+                <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_incorrect_description&#39;</span><span class="p">)</span>
+            <span class="p">);</span>
+
+            <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">error</span><span class="p">};</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>We have also included a far more complete example that utilises 9 of the 12 parameters you can pass into <code>status.command()</code> and is what we use to make it possible for our users to access the Status Faucet and get some of that tasty (test) ether to send to their friends and interact with the DApps already living in Status.</p>
+
+<p>Read on!</p>
+
+<h2 id="my-first-interactive-suggestion-area">My First Interactive Suggestion Area</h2>
+
+<p>Great work! So, we have set up Status in <code>debug</code> mode, added our DApp to it (hopefully run the <code>dapp watch</code> command to get some live-reloading going) and learned how to issue a basic command that will greet our user when they open the app. Now it&rsquo;s time to start doing what chatbots are meant to do - interact with users and gather the necessary info we need from them.</p>
+
+<p>This first thing we must do is add a <code>preview</code> object to that neat little <code>hello</code> command we just wrote in app.js. <code>preview</code> defines what your user will see as a result of their action, before any other response. The preview parameter takes a function, which should return a <code>status.component</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">preview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">({},</span> <span class="s2">&quot;you’re saying hello&quot;</span><span class="p">);</span>
+<span class="p">},</span>
+</code></pre></div>
+
+<p>Next, we can add a <code>params</code> object to define a bunch of useful things, including the <code>TYPE</code> of response we&rsquo;re expecting (so that Status knows which keyboard to show the user. We are ALL about UI!)</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span> <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+ <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+ <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span>
+ <span class="nx">placeholder</span><span class="o">:</span> <span class="s2">&quot;Why not say hello&quot;</span>
+<span class="p">}],</span>
+</code></pre></div>
+
+<p>It&rsquo;s worth noting that these <code>params</code> are available in any parameter, including in <code>params</code> itself. For instance, if your users sends <code>/hello whatsup</code>, the input <code>whatsup</code> will be available in your command under <code>params.hello</code>. Also worth noting is the <code>placeholder</code> we have use in the provided example - full details can be found in the formal API spec.</p>
+
+<p>If you want to be more exact about what options there are for your user to respond and make this truly interactive, you can use a <code>suggestions</code> parameter instead:</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+ <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+ <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span>
+ <span class="nx">suggestions</span><span class="o">:</span> <span class="nx">helloSuggestions</span>
+<span class="p">}],</span>
+</code></pre></div>
+
+<p>&ldquo;But wait!&rdquo; we hear you cry, &ldquo;what on earth is that <code>helloSuggestions</code> thing about?!&ldquo;. Well, let’s make a function to explain. This will return a <code>scrollView</code> with two suggestions: &ldquo;Hello&rdquo;, and &ldquo;Goodbye&rdquo;. Don’t get intimidated by the length, there’s actually not much to it.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Three little helpers - don&#39;t worry about them, they&#39;re just for</span>
+<span class="c1">// style.</span>
+
+<span class="kd">function</span> <span class="nx">suggestionsContainerStyle</span><span class="p">(</span><span class="nx">suggestionsCount</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">marginVertical</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nx">marginHorizontal</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nx">keyboardShouldPersistTaps</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="nx">height</span><span class="o">:</span> <span class="nb">Math</span><span class="p">.</span><span class="nx">min</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="p">(</span><span class="mi">56</span> <span class="o">*</span> <span class="nx">suggestionsCount</span><span class="p">)),</span>
+        <span class="nx">backgroundColor</span><span class="o">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+        <span class="nx">borderRadius</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+        <span class="nx">flexGrow</span><span class="o">:</span> <span class="mi">1</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">suggestionSubContainerStyle</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">height</span><span class="o">:</span> <span class="mi">56</span><span class="p">,</span>
+    <span class="nx">borderBottomWidth</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="nx">borderBottomColor</span><span class="o">:</span> <span class="s2">&quot;#0000001f&quot;</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">valueStyle</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">9</span><span class="p">,</span>
+    <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+    <span class="nx">fontFamily</span><span class="o">:</span> <span class="s2">&quot;font&quot;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#000000de&quot;</span>
+<span class="p">};</span>
+
+<span class="c1">// The main star of our show! It will return two touchable buttons.</span>
+
+<span class="kd">function</span> <span class="nx">helloSuggestions</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">suggestions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;Goodbye&quot;</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">touchable</span><span class="p">(</span>
+            <span class="p">{</span><span class="nx">onPress</span><span class="o">:</span> <span class="p">[</span><span class="nx">status</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">SET_VALUE</span><span class="p">,</span> <span class="nx">entry</span><span class="p">]},</span>
+            <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">(</span>
+                <span class="nx">suggestionContainerStyle</span><span class="p">,</span>
+                <span class="p">[</span><span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">(</span>
+                    <span class="nx">suggestionSubContainerStyle</span><span class="p">,</span>
+                    <span class="p">[</span>
+                        <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                            <span class="p">{</span><span class="nx">style</span><span class="o">:</span> <span class="nx">valueStyle</span><span class="p">},</span>
+                            <span class="nx">entry</span>
+                        <span class="p">)</span>
+                    <span class="p">]</span>
+                <span class="p">)]</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="c1">// Let&#39;s wrap those two touchable buttons in a scrollView</span>
+    <span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">scrollView</span><span class="p">(</span>
+        <span class="nx">suggestionsContainerStyle</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+        <span class="nx">suggestions</span>
+    <span class="p">);</span>
+
+    <span class="c1">// Give back the whole thing inside an object.</span>
+    <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">view</span><span class="p">};</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>The main point of this example is that your <code>suggestions</code> parameter should accept users’ input, and then return a component to be rendered.</p>
+
+<p>You can also work with the <code>suggestionsTrigger</code> parameter. Now that we’ve covered <code>params</code> and the possibility of <code>suggestions</code>, it’s easy to see that <code>suggestionsTrigger</code> will take a string corresponding to an event that, when triggered, will show all your <code>suggestions</code>. If you don’t include this parameter, the default is &ldquo;on-change&rdquo;, so your suggestions will show when your users selects the command.</p>
+
+<p>It&rsquo;s also worth knowing about the <code>fullscreen</code> option. If your command has <code>suggestions</code>, this <code>param</code> controls whether that list of suggestions expands to fill the entire screen. If your command has a lot of suggestions, you might want to set <code>fullscreen</code> to <code>true</code>, so that your users don’t have to pull the list upwards. On the other hand, if your command has only a few suggestions and you set <code>fullscreen</code> to <code>true</code>, your users will have to pull the list downwards to keep it from hiding the screen. Choose whichever will be most convenient to your users, considering your command’s suggestions.</p>
 
     
         
@@ -362,99 +452,893 @@ Remember — a happy kitten is an authenticated kitten!
     
         
 
+<h1 id="frameworks-truffle-embark">Frameworks (Truffle / Embark)</h1>
+
+<p><em>(warning: the Truffle/Embark functionality is still a work in progress. Come ask in the <a href="http://slack.status.im" target="_blank">Slack</a> if you hit bumps!)</em></p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>In this tutorial, we’ll use the Truffle and Embark frameworks to create a basic DApp ready for further development, and we’ll deploy it on mobile using Status. After we’re done, you’ll be ready to continue developing your DApp, and when you eventually go live, your users will be able to access your DApp by browsing through the Status app, the Chrome MetaMask extension, or the Ethereum Mist browser. One development process, three ways of accessing your DApp!</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>Broadly speaking, for both Truffle and Embark, you’ll get the Status app running and connected to your computer, either on a simulator or on a real phone. Next, you’ll install some necessary dependencies. Then, you’ll start testrpc, a mini-Ethereum network that runs on your computer. Finally, you’ll install the Status Truffle box or the Status Embark plugin, create a basic demo app, and add it to Status.</p>
+
+<p>This is what we&rsquo;re going to go through:</p>
+
+<ul>
+<li><a href="#installing-git-node-and-npm">Installing Git, Node, and NPM</a></li>
+<li><a href="#installing-testrpc">Installing testrpc</a></li>
+<li><a href="#creating-a-dapp-using-truffle">Creating a DApp using Truffle</a></li>
+<li><a href="#creating-a-dapp-using-embark">Creating a DApp using Embark</a></li>
+</ul>
+
+<p>In order to install Status and enable debugging, please see the first of the <a href="#installing-status">tutorials</a> <a href="#enabling-debugging">above</a></p>
+
+<h2 id="installing-git-node-and-npm">Installing Git, Node, and NPM</h2>
+
+<aside>Can we leave out this first paragraph about git? Truffle/Embark are installed using `npm`, afaict, which probably depends on git, but it's part of a basic dev toolset.</aside>
+
+<p>We’ll use the version control tool Git to install the Truffle and Embark frameworks. If you have Xcode installed, Git is probably already installed. To see if it’s installed, open Terminal or any command line program and just enter <code>git</code>. You should see a list of common Git commands. If you don’t, you can install Git with <a href="https://git-scm.com/book/en/v2/Getting-Started-Installing-Git" target="_blank">these instructions</a>.</p>
+
+<p>We will also need <strong>node</strong> (Node.js) and <strong>npm</strong> (Node Package Manager) to install some dependencies, so make sure you have the latest versions installed. In particular, <code>testrpc</code> will complain if you don’t have at least Node 6.9.1.</p>
+
+<p>On OS X, the easiest way to install node &amp; npm is with <a href="https://brew.sh" target="_blank">Homebrew</a>. You can run <code>brew install node</code>, and then check the version with <code>node --version</code>. Npm is installed with node, but updated more often so it&rsquo;s good to update it with <code>npm install npm@latest -g</code>.</p>
+
+<h2 id="installing-testrpc">Installing testrpc</h2>
+
+<p>To install testrpc, you just need to enter this on your command line:</p>
+
+<pre><code>npm install -g ethereumjs-testrpc
+</code></pre>
+
+<p>What’s <code>testrpc</code>? When you deploy your DApp, you are asking the Ethereum network to create an address for it. When you use your DApp, you pay the Ethereum network to execute your code. Your DApps talk to the Ethereum network through remote procedure calls, or RPC’s.</p>
+
+<p><code>testrpc</code> is a local network that makes this whole process very fast and you don&rsquo;t have to spend ether with real value, so that it’s easy to develop your DApps. Essentially, <code>testrpc</code> gives you a small Ethereum network on your computer.</p>
+
+<p>For more about gas and ether, see the top answer on this <a href="http://ethereum.stackexchange.com/questions/3/what-is-gas-and-transaction-fee-in-ethereum" target="_blank">StackExchange question</a>.</p>
+
+<h2 id="creating-a-dapp-using-truffle">Creating a DApp using Truffle</h2>
+
+<p>While the steps up until now apply to using both Truffle and Embark, now we’ll cover steps specific to each framework. Let’s start with Truffle. If you just want to use Embark, you can skip to the next section.</p>
+
+<h3 id="running-testrpc">Running testrpc</h3>
+
+<p>Open Terminal or any command line program and enter the command:</p>
+
+<p><code>testrpc</code></p>
+
+<p>That’s it! It will show you a list of available accounts, private keys, Wallet, and mnemonic.</p>
+
+<p>Now open a new shell (such as a new Terminal window or tab) for the next part. You’ll leave testrpc running in the first window, and use the second window for the rest of the tutorial.</p>
+
+<h3 id="installing-truffle">Installing Truffle</h3>
+
+<p>Now that you have <code>testrpc</code> running, and a new shell open, you’ll run:</p>
+
+<pre><code>npm install -g truffle // Version 3.0.5+ required.
+</code></pre>
+
+<p>This installs the Truffle framework, and you can find its GitHub <a href="https://github.com/trufflesuite/truffle" target="_blank">page here</a>.</p>
+
+<p>With the Truffle framework installed, we can grab the Status Truffle Box, and get a basic DApp running. All the Truffle boxes also include the app frameworks React and Redux, which were designed by Facebook and are widely used by app developers. You can find the other Truffle <a href="https://truffle-box.github.io/" target="_blank">boxes here</a>, but for this tutorial you should use the Status Truffle Box, because it’s set up to be added to Status.</p>
+
+<p>To install the Status Truffle box, all you have to do is run this command in the same Terminal window:</p>
+
+<pre><code>git clone https://github.com/status-im/truffle-box-status.git
+</code></pre>
+
+<p>With the Status Truffle box successfully cloned, let’s walk through the next steps of running your DApp.</p>
+
+<pre><code># Change into the truffle box directory
+cd truffle-box-status
+
+# install the node dependencies
+ npm install
+</code></pre>
+
+<p><img src="images/starting-a-dapp-on-status-with-frameworks_02.png" alt="Example on OS X: testrpc running on the left, and installing Truffle on the right" /></p>
+
+<p><em>Example on OS X: testrpc running on the left, and installing Truffle on the right</em></p>
+
+<pre><code># Compile the contracts from Solidity (much like JavaScript) into
+# runnable EVM code
+ truffle compile
+
+# Publish the compiled contracts to your network. testrpc must
+# already be running
+ truffle migrate
+</code></pre>
+
+<p>As you run the <code>migrate</code> command, you can look at the window with <code>testrpc</code> running, and you’ll see your transactions being published to your local network. If you get <code>Error: Invalid JSON RPC response</code>, you probably forgot to run <code>testrpc</code>.</p>
+
+<h3 id="running-our-truffle-dapp-on-status">Running our Truffle DApp on Status</h3>
+
+<p>Now we are ready to see our DApp running on Status.</p>
+
+<p>From within your DApp directory, run:</p>
+
+<pre><code># Run your JavaScript
+ npm run start
+</code></pre>
+
+<p>This should tell you that the the app is running, and that the DApp has been added to the Status Contacts.</p>
+
+<aside>NOTE: If you're running Status on a real iOS device, you need to provide the IP of the device as an ENV variable, e.g. `IP=192.168.123.102 npm run start`.
+  <br/>
+Even then, `truffle-box-status` seems to rely on `status-dev-cli` which has a hardcoded value of `localhost` as the host of the DApp: <a href="https://github.com/status-im/status-dev-cli/blob/7b51136d8d0dc7b0a95136e6489c34870f925e4b/index.js#L33">(see github)</a></aside>
+
+<p><img src="images/starting-a-dapp-on-status-with-frameworks_03.png" alt="The DApp added to the default Contacts" /></p>
+
+<p><em>The DApp added to the default Contacts</em></p>
+
+<p>After you’ve clicked on your DApp within Status, you’ll see that the chat area at the bottom shows <code>/browse http://localhost:3000/</code> for iOS, and <code>/browse http://10.0.3.2:3000/</code> for Android.</p>
+
+<p>In fact, you can also browse to that address from Console with the command <code>/browse</code>, just like you could browse to any other web address inside Status. You can also enter that address into your browser, and you’ll see the same thing.</p>
+
+<h2 id="creating-a-dapp-using-embark">Creating a DApp using Embark</h2>
+
+<p>Now that we’ve covered Truffle, let’s take a look at Embark.</p>
+
+<h3 id="installing-embark-and-starting-the-network">Installing Embark and Starting the Network</h3>
+
+<p>Now that you have Status running and your dependencies installed, you’ll run:</p>
+
+<pre><code>npm -g install embark
+</code></pre>
+
+<p>This installs the Embark framework, and you can find its GitHub <a href="https://github.com/iurimatias/embark-framework" target="_blank">page here</a>.</p>
+
+<p>With the Embark framework installed, we can make a demo DApp:</p>
+
+<pre><code>embark demo
+
+#change into the directory
+cd embark_demo
+</code></pre>
+
+<p>Next we want to run the network. You can run a full Ethereum node with <code>embark blockchain</code>, but for development you probably want to run <code>testrpc</code> with:</p>
+
+<pre><code>embark simulator
+</code></pre>
+
+<h3 id="configuring-our-embark-dapp-for-status">Configuring our Embark DApp for Status</h3>
+
+<p>Now we are almost ready to see our DApp running on Status — this part is short and easy. Open a new shell tab in the same DApp directory, and run:</p>
+
+<pre><code>npm install embark-status --save
+</code></pre>
+
+<p>In the same directory, open the file <code>embark.json</code> and edit the <code>plugins</code> key:</p>
+
+<pre><code>&quot;plugins&quot;: {
+    &quot;embark-status&quot;: {
+      &quot;deviceIp&quot;: &quot;your-device-ip&quot;,
+      &quot;whisperIdentity&quot;: &quot;dapp-embark-test&quot;,
+      &quot;name&quot;: &quot;MyEmbarkDapp&quot;
+    }
+  }
+</code></pre>
+
+<p>You can get the device IP from the Status Console, which was shown after you ran <code>/debug &quot;On&quot;</code> above. For instance, if <code>/debug</code> told me my IP was <code>192.168.123.102</code>, the entire <code>embark_demo/embark.json</code> file would look like this:</p>
+
+<pre><code>{&quot;contracts&quot;: [&quot;app/contracts/**&quot;],
+  &quot;app&quot;: {
+    &quot;css/app.css&quot;: [&quot;app/css/**&quot;],
+    &quot;images/&quot;: [&quot;app/images/**&quot;],
+    &quot;js/app.js&quot;: [&quot;embark.js&quot;, &quot;app/js/_vendor/jquery.min.js&quot;, &quot;app/js/_vendor/bootstrap.min.js&quot;, &quot;app/js/**&quot;],
+    &quot;index.html&quot;: &quot;app/index.html&quot;
+  },
+  &quot;buildDir&quot;: &quot;dist/&quot;,
+  &quot;config&quot;: &quot;config/&quot;,
+  &quot;plugins&quot;: {
+    &quot;embark-status&quot;: {
+      &quot;deviceIp&quot;: &quot;192.168.123.102&quot;,
+      &quot;whisperIdentity&quot;: &quot;dapp-embark-test&quot;,
+      &quot;name&quot;: &quot;MyEmbarkDapp&quot;
+    }
+  }
+}
+</code></pre>
+
+<p>Finally, if you’re running Status on Android, enable port forwarding with:</p>
+
+<pre><code>adb forward tcp:5561 tcp:5561
+</code></pre>
+
+<h3 id="running-the-dapp">Running the DApp</h3>
+
+<p>Now we’re ready to run the DApp on Status. From within your DApp directory, run:</p>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span></span><span class="c1"># start your DApp</span>
+embark run
+</code></pre></div>
+
+<p>The Embark console will appear within your shell with useful information about the SimpleStorage contract it has created, compiled, and deployed. It will also tell you that the DApp has been added to Status!</p>
+
+<p><img src="images/starting-a-dapp-on-status-with-frameworks_04.png" alt="" /></p>
+
+<p><img src="images/starting-a-dapp-on-status-with-frameworks_05.png" alt="The Embark simulator runs in one Terminal window on the left, and the Embark console on the right" /></p>
+
+<p><em>The Embark simulator runs in one Terminal window on the top, and the Embark console on the bottom</em></p>
+
+<aside>TODO: Again, this does not work on a real iOS device. To deploy the DApp on the device you'd need to <a href="https://github.com/status-im/embark-status/blob/master/index.js#L13">patch this line in embark-status</a> to include `--dapp-port 5561`?</aside>
+
+<p>You should be able to tap the Contacts tab within Status and see your DApp there. After you’ve clicked on your DApp within Status, you’ll see that the chat area at the bottom shows <code>/browse http://localhost:8000/</code> for iOS, and <code>/browse http://192.168.123.102:3000/</code> for Android.</p>
+
+<aside>TODO: Does this difference between address bar contents on iOS/Android presume that iOS is running in simulator and Android on real device? Make that clear and explicit.</aside>
+
+<p>In fact, you can also browse to that address from Console with the command <code>/browse</code>, just like you could browse to any other web address inside Status. You can also enter that address into your browser, and you’ll see the same thing.</p>
+
+<h2 id="you-re-off-to-the-races">You’re Off to the Races</h2>
+
+<p>Using Status, you can now develop mobile DApps as easily as developing for MetaMask or Mist! But Status offers extra goodies as well.</p>
+
+<p>In particular, Status will help you allow your users to chat with your DApp! The chat interface will let your users easily and intuitively accomplish tasks. In the future, your users will be able to hold group conversations where all the other participants are DApps, which is kind of amazing.</p>
+
+<p>Later we’ll have an easy mechanism to make your DApp available for others to use on Status, but for now please just submit a pull request using our <a href="http://wiki.status.im/contributing/development/adding-dapps/" target="_blank">guide on adding DApps</a>.</p>
+
+    
+        
+
 <h1 id="status-api">status (API)</h1>
 
 <p><a href="https://github.com/status-im/status-react/blob/develop/resources/status.js#L160" target="_blank">https://github.com/status-im/status-react/blob/develop/resources/status.js#L160</a></p>
 
 <h2 id="status">status</h2>
 
+<p>Remember, this is all about Ethereum. Anywhere.</p>
+
+<p>Below you will find the formal API specification from which you can glean all the information you need to make your DApp truly mobile, with native mobile commands and an intuitive chat interface through which users can actually see, interact with, and pay for the services you offer.</p>
+
 <h2 id="status-command">status.command</h2>
 
-<p>TODO
-name
-title
-description
-handler != null
-registeredOnly
-validator
-color
-icon
-params
-preview
-shortPreview
-onSend
-fullscreen
-request
-executeImmediately
-sequentialParams</p>
+<blockquote>
+<p>A really simple template:</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+ <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+ <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;HelloBot&quot;</span><span class="p">,</span>
+ <span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;Helps you say hello&quot;</span><span class="p">,</span>
+ <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#7099e6&quot;</span><span class="p">,</span>
+ <span class="nx">preview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+ <span class="k">return</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">({},</span> <span class="s2">&quot;you’re saying hello&quot;</span><span class="p">);</span>
+ <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<blockquote>
+<p>It is important to note that params are available for any status.command(), including in params itself. For instance, if your user sends /hello whatsup, the input &ldquo;whatsup&rdquo; will be available in your command under params.hello. You can add additional params to - for instance - preview like so:</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+ <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+ <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span>
+ <span class="nx">placeholder</span><span class="o">:</span> <span class="s2">&quot;Why not say hello&quot;</span>
+<span class="p">}],</span>
+</code></pre></div>
+
+<blockquote>
+<p>The placeholder parameter above only applies if your users haven’t input anything into the command, not even the name. You can use it to include helpful guidance where necessary, i.e. &ldquo;Type your password&rdquo;. Alternatively, you can also include suggestions for your users’ input. This should return a component to be rendered. For instance, if you are using the Console DApp and you select the /faucet command, you’ll see two suggestions to choose from.</p>
+
+<p>Example validator function (this specific example will raise an error if your user doesn’t input a string. Notice that you should return your message inside one of the status.components):</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">validator</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+ <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">params</span><span class="p">.</span><span class="nx">hello</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">({},</span> <span class="s2">&quot;Say hello&quot;</span><span class="p">);</span>
+   <span class="p">}</span>
+ <span class="p">}</span>
+</code></pre></div>
+
+<blockquote>
+<p>Example of the request command to get a user send some amount of Ether somewhere:</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">event</span><span class="o">:</span> <span class="s2">&quot;request&quot;</span><span class="p">,</span>
+            <span class="nx">params</span><span class="o">:</span> <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">amount</span><span class="p">],</span>
+            <span class="nx">request</span><span class="o">:</span> <span class="p">{</span>
+                <span class="nx">command</span><span class="o">:</span> <span class="s2">&quot;send&quot;</span><span class="p">,</span>
+                <span class="nx">params</span><span class="o">:</span> <span class="p">{</span>
+                    <span class="nx">amount</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">amount</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">};</span>
+    <span class="p">},</span>
+</code></pre></div>
+
+<blockquote>
+<p>Full example of pretty much all the status.command stuff in action:</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;faucet&quot;</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_title&#39;</span><span class="p">),</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_description&#39;</span><span class="p">),</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#7099e6&quot;</span><span class="p">,</span>
+    <span class="nx">registeredOnly</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span><span class="p">,</span>
+        <span class="nx">suggestions</span><span class="o">:</span> <span class="nx">faucetSuggestions</span><span class="p">,</span>
+        <span class="nx">placeholder</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_placeholder&#39;</span><span class="p">)</span>
+    <span class="p">}],</span>
+    <span class="nx">preview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">markup</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                <span class="p">{},</span>
+                <span class="nx">params</span><span class="p">.</span><span class="nx">url</span>
+            <span class="p">)</span>
+        <span class="p">};</span>
+    <span class="p">},</span>
+    <span class="nx">shortPreview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">markup</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                <span class="p">{},</span>
+                <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_title&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="nx">params</span><span class="p">.</span><span class="nx">url</span>
+            <span class="p">)</span>
+        <span class="p">};</span>
+    <span class="p">},</span>
+    <span class="nx">validator</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">faucets</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+        <span class="p">});</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">validationMessage</span><span class="p">(</span>
+                <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_incorrect_title&#39;</span><span class="p">),</span>
+                <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_incorrect_description&#39;</span><span class="p">)</span>
+            <span class="p">);</span>
+
+            <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">error</span><span class="p">};</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h3 id="parameters">Parameters</h3>
+
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td>name</td>
+<td>What your users will type in following a forward slash to invoke the command. For instance, if you wrote <code>name: &quot;hello&quot;</code>, your user might invoke <code>/hello</code>. There is an additional <code>params</code> object available on any of the below commands, including in params itself.</td>
+</tr>
+
+<tr>
+<td>title</td>
+<td>This is what will appear in the list of suggestions when a user starts typing a command.</td>
+</tr>
+
+<tr>
+<td>description</td>
+<td>Appears below the <code>title</code> in the list of suggestions and allows you to provide a description of the command.</td>
+</tr>
+
+<tr>
+<td>validator</td>
+<td>Allows you to check your users’ input before sending off the command. It takes a function, which should return an error if the input is invalid.</td>
+</tr>
+
+<tr>
+<td>color</td>
+<td>Defines the background color of the name of your command as it appears in the list of suggestions. Give commands different colors to help your users distinguish commands easily, and to harmonize with your DApp’s brand and color scheme.</td>
+</tr>
+
+<tr>
+<td>icon</td>
+<td>Define which icon will appear next to action messages, such as sending Ether or requesting a location. Think an arrow for sending, a pin for location etc.</td>
+</tr>
+
+<tr>
+<td>params</td>
+<td>Defines all the possible inputs to your command. Requires an array holding an object, with possible parameters <code>name</code>, <code>placeholder</code>, <code>suggestions</code>, and one of the <code>status.types</code>, which are: <code>status.types.TEXT</code>, <code>status.types.NUMBER</code>, <code>status.types.PHONE</code>, and <code>status.types.PASSWORD</code>.</td>
+</tr>
+
+<tr>
+<td>preview</td>
+<td>Defines what your user will see as a result of <em>their</em> action, before any other response. The preview parameter takes a function, which should return a <code>status.component</code>.</td>
+</tr>
+
+<tr>
+<td>shortPreview</td>
+<td>While <code>preview</code> controls how your command appears within your DApp’s chat interface, <code>short-preview</code> controls how your commands get shown in the list of chats, before your users tap on your chat. <code>short-prview</code> expects two params: <code>icon</code> and <code>params</code>.</td>
+</tr>
+
+<tr>
+<td>onSend</td>
+<td>A self-explanatory param that takes a function which will be executed when the user presses the &ldquo;send&rdquo; button. It will return a map that should contain the markup value. If you specify this function, there will be no way to send a command to the chat and, in this case, the area (it’s called the <code>result-box</code>) with a specified markup will be displayed instead.</td>
+</tr>
+
+<tr>
+<td>fullscreen</td>
+<td>If your command has suggestions, this param controls whether that list of suggestions expands to fill the entire screen. See the interactive suggestion area tutorial for more.</td>
+</tr>
+
+<tr>
+<td>request</td>
+<td>This will allow you to request any action from the user, such as a phone number, password, confirmation to send Ether etc. Used with the <code>executeImmediately</code> option set to <code>true</code>, it will create a message the user can tap on an execute immediately.</td>
+</tr>
+
+<tr>
+<td>executeImmediately (Boolean)</td>
+<td>If true, this means that the <strong>response</strong> will be executed immediately when you press on it. For instance, when you see a response in a chat, you don’t have to type something — you just need to press on a response and it will be executed right after that.</td>
+</tr>
+
+<tr>
+<td>sequentialParams (Boolean)</td>
+<td>Specifies the way command arguments will be &ldquo;requested&rdquo;. The default approach (<code>sequentialParams = false</code>) is to type a command this way: <code>/send 0.1 ETH somebody</code>, where <code>0.1</code>, <code>ETH</code> and <code>somebody</code> are arguments. However, there may be situations when you want to ask each argument separately. You can see the difference by executing <code>/password</code> command; it asks you for a password and, only after the user has provided one, requests confirmation.  Currently there is one limitation — you can use argument types (<code>type</code> value) only for <code>sequentialParams</code>, and if you want to (for example) hide the argument input, you should use <code>sequentialParams</code></td>
+</tr>
+
+<tr>
+<td>handler (!= null)</td>
+<td>Of course, you probably want the command to do something when your users call it! The <code>handler</code> parameter takes a function to accomplish this. For instance, suppose your user inputs <code>/hello howdy</code>. &ldquo;Howdy&rdquo; is a valid string, and will pass the <code>hello</code> validator. From there, your handler could take over to send this greeting to another user: <code>handler: web3.shh.post(params.hello)</code>.</td>
+</tr>
+</tbody>
+</table>
 
 <h2 id="status-response">status.response</h2>
 
+<blockquote>
+<p>An example response for a confirmation code sent via SMS:</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">response</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;confirmation-code&quot;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#7099e6&quot;</span><span class="p">,</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;confirm_description&#39;</span><span class="p">),</span>
+    <span class="nx">sequentialParams</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;code&quot;</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">NUMBER</span>
+    <span class="p">}],</span>
+    <span class="nx">validator</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="sr">/^[\d]{4}$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">code</span><span class="p">))</span> <span class="p">{</span>
+            <span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">validationMessage</span><span class="p">(</span>
+                <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;confirm_validation_title&#39;</span><span class="p">),</span>
+                <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;confirm_validation_description&#39;</span><span class="p">)</span>
+            <span class="p">);</span>
+
+            <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">error</span><span class="p">};</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>Now that you’ve covered all the parameters for <code>status.command()</code>, you can easily understand <code>status.response()</code>. This method takes the same parameters that <code>status.command()</code> does. The difference is that, with this method, you can actively ask a user to issue a command of their own.</p>
+
+<p>For example, the Status DApp Wallet allows you to <code>/request</code> money. In that case, the person you’re requesting money from will see the result of <code>status.response(send)</code>. In other words, they’ll be asked to give a command, <code>/send</code>, in response to your <code>/request</code> command. Please check line 77-158 <a href="https://github.com/status-im/status-react/blob/30596f743f0a6ac0b7aec575cc1483dd306cc1ef/bots/wallet/bot.js#L77" target="_blank">here</a> for more code.</p>
+
+<p>The Wallet example illustrates that, as a DApp developer, you may wish to use <code>status.command()</code> and <code>status.response()</code> together to create dialogues of commands. You can also just use <code>status.response()</code> by itself to prompt your users to enter necessary information as part of the onboarding process for your DApp.</p>
+
+<p>Because <code>status.command()</code> and <code>status.response()</code> take the same parameters, you can sometimes use nearly the same code for both of them. You simply have to consider when you want to ask a user to issue a command, and when you want to just make the command available. Most of the time, you’ll use <code>status.command()</code>.</p>
+
+<h2 id="status-on">status.on</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;init&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+ <span class="nx">status</span><span class="p">.</span><span class="nx">sendMessage</span><span class="p">(</span><span class="s2">&quot;Hello, man!&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<p>This method allows your DApp to respond to events. It requires an event name as a string, and a callback function. With the &ldquo;init&rdquo; option shown here, your DApp will trigger <code>status.sendMessage()</code> when the Status app loads your DApp — your DApp will greet your users even before they have clicked on it. Other options include &ldquo;text-change&rdquo; and &ldquo;message&rdquo;</p>
+
 <h2 id="status-addlistener">status.addListener</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s2">&quot;on-message-input-change&quot;</span><span class="p">,</span> 
+ <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">jsSuggestions</span><span class="p">({</span><span class="nx">code</span><span class="o">:</span> <span class="nx">params</span><span class="p">.</span><span class="nx">message</span><span class="p">},</span> <span class="nx">context</span><span class="p">);</span>
+<span class="p">});</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s2">&quot;init&quot;</span><span class="p">,</span> 
+ <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;text-message&quot;</span><span class="o">:</span> <span class="s2">&quot;Hey, man!&quot;</span><span class="p">};</span>
+<span class="p">});</span>
+</code></pre></div>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s2">&quot;on-message-send&quot;</span><span class="p">,</span> 
+ <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">message</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;text-message&quot;</span><span class="o">:</span> <span class="s2">&quot;Seems that you don&#39;t want to send money :(&quot;</span><span class="p">};</span>
+    <span class="p">}</span>
 
-<p>TODO ask roman more</p>
+    <span class="kd">var</span> <span class="nx">balance</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">weiValue</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">toWei</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="s2">&quot;ether&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">bn</span><span class="p">(</span><span class="nx">weiValue</span><span class="p">).</span><span class="nx">greaterThan</span><span class="p">(</span><span class="nx">bn</span><span class="p">(</span><span class="nx">balance</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;text-message&quot;</span><span class="o">:</span> <span class="s2">&quot;No way man, you don&#39;t have enough money! :)&quot;</span><span class="p">};</span>
+    <span class="p">}</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sendTransaction</span><span class="p">({</span>
+            <span class="nx">from</span><span class="o">:</span> <span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span>
+            <span class="nx">to</span><span class="o">:</span> <span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="nx">weiValue</span>
+        <span class="p">});</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;text-message&quot;</span><span class="o">:</span> <span class="s2">&quot;You are the hero, you sent &quot;</span> <span class="o">+</span> <span class="nx">value</span> <span class="o">+</span> <span class="s2">&quot; ETH to yourself!&quot;</span><span class="p">};</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;text-message&quot;</span><span class="o">:</span> <span class="s2">&quot;Something went wrong :(&quot;</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
 
-<p>on-message-input-change
-<a href="https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L75" target="_blank">https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L75</a></p>
+<table>
+<thead>
+<tr>
+<th>Listener</th>
+<th>Description</th>
+</tr>
+</thead>
 
-<p>on-message-send
-<a href="https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L76" target="_blank">https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L76</a></p>
+<tbody>
+<tr>
+<td>on-message-input-change</td>
+<td>This is analogous to a <code>text-change</code> event, except that it targets the chat’s input. You can find the jsSuggestions that are passed in in the example <a href="https://github.com/status-im/status-react/blob/develop/bots/console/bot.js#L312" target="_blank">here</a>.</td>
+</tr>
+
+<tr>
+<td>init</td>
+<td>Is called once, when a new session begins (&ldquo;session&rdquo; is currently taken to mean the interval between login and logout from a user&rsquo;s account). In the example provided the bot will just send the &ldquo;Hey, man!&rdquo; message to the user, but it could also it could return <code>markup</code> which will be shown in the suggestions area, etc.</td>
+</tr>
+
+<tr>
+<td>on-message-send</td>
+<td>Will be called when any (not command) message is sent. The example provided shows you how to send ether to yourself as a neat way of testing the functionality.</td>
+</tr>
+</tbody>
+</table>
 
 <h2 id="status-localizenumber">status.localizeNumber</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">preview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">markup</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                <span class="p">{},</span>
+                <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;request_requesting&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; &quot;</span>
+                <span class="o">+</span> <span class="nx">status</span><span class="p">.</span><span class="nx">localizeNumber</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">amount</span><span class="p">,</span> <span class="nx">context</span><span class="p">.</span><span class="nx">delimiter</span><span class="p">,</span> <span class="nx">context</span><span class="p">.</span><span class="nx">separator</span><span class="p">)</span>
+                <span class="o">+</span> <span class="s2">&quot; ETH&quot;</span>
+            <span class="p">)</span>
+        <span class="p">};</span>
+    <span class="p">},</span>
+</code></pre></div>
+
+<p>A simple method to try and ensure that whatever number the user inputs, is put into a usable format. The example provided shows it in use to make sure the number requesting ETH is handled correctly. This is part of a larger <code>status.command()</code> object that can be found <a href="https://github.com/status-im/status-react/blob/30596f743f0a6ac0b7aec575cc1483dd306cc1ef/bots/wallet/bot.js#L182" target="_blank">here</a>.</p>
 
 <h2 id="status-types">status.types</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span>    <span class="nx">types</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">TEXT</span><span class="o">:</span> <span class="s1">&#39;text&#39;</span><span class="p">,</span>
+        <span class="nx">NUMBER</span><span class="o">:</span> <span class="s1">&#39;number&#39;</span><span class="p">,</span>
+        <span class="nx">PHONE</span><span class="o">:</span> <span class="s1">&#39;phone&#39;</span><span class="p">,</span>
+        <span class="nx">PASSWORD</span><span class="o">:</span> <span class="s1">&#39;password&#39;</span>
+    <span class="p">}</span>
+</code></pre></div>
 
-<p>change keyboard?</p>
+<p>Types dictate what sort of data your users may input. The type you specify will determine what kind of keyboard gets shown to the user (if you have not already defined a custom one) so that they can input their response easily. It is important to specify them for a smooth, easy, and intuitive UI.</p>
 
 <h2 id="status-types-text">status.types.TEXT</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;faucet&quot;</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_title&#39;</span><span class="p">),</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_description&#39;</span><span class="p">),</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#7099e6&quot;</span><span class="p">,</span>
+    <span class="nx">registeredOnly</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;url&quot;</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span><span class="p">,</span>
+        <span class="nx">suggestions</span><span class="o">:</span> <span class="nx">faucetSuggestions</span><span class="p">,</span>
+        <span class="nx">placeholder</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_placeholder&#39;</span><span class="p">)</span>
+    <span class="p">}],</span>
+</code></pre></div>
+
+<p>If you define a <code>text</code> input, when the user responds, it will pop up a normal QWERTY keyboard.<br />
+The example provided shows the first part of the <code>status.commnad()</code> we use to interact with our faucet so that our users can get some (test) ether to do interesting things with.</p>
 
 <h2 id="status-types-number">status.types.NUMBER</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">response</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;confirmation-code&quot;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#7099e6&quot;</span><span class="p">,</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;confirm_description&#39;</span><span class="p">),</span>
+    <span class="nx">sequentialParams</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;code&quot;</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">NUMBER</span>
+    <span class="p">}],</span>
+</code></pre></div>
+
+<p>Defining <code>number</code> will result in the keyboard opening to it&rsquo;s number section.<br />
+The example provided shows the first part of the <code>status.response()</code> object we use to request a confirmation code from the user when syncing their phone contacts.</p>
 
 <h2 id="status-types-phone">status.types.PHONE</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">phoneConfig</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;phone&quot;</span><span class="p">,</span>
+    <span class="nx">registeredOnly</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">icon</span><span class="o">:</span> <span class="s2">&quot;phone_white&quot;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#5bb2a2&quot;</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;phone_title&#39;</span><span class="p">),</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;phone_description&#39;</span><span class="p">),</span>
+    <span class="nx">sequentialParams</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">validator</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="nx">validationHandler</span><span class="o">:</span> <span class="s2">&quot;phone&quot;</span><span class="p">,</span>
+            <span class="nx">parameters</span><span class="o">:</span> <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">phone</span><span class="p">]</span>
+        <span class="p">};</span>
+    <span class="p">},</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;phone&quot;</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">PHONE</span><span class="p">,</span>
+        <span class="nx">suggestions</span><span class="o">:</span> <span class="nx">phoneSuggestions</span><span class="p">,</span>
+        <span class="nx">placeholder</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;phone_placeholder&#39;</span><span class="p">)</span>
+    <span class="p">}]</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>Defining <code>phone</code> will result in the keyboard opening to it&rsquo;s number section as well. One example should suffice to give you a general idea of how this works, so we have provided an excerpt of how we do phone cofirmation using the <code>PHONE</code> type. You can find the full code <a href="https://github.com/status-im/status-react/blob/develop/bots/console/bot.js#L450" target="_blank">here</a></p>
 
 <h2 id="status-types-password">status.types.PASSWORD</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">response</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#7099e6&quot;</span><span class="p">,</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;password_description&#39;</span><span class="p">),</span>
+    <span class="nx">icon</span><span class="o">:</span> <span class="s2">&quot;lock_white&quot;</span><span class="p">,</span>
+    <span class="nx">sequentialParams</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;password&quot;</span><span class="p">,</span>
+            <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">PASSWORD</span><span class="p">,</span>
+            <span class="nx">placeholder</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;password_placeholder&#39;</span><span class="p">),</span>
+            <span class="nx">hidden</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;password-confirmation&quot;</span><span class="p">,</span>
+            <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">PASSWORD</span><span class="p">,</span>
+            <span class="nx">placeholder</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;password_placeholder2&#39;</span><span class="p">),</span>
+            <span class="nx">hidden</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">}</span>
+</code></pre></div>
+
+<p>Defining <code>password</code> will result in the keyboard opening to it&rsquo;s variable character section.<br />
+The example provided shows the first part of the <code>status.response()</code> object we use to request and confirm a password from our user when they are setting up their account.</p>
 
 <h2 id="status-events">status.events</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span>    <span class="nx">events</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">SET_VALUE</span><span class="o">:</span> <span class="s1">&#39;set-value&#39;</span><span class="p">,</span>
+        <span class="nx">SET_COMMAND_ARGUMENT</span><span class="o">:</span> <span class="s1">&#39;set-command-argument&#39;</span>
+    <span class="p">}</span>
+</code></pre></div>
+
+<p>Events are essentially the glue that allow you to commuicate with the Status API effectively.</p>
 
 <h2 id="status-events-set-value">status.events.SET_VALUE</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">{</span><span class="nx">onPress</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">([</span><span class="nx">status</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">SET_VALUE</span><span class="p">,</span> <span class="nx">entry</span><span class="p">])},</span>
+</code></pre></div>
+
+<p>This method will completely update the content of text input. The full function around the snippet example provided can be found <a href="https://github.com/status-im/status-react/blob/30596f743f0a6ac0b7aec575cc1483dd306cc1ef/bots/console/bot.js#L560" target="_blank">here</a>.</p>
 
 <h2 id="status-events-set-command-argument">status.events.SET_COMMAND_ARGUMENT</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">{</span><span class="nx">onPress</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">([</span><span class="nx">status</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">SET_COMMAND_ARGUMENT</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">url</span><span class="p">]])},</span>
+</code></pre></div>
+
+<p>As opposed to <code>SET_VALUE</code>, this event will only update a single argument which you define. The full function around the snippet example provided can be found <a href="https://github.com/status-im/status-react/blob/30596f743f0a6ac0b7aec575cc1483dd306cc1ef/bots/console/bot.js#L485" target="_blank">here</a>.</p>
 
 <h2 id="status-components">status.components</h2>
 
-<p>Create React Native Components yourselves or use our pre-farbicated components</p>
+<p>Create React Native Components yourself or use our pre-fabricated components.</p>
 
 <h2 id="status-components-view">status.components.view</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">faucetSuggestions</span><span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">suggestions</span> <span class="o">=</span> <span class="nx">faucets</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">touchable</span><span class="p">(</span>
+            <span class="p">{</span><span class="nx">onPress</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">([</span><span class="nx">status</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">SET_COMMAND_ARGUMENT</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">url</span><span class="p">]])},</span>
+            <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">(</span>
+                <span class="nx">suggestionContainerStyle</span><span class="p">,</span>
+                <span class="p">[</span><span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">(</span>
+                    <span class="nx">suggestionSubContainerStyle</span><span class="p">,</span>
+                    <span class="p">[</span>
+                        <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                            <span class="p">{</span><span class="nx">style</span><span class="o">:</span> <span class="nx">valueStyle</span><span class="p">},</span>
+                            <span class="nx">entry</span><span class="p">.</span><span class="nx">name</span>
+                        <span class="p">),</span>
+                        <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                            <span class="p">{</span><span class="nx">style</span><span class="o">:</span> <span class="nx">descriptionStyle</span><span class="p">},</span>
+                            <span class="nx">entry</span><span class="p">.</span><span class="nx">url</span>
+                        <span class="p">)</span>
+                    <span class="p">]</span>
+                <span class="p">)]</span>
+            <span class="p">)</span>
+        <span class="p">);</span>
+    <span class="p">});</span>
+</code></pre></div>
+
+<p>Standard RN component - please see <a href="https://js.coach/react-native" target="_blank">JSCoach</a> for more.<br />
+Expects 2 arguments - <code>options</code> and <code>element</code>.<br />
+The example provided shows how we use the <code>view</code> component (in combination with the <code>text</code> component) to provide different suggestions about which faucets our users can call to get some test ether.</p>
 
 <h2 id="status-components-text">status.components.text</h2>
 
+<p>Standard RN component - please see <a href="https://js.coach/react-native" target="_blank">JSCoach</a> for more.<br />
+Expects 2 arguments - <code>options</code> and some array of strings <code>s</code>.</p>
+
 <h2 id="status-components-slider">status.components.slider</h2>
+
+<p>Standard RN component - please see <a href="https://js.coach/react-native" target="_blank">JSCoach</a> for more.<br />
+Expects only one argument - <code>options</code>.</p>
+
+<p>Please see the <code>defineSubscription</code> method below for an example of this component in action.</p>
 
 <h2 id="status-components-image">status.components.image</h2>
 
+<p>Standard RN component - please see <a href="https://js.coach/react-native" target="_blank">JSCoach</a> for more.<br />
+Expects only one argument - <code>options</code>.</p>
+
 <h2 id="status-components-touchable">status.components.touchable</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">jsSuggestions</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">suggestions</span> <span class="o">=</span> <span class="nx">getJsSuggestions</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">code</span><span class="p">,</span> <span class="nx">context</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">sugestionsMarkup</span> <span class="o">=</span> <span class="p">[];</span>
+
+    <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">suggestions</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">suggestion</span> <span class="o">=</span> <span class="nx">suggestions</span><span class="p">[</span><span class="nx">i</span><span class="p">];</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">suggestion</span><span class="p">.</span><span class="nx">title</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="s1">&#39;*&#39;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">suggestion</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="nx">createMarkupText</span><span class="p">(</span><span class="nx">suggestion</span><span class="p">.</span><span class="nx">title</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="kd">var</span> <span class="nx">suggestionMarkup</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">(</span><span class="nx">jsSuggestionContainerStyle</span><span class="p">,</span>
+            <span class="p">[</span><span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">(</span><span class="nx">jsSubContainerStyle</span><span class="p">,</span>
+                <span class="p">[</span>
+                    <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">({</span><span class="nx">style</span><span class="o">:</span> <span class="nx">jsValueStyle</span><span class="p">},</span>
+                        <span class="nx">suggestion</span><span class="p">.</span><span class="nx">title</span><span class="p">),</span>
+                    <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">({</span><span class="nx">style</span><span class="o">:</span> <span class="nx">jsDescriptionStyle</span><span class="p">},</span>
+                        <span class="nx">suggestion</span><span class="p">.</span><span class="nx">desc</span><span class="p">)</span>
+                <span class="p">])]);</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">suggestion</span><span class="p">.</span><span class="nx">pressValue</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">suggestionMarkup</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">touchable</span><span class="p">({</span>
+                    <span class="nx">onPress</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">([</span><span class="nx">status</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">SET_VALUE</span><span class="p">,</span> <span class="nx">suggestion</span><span class="p">.</span><span class="nx">pressValue</span><span class="p">])</span>
+                <span class="p">},</span>
+                <span class="nx">suggestionMarkup</span>
+            <span class="p">);</span>
+        <span class="p">}</span>
+        <span class="nx">sugestionsMarkup</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">suggestionMarkup</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">sugestionsMarkup</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">scrollView</span><span class="p">(</span><span class="nx">jsSuggestionsContainerStyle</span><span class="p">(</span><span class="nx">sugestionsMarkup</span><span class="p">.</span><span class="nx">length</span><span class="p">),</span>
+            <span class="nx">sugestionsMarkup</span>
+        <span class="p">);</span>
+        <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">view</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>Standard RN component - please see <a href="https://js.coach/react-native" target="_blank">JSCoach</a> for more.<br />
+Expects 2 arguments - <code>options</code> and <code>element</code>.<br />
+The example provided uses the <code>touchable</code> component to make our suggestions that much more native and-feeling and interactive.</p>
 
 <h2 id="status-components-scrollview">status.components.scrollView</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span>    <span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">scrollView</span><span class="p">(</span>
+        <span class="nx">suggestionsContainerStyle</span><span class="p">(</span><span class="nx">ph</span><span class="p">.</span><span class="nx">length</span><span class="p">),</span>
+        <span class="nx">suggestions</span>
+    <span class="p">);</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">view</span><span class="p">};</span>
+</code></pre></div>
+
+<p>Standard RN component - please see <a href="https://js.coach/react-native" target="_blank">JSCoach</a> for more.<br />
+Expects 2 arguments - <code>options</code> and <code>elements</code>.<br />
+In the code snippet provided, we have taken the suggestions from the example above to do <code>components.view</code> and now want to inject it into a scrollView component for a better and smoother UI that our users have more control over.</p>
 
 <h2 id="status-components-webview">status.components.webView</h2>
 
+<p>Standard RN component - please see <a href="https://js.coach/react-native" target="_blank">JSCoach</a> for more.<br />
+Expects only 1 argument - <code>url</code> and is what we use to display - as expected - the webView of a given DApp when browsing to it.</p>
+
 <h2 id="status-components-validationmessage">status.components.validationMessage</h2>
+
+<blockquote>
+<p>An example of using validationMessage within the validator argument being passed to status.command.</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">validator</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">f</span> <span class="o">=</span> <span class="nx">faucets</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">entry</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">f</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">url</span><span class="p">)</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">error</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">validationMessage</span><span class="p">(</span>
+            <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_incorrect_title&#39;</span><span class="p">),</span>
+            <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;faucet_incorrect_description&#39;</span><span class="p">)</span>
+        <span class="p">);</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">error</span><span class="p">};</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+<p>This is the only custom Status component and it takes just two strings, and will return them wrapped in text components inside a view. You can find the full example <a href="https://github.com/status-im/status-react/blob/develop/bots/console/bot.js#L550" target="_blank">here</a>.</p>
 
 <h2 id="status-components-bridgedwebview">status.components.bridgedWebview</h2>
 
+<p>Standard RN component - please see <a href="https://js.coach/react-native" target="_blank">JSCoach</a> for more. Expects only 1 argument - <code>url</code>.</p>
+
 <h2 id="status-components-subscribe">status.components.subscribe</h2>
 
+<p>A method that allows you to add a subscription in the markup and expects just 1 argument - <code>path</code>. The added subscription will get the value from the bot-db using your specifiied path.</p>
+
 <h2 id="status-components-dispatch">status.components.dispatch</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;view&quot;</span><span class="p">,</span> <span class="p">{},</span>
+        <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;Balance &quot;</span> <span class="o">+</span> <span class="nx">balance</span> <span class="o">+</span> <span class="s2">&quot; ETH&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;doubledValue&quot;</span><span class="p">]]],</span>
+        <span class="p">[</span><span class="s2">&quot;slider&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">maximumValue</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;balance&quot;</span><span class="p">]],</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="nx">defaultSliderValue</span><span class="p">,</span>
+            <span class="nx">minimumValue</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">onSlidingComplete</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;set&quot;</span><span class="p">,</span> <span class="s2">&quot;sliderValue&quot;</span><span class="p">]],</span>
+            <span class="nx">step</span><span class="o">:</span> <span class="mf">0.05</span>
+        <span class="p">}],</span>
+        <span class="p">[</span><span class="s1">&#39;touchable&#39;</span><span class="p">,</span>
+            <span class="p">{</span><span class="nx">onPress</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;dispatch&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;set-value-from-db&quot;</span><span class="p">,</span> <span class="s2">&quot;roundedValue&quot;</span><span class="p">]]},</span>
+            <span class="p">[</span><span class="s2">&quot;view&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;Set value&quot;</span><span class="p">]]</span>
+        <span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">style</span><span class="o">:</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}},</span> <span class="p">[</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;validationText&quot;</span><span class="p">]]]</span>
+    <span class="p">];</span>
+</code></pre></div>
+
+<p>A method that allows you to specify an event that will be dispatched on some other event that occurs inside the markup (like pressing button, text change etc.). By &lsquo;markup&rsquo;, we mean - essentially - the view, or the mobile equivalent of the DOM.<br />
+In the example provided, the variable <code>view</code> is what we mean by markup (and is, in this case, part of our <code>superSuggestion</code> function found <a href="https://github.com/status-im/status-react/blob/2862af86c960b481ddf64ec1713e14908a366616/bots/demo_bot/bot.js#L31" target="_blank">here</a>) we specify that <code>[&quot;set&quot;, &quot;sliderValue&quot;]</code> will be dispatched on <code>onSlidingComplete</code>. We can’t allow user to write a real js handler here, so this is our workaround for now.</p>
 
 <h2 id="status-setsuggestions">status.setSuggestions</h2>
 
-<h2 id="status-setdefaultdb">status.setDefaultDb</h2>
+<p>A method that allows you to set the suggestions that will appear in the markup, whether this is something simple like sending a message, or pretty much anything</p>
 
-<h2 id="status-updatedb">status.updateDb</h2>
+<h2 id="status-setdefaultdb-and-status-updatedb">status.setDefaultDb and status.updateDb</h2>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">superSuggestion</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">balance</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">web3</span><span class="p">.</span><span class="nx">fromWei</span><span class="p">(</span><span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">),</span> <span class="s2">&quot;ether&quot;</span><span class="p">));</span>
+    <span class="kd">var</span> <span class="nx">defaultSliderValue</span> <span class="o">=</span> <span class="nx">balance</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+
+    <span class="kd">var</span> <span class="nx">view</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;view&quot;</span><span class="p">,</span> <span class="p">{},</span>
+        <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;Balance &quot;</span> <span class="o">+</span> <span class="nx">balance</span> <span class="o">+</span> <span class="s2">&quot; ETH&quot;</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;doubledValue&quot;</span><span class="p">]]],</span>
+        <span class="p">[</span><span class="s2">&quot;slider&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="nx">maximumValue</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;balance&quot;</span><span class="p">]],</span>
+            <span class="nx">value</span><span class="o">:</span> <span class="nx">defaultSliderValue</span><span class="p">,</span>
+            <span class="nx">minimumValue</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nx">onSlidingComplete</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;dispatch&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;set&quot;</span><span class="p">,</span> <span class="s2">&quot;sliderValue&quot;</span><span class="p">]],</span>
+            <span class="nx">step</span><span class="o">:</span> <span class="mf">0.05</span>
+        <span class="p">}],</span>
+        <span class="p">[</span><span class="s1">&#39;touchable&#39;</span><span class="p">,</span>
+            <span class="p">{</span><span class="nx">onPress</span><span class="o">:</span> <span class="p">[</span><span class="s1">&#39;dispatch&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;set-value-from-db&quot;</span><span class="p">,</span> <span class="s2">&quot;roundedValue&quot;</span><span class="p">]]},</span>
+            <span class="p">[</span><span class="s2">&quot;view&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;Set value&quot;</span><span class="p">]]</span>
+        <span class="p">],</span>
+        <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{</span><span class="nx">style</span><span class="o">:</span> <span class="p">{</span><span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;red&quot;</span><span class="p">}},</span> <span class="p">[</span><span class="s2">&quot;subscribe&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;validationText&quot;</span><span class="p">]]]</span>
+    <span class="p">];</span>
+
+    <span class="nx">status</span><span class="p">.</span><span class="nx">setDefaultDb</span><span class="p">({</span>
+        <span class="nx">sliderValue</span><span class="o">:</span> <span class="nx">defaultSliderValue</span><span class="p">,</span>
+        <span class="nx">doubledValue</span><span class="o">:</span> <span class="nx">doubledValueLabel</span><span class="p">({</span><span class="nx">value</span><span class="o">:</span> <span class="nx">defaultSliderValue</span><span class="p">})</span>
+    <span class="p">});</span>
+
+    <span class="kd">var</span> <span class="nx">validationText</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">message</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">validationText</span> <span class="o">=</span> <span class="s2">&quot;That&#39;s not a float number!&quot;</span><span class="p">;</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">parseFloat</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">message</span><span class="p">)</span> <span class="o">&gt;</span> <span class="nx">balance</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">validationText</span> <span class="o">=</span>
+            <span class="s2">&quot;Input value is too big!&quot;</span> <span class="o">+</span>
+            <span class="s2">&quot; You have only &quot;</span> <span class="o">+</span> <span class="nx">balance</span> <span class="o">+</span> <span class="s2">&quot; ETH on your balance!&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">status</span><span class="p">.</span><span class="nx">updateDb</span><span class="p">({</span>
+        <span class="nx">balance</span><span class="o">:</span> <span class="nx">balance</span><span class="p">,</span>
+        <span class="nx">validationText</span><span class="o">:</span> <span class="nx">validationText</span>
+    <span class="p">});</span>
+
+    <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">view</span><span class="p">};</span>
+<span class="p">};</span>
+</code></pre></div>
+
+<p>It is easiest to show you an example of these two methods at work in our <a href="https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L31" target="_blank">demo-bot</a> within a superSuggestions object we have created.</p>
+
+<p><code>status.setDefaultDb</code> is a method that can be used to add default values to bot-db. These values will be applied to app-db only when markup is rendered the first time. For instance, on each change in command input suggestions handler for particular command&rsquo;s parameter is called, and this handler returns some markup. If markup wasn&rsquo;t changed between calls values passed to setDefaultDb will not be applied to bot-db</p>
+
+<p><code>status.updateDb</code> is a method that updates the bot-db, even if the markup doesn&rsquo;t contain any changes. It too expects just 1 argument - <code>map</code></p>
 
 <h2 id="status-sendmessage">status.sendMessage</h2>
 
-<h2 id="status-addlogmessage">status.addLogMessage</h2>
+<p>Not currently implemented, but will be soon to avoid unnecessary complexities for API users wanting to perform simple actions, who currently need to use the <code>setSuggestions</code> method.</p>
 
 <h2 id="status-definesubscription">status.defineSubscription</h2>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">round</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
@@ -487,6 +1371,8 @@ sequentialParams</p>
     <span class="p">}</span>
 <span class="p">);</span>
 </code></pre></div>
+
+<p>This method was added to allow a bot to react on changes in the bot-db and add another calculated value to that bot-db in the result. It expects 3 arguments: the name of subscription, a map of values on which the subscription depends, and a callback function.</p>
 
     
         
@@ -1455,7 +2341,7 @@ Unregisters a given address.</p>
 
 <hr />
 
-<h5 id="web3-eth-gettransaction">web3.eth.getTransaction</h5>
+<h2 id="web3-eth-gettransaction">web3.eth.getTransaction</h2>
 
 <pre><code>web3.eth.getTransaction(transactionHash [, callback])
 </code></pre>
