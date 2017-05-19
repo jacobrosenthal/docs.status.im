@@ -33,6 +33,10 @@
 &lt;p&gt;Voila! Users in Status can already see your DApp and interact with it (on the Ropsten Test Network). Make some mobile optimizations of your own and you&amp;rsquo;re away. That is the power of decentralized, web3 technologies. Awesome, right?&lt;/p&gt;
 
 &lt;p&gt;OK, but what if &lt;code&gt;(a)&lt;/code&gt; I don&amp;rsquo;t have a DApp but want to learn how to build one on Status, or &lt;code&gt;(b)&lt;/code&gt; I want to use this awesome API to make the most of an awesome, native mobile UX, or &lt;code&gt;(c)&lt;/code&gt; I know what I&amp;rsquo;m doing and want to create fully decentralized, chatbot functionality for my DApp?&lt;/p&gt;
+
+&lt;h1 id=&#34;examples&#34;&gt;Examples&lt;/h1&gt;
+
+&lt;p&gt;At Status, we eat our own dogfood! All commands within Status are written with our API, take a look at the &lt;a href=&#34;https://github.com/status-im/status-react/tree/develop/bots&#34; target=&#34;_blank&#34;&gt;status-react/bots&lt;/a&gt; directory for examples.&lt;/p&gt;
 </description>
     </item>
     
