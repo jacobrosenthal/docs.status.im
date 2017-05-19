@@ -18,25 +18,37 @@
 
 &lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
 
+&lt;p style=&#39;color:red;&#39;&gt;DOCUMENTATION STILL WORK IN PROGRESS&lt;/p&gt;
+
 &lt;p&gt;Welcome to the Status API! Tread carefully, for you tread on the dreams of a better web.&lt;/p&gt;
 
 &lt;p&gt;Status allows users to interact with a wide array of Decentralized Applications (DApps) using the same intuitive chat interface (it also does a bunch of other things, but we&amp;rsquo;ll focus on this aspect for now). In the near future, Status users will be able to have group chats where most of the participants are DApp chatbots. All DApp developers will benefit from this synergy, because a common chat interface for multiple DApps makes using your specific DApp more convenient, and effectively makes your DApp more powerful by giving it access to potentially far wider and more powerful network effects.&lt;/p&gt;
 
-&lt;p&gt;In this guide, we’ll explore how you can use the Status Status API to develop your DApp and create custom commands for your users that will work in a beautifully-intuitive, mobile context. As a result of developing on Status, you’ll have a DApp that your users can access on MetaMask, Mist, and Status. It&amp;rsquo;s really worth emphasising that using Status brings with it access to mobile users with native mobile commands. With little extra developer time invested, you’ll gain a mobile app.&lt;/p&gt;
+&lt;p&gt;In this guide, we’ll explore how you can use the Status API to develop your DApp and create custom commands for your users that will work in a beautifully-intuitive, mobile context. As a result of developing on Status, you’ll have a DApp that your users can access on MetaMask, Mist, and Status. It&amp;rsquo;s really worth emphasising that using Status brings with it access to mobile users with native mobile commands. With little extra developer time invested, you’ll gain a mobile DApp.&lt;/p&gt;
 
 &lt;h1 id=&#34;quickstart&#34;&gt;Quickstart&lt;/h1&gt;
 
-&lt;p&gt;If you already have a DApp with a web interface, then this will be the quickest Quickstart ever (trademark pending). Simply open Status, navigate to Console, hit the &lt;code&gt;@browse&lt;/code&gt; command and type in the url where you DApp is running.&lt;/p&gt;
+&lt;p&gt;If you already have a DApp with a web interface, then this will be the quickest Quickstart ever (trademark pending). Simply open Status, navigate to Console, hit the &lt;code&gt;@browse&lt;/code&gt; command and type in the url where your DApp is running.&lt;/p&gt;
 
 &lt;p&gt;Voila! Users in Status can already see your DApp and interact with it (on the Ropsten Test Network). Make some mobile optimizations of your own and you&amp;rsquo;re away. That is the power of decentralized, web3 technologies. Awesome, right?&lt;/p&gt;
 
-&lt;p&gt;OK, but what if &lt;code&gt;(a)&lt;/code&gt; I don&amp;rsquo;t have a DApp yet, or &lt;code&gt;(b)&lt;/code&gt; I want to use this awesome API to get access to native mobile commands and actual, fully decentralized, chatbot functionality for my DApp?&lt;/p&gt;
+&lt;p&gt;OK, but what if &lt;code&gt;(a)&lt;/code&gt; I don&amp;rsquo;t have a DApp but want to learn how to build one on Status, or &lt;code&gt;(b)&lt;/code&gt; I want to use this awesome API to make the most of an awesome, native mobile UX, or &lt;code&gt;(c)&lt;/code&gt; I know what I&amp;rsquo;m doing and want to create fully decentralized, chatbot functionality for my DApp?&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Tutorials</title>
+      <link>http://docs.status.im/tutorials/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>http://docs.status.im/tutorials/</guid>
+      <description>
 
 &lt;h1 id=&#34;tutorials&#34;&gt;Tutorials&lt;/h1&gt;
 
 &lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
 
-&lt;p&gt;We will be using only the bare-bones &lt;code&gt;status-dev-cli&lt;/code&gt; tools in order to create our very first status DApp that can be accessed through Status. Just before we get started, it&amp;rsquo;s well worth acquainting yourself with some of our terminology so you&amp;rsquo;ll be able to make sense of it all. This anatomy establishes the different sections of the chat interface and establishes a common verbiage. The main components are:&lt;/p&gt;
+&lt;p&gt;Just before we get started, it&amp;rsquo;s well worth acquainting yourself with some of our terminology so you&amp;rsquo;ll be able to make sense of it all. This anatomy establishes the different sections of the chat interface and establishes a common verbiage. The main components are:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Message&lt;/li&gt;
@@ -45,13 +57,15 @@
 &lt;li&gt;Suggestions&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://github.com/status-im/docs.status.im/blob/develop/static/images/chat-anatomy.png&#34; alt=&#34;Chat Anantomy&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/chat-anatomy.png&#34; alt=&#34;Chat Anatomy&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Please take some time to familiarize yourself with all the areas and the different configurations possible depending on what you want to do. Missing from the above is what we refer to throughout this documentation as the &amp;lsquo;markup&amp;rsquo;, by which we mean the mobile equivalent of the &amp;lsquo;view&amp;rsquo;, i.e. where the message appear. Creating all of these native setups is totally possible through the API - just read on.&lt;/p&gt;
+&lt;p&gt;Please take some time to familiarize yourself with all the areas and the different configurations possible depending on what you want to do. Missing from the above is what we refer to throughout this documentation as the &amp;lsquo;markup&amp;rsquo;, by which we mean the mobile equivalent of the &amp;lsquo;view&amp;rsquo;, i.e. where the messages appear.&lt;/p&gt;
+
+&lt;p&gt;Creating all of these native setups is totally possible through the API - just read on.&lt;/p&gt;
 
 &lt;h2 id=&#34;installing-status&#34;&gt;Installing Status&lt;/h2&gt;
 
-&lt;p&gt;To develop on Status, you need to have Status running either:&lt;/p&gt;
+&lt;p&gt;OK, let&amp;rsquo;s learn how to build our first DApp on Status (mobile-first ftw!). To progress further, you need to have Status running either:&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;&lt;p&gt;on a real phone,&lt;/p&gt;&lt;/li&gt;
@@ -61,31 +75,72 @@
 &lt;li&gt;&lt;p&gt;in an iOS simulator.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;You can go to &lt;a href=&#34;https://test.status.im&#34; target=&#34;_blank&#34;&gt;https://test.status.im&lt;/a&gt; to download for Android. At the time of writing, we’re out of invitations for Testflight iOS, but you can sign up for early iOS access  &lt;a href=&#34;http://status.im&#34; target=&#34;_blank&#34;&gt;on our website&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;You can go to &lt;a href=&#34;https://test.status.im&#34; target=&#34;_blank&#34;&gt;https://test.status.im&lt;/a&gt; to download for Android. At the time of writing, we’re out of invitations for Testflight, but you can sign up for early iOS access &lt;a href=&#34;http://status.im&#34; target=&#34;_blank&#34;&gt;on our website&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;If you are running in an Android simulator, you also need to run on the command line:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;adb forward tcp:5561 tcp:5561
+&lt;p&gt;If you don’t have a smartphone, or you only have an iPhone but want to get started right away, you can build Status yourself for either Android or iOS by following &lt;a href=&#34;https://wiki.status.im/contributing/development/building-status/&#34; target=&#34;_blank&#34;&gt;these guidelines&lt;/a&gt;. There, you will find instructions for installing an Android simulator, or starting up Status in the Xcode simulator.&lt;/p&gt;
+
+&lt;p&gt;Our wiki guidelines should be all you need, but if you get lost come ask around in &lt;a href=&#34;https://slack.status.im&#34; target=&#34;_blank&#34;&gt;our Slack&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;networking-and-debugging&#34;&gt;Networking and Debugging&lt;/h2&gt;
+
+&lt;p&gt;First, connect your phone to your development machine. If you are using an android device, you can check that is is connected and then enable port forwarding on &lt;code&gt;5561&lt;/code&gt; for the debug server.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# android only&lt;/span&gt;
+adb devices
+adb forward tcp:5561 tcp:5561
+
+&lt;span class=&#34;c1&#34;&gt;# more than one device connected?&lt;/span&gt;
+adb -s DEVICE_ID forward tcp:5561 tcp:5561
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;If you don’t have a smartphone, or you only have an iPhone but want to get started right away, you can build Status yourself, for either Android or iOS by following &lt;a href=&#34;https://wiki.status.im/contributing/development/building-status/&#34; target=&#34;_blank&#34;&gt;these guidelines&lt;/a&gt;. Following those guidelines, you can install an Android simulator, or start up Status in the Xcode simulator. Our wiki guidelines should be all you need, but if you get lost come ask around in &lt;a href=&#34;https://slack.status.im&#34; target=&#34;_blank&#34;&gt;our Slack&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;enabling-debugging&#34;&gt;Enabling Debugging&lt;/h2&gt;
 
 &lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_01.png&#34; alt=&#34;With your phone connected, /debug &amp;quot;On&amp;quot;&#34; /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;em&gt;With your phone connected, /debug &amp;ldquo;On&amp;rdquo;&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;We’ll assume you have Status open, and that if you’re using a physical phone it’s connected to your computer. Now we need to enable debugging from within the Status app. After you’re logged in to Status, click on Console and run &lt;code&gt;/debug&lt;/code&gt;, then pick &amp;ldquo;On.&amp;rdquo; You’ll get back a message telling that debugging is on, and that you can use the &lt;a href=&#34;https://github.com/status-im/status-dev-cli&#34; target=&#34;_blank&#34;&gt;status-dev-cli&lt;/a&gt; tools if you want. You don’t need those right now, because you’ll be using the pre-configured Status Truffle box or the Embark plugin.&lt;/p&gt;
+&lt;p&gt;You then need to open Status, navigate to &lt;code&gt;Console&lt;/code&gt;, hit the &lt;code&gt;debug&lt;/code&gt; suggestion and turn on the debugging server. You’ll get back a message telling you that debugging is on, and that you can use the &lt;a href=&#34;https://github.com/status-im/status-dev-cli&#34; target=&#34;_blank&#34;&gt;status-dev-cli&lt;/a&gt; tools if you want.&lt;/p&gt;
 
-&lt;p&gt;The message also shows you your IP address, which you’ll need later for Embark.&lt;/p&gt;
+&lt;p&gt;The important part of the message is your &lt;code&gt;device IP&lt;/code&gt; address, which we&amp;rsquo;ll be using throughout.&lt;/p&gt;
 
-&lt;h2 id=&#34;my-first-mobile-dapp&#34;&gt;My First Mobile DApp&lt;/h2&gt;
+&lt;p&gt;To find out your computer&amp;rsquo;s IP, use &lt;code&gt;ifconfig&lt;/code&gt; from the command line and look for your internal IPv4 address:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;ifconfig &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep inet
+
+&lt;span class=&#34;c1&#34;&gt;# Find the line beginning with just inet - this is your IPv4 address&lt;/span&gt;
+inet &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;.10.0.216 netmask 0xfffffe00 broadcast &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;.10.1.255
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;h2 id=&#34;my-first-dapp&#34;&gt;My First DApp&lt;/h2&gt;
+
+&lt;style&gt;
+.tab-content { display: none; }
+
+
+.tab-diy:checked ~ .content-diy , 
+
+.tab-embark:checked ~ .content-embark , 
+
+.tab-truffle:checked ~ .content-truffle 
+ {
+    display: block;
+}
+&lt;/style&gt;
+&lt;div class=&#34;content tabs&#34;&gt;
+    
+        &lt;input class=&#34;tab-diy&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;diy&lt;/label&gt;
+    
+        &lt;input class=&#34;tab-embark&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;embark&lt;/label&gt;
+    
+        &lt;input class=&#34;tab-truffle&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;truffle&lt;/label&gt;
+    
+&lt;div class=&#34;content tab-content content-diy&#34;&gt;
+&lt;h3 id=&#34;do-it-yourself-with-status-dev-cli&#34;&gt;Do It Yourself with &lt;code&gt;status-dev-cli&lt;/code&gt;&lt;/h3&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;npm install -g status-dev-cli
 mkdir my-dapp &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; my-dapp
 touch index.html app.js
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;blockquote&gt;
+&lt;p&gt;&lt;blockquote&gt;
 &lt;p&gt;In index.html, add:&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-html&#34; data-lang=&#34;html&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
@@ -102,129 +157,402 @@ touch index.html app.js
  Web3 account: &lt;span class=&#34;p&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;span&lt;/span&gt; &lt;span class=&#34;na&#34;&gt;id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;quot;account&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;span&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;body&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;&amp;lt;/&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;&amp;gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
-&lt;blockquote&gt;
+&lt;p&gt;&lt;blockquote&gt;
 &lt;p&gt;In app.js, add:&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;onContentLoaded&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;accountSpan&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;getElementById&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;account&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-  &lt;span class=&#34;nx&#34;&gt;accountSpan&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;innerHTML&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; 
+  &lt;span class=&#34;nx&#34;&gt;accountSpan&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;innerHTML&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;br /&gt;
     &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;typeof&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;web3&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;===&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;undefined&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;undefined&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;web3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;eth&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;accounts&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;nb&#34;&gt;document&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addEventListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;DOMContentLoaded&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;onContentLoaded&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
-&lt;blockquote&gt;
+&lt;p&gt;&lt;blockquote&gt;
 &lt;p&gt;Install and start an HTTP server - we recommend NPM for ease-of-use. Make sure you are still in your my-dapp directory when running the 2nd command.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;npm install http-server -g
 http-server
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
-&lt;blockquote&gt;
-&lt;p&gt;In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the &lt;code&gt;--ip&lt;/code&gt; flag with the IP address listed by Console once you have selected the &lt;code&gt;debug&lt;/code&gt; option and turned it on. You may also need to do adb port forwarding if you are using an Android device.&lt;/p&gt;
+&lt;p&gt;&lt;blockquote&gt;
+&lt;p&gt;In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the &lt;code&gt;&amp;ndash;ip&lt;/code&gt; flag with the IP address listed by Console once you have selected the &lt;code&gt;debug&lt;/code&gt; option and turned it on. You should already have enabled adb port forwarding on 5561 if you are using an Android device.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;adb forward tcp:5561 tcp:5561  &lt;span class=&#34;c1&#34;&gt;# Android only&lt;/span&gt;
-status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;my-dapp&amp;quot;, &amp;quot;dapp-url&amp;quot;: &amp;quot;http://&amp;lt;Your IP&amp;gt;:8080/&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;My DApp&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;IP listed in Status console&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;my-dapp&amp;quot;, &amp;quot;dapp-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;My DApp&amp;quot;}&amp;#39;&lt;/span&gt; &amp;ndash;ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
-&lt;p&gt;First, install the dev tools globally using NPM.&lt;/p&gt;
+&lt;p&gt;First, install the &lt;code&gt;status-dev-cli&lt;/code&gt; tools globally using NPM.&lt;/p&gt;
 
-&lt;p&gt;Then, create a directory for you app to live in, switch into it, and create an &lt;code&gt;index.html&lt;/code&gt; file and an &lt;code&gt;app.js&lt;/code&gt; file.&lt;/p&gt;
+&lt;p&gt;Then, create a directory for your app to live in, switch into it, and create an &lt;code&gt;index.html&lt;/code&gt; file and an &lt;code&gt;app.js&lt;/code&gt; file.&lt;/p&gt;
 
-&lt;p&gt;The index.html will be really simple. We are going to add several meta tags to make our DApp look good on small screens of mobile phones and add a span that will be used by our JavaScript.&lt;/p&gt;
+&lt;p&gt;The index.html will be really simple. We are going to add several meta tags to make our DApp look good on the small screens of mobile phones, and add a span that will be used by our JavaScript.&lt;/p&gt;
 
-&lt;p&gt;Our app.js file will also be simple. We are going to display the information about your account inside a span with account id. Status injects web3.js automatically, so you have an access to web3 variable from everywhere and you don’t need to care about including web3.js manually. However, you can do this and most probably you want to do this if you want to make your DApps work on other platforms.&lt;/p&gt;
+&lt;p&gt;Our &lt;code&gt;app.js&lt;/code&gt; file will also be simple. We are going to display the information about your account inside a span with &lt;code&gt;account id&lt;/code&gt;. Status injects &lt;code&gt;web3.js&lt;/code&gt; automatically, so you have an access to web3 variable from everywhere and you don’t need to care about including &lt;code&gt;web3.js&lt;/code&gt; manually. However, you can do this and most probably you want to do this if you want to make your DApps work on other platforms.&lt;/p&gt;
 
 &lt;p&gt;You then need to install a really simple &lt;code&gt;http-server&lt;/code&gt; from NPM, and start it in the &lt;code&gt;my-dapp&lt;/code&gt; directory we just created.&lt;/p&gt;
 
-&lt;p&gt;Then, open your Status app, navigate to Console, select the &lt;code&gt;debug&lt;/code&gt; option and turn it on. This should return a message with an IP address.&lt;/p&gt;
+&lt;p&gt;Open a new terminal session, navigate back to your &lt;code&gt;my-dapp&lt;/code&gt; directory, and go ahead and add your dapp to Status! Make sure to pass in the &lt;code&gt;--ip&lt;/code&gt; flag using the address returned to you by Console, when you &lt;a href=&#34;#enabling-debugging&#34;&gt;enabled debugging&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Open a new terminal window and navigate back to you &lt;code&gt;my-dapp&lt;/code&gt; directory and go ahead and add you dapp to Status! Make sure to pass in the &lt;code&gt;--ip&lt;/code&gt; flag using the address returned to you by Console. &lt;code&gt;&amp;lt;Your-IP&amp;gt;&lt;/code&gt; needs to be &lt;code&gt;127.0.0.1&lt;/code&gt; if you are using a simulator, or whatever your PC&amp;rsquo;s IP is if you are using a connected phone.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;MACHINE-IP&amp;gt;&lt;/code&gt; needs to be &lt;code&gt;localhost&lt;/code&gt; or &lt;code&gt;127.0.0.1&lt;/code&gt;, if you are using a simulator, or whatever your PC&amp;rsquo;s (internal) IP is if you are using a connected phone.&lt;/p&gt;
 
-&lt;p&gt;You can also do live-reloading once you&amp;rsquo;re happy with this by running &lt;code&gt;status-dev-cli watch-dapp . &#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;my-dapp&amp;quot;}&#39;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;But wait, there&amp;rsquo;s yet more! If you close the &lt;code&gt;webView&lt;/code&gt; markup with your account listed in it, you will see that you already have access to the &lt;code&gt;@browse&lt;/code&gt;, &lt;code&gt;/location&lt;/code&gt;, &lt;code&gt;/send&lt;/code&gt; and &lt;code&gt;/request&lt;/code&gt; functionality - those come standard with any DApp that makes its home within Status. All you will need to do is learn how to handle them.&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s it! You should be able to see your DApp in the chats, and opening it should browse automatically to a page that shows your account information. You can also do live-reloading once you&amp;rsquo;re happy with this by running &lt;code&gt;status-dev-cli watch-dapp . &#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;my-dapp&amp;quot;}&#39;&lt;/code&gt;&lt;/p&gt;
 
 &lt;p&gt;Happy travels!&lt;/p&gt;
 
-&lt;aside class=&#34;warn&#34;&gt;
+&lt;aside class=&#34;success&#34;&gt;
   You need not use NPM&#39;s http-server to serve content, there are innumerable ways of doing this. Just pick whatever is best for your environment.
 &lt;/aside&gt;
 
-&lt;h2 id=&#34;my-first-status-command&#34;&gt;My First Status Command&lt;/h2&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;sayHello&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
- &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
-     &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-     &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;HelloBot&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-     &lt;span class=&#34;nx&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Helps you say hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-     &lt;span class=&#34;nx&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;#7099e6&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
- &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;div class=&#34;content tab-content content-truffle&#34;&gt;
+&lt;h3 id=&#34;truffle&#34;&gt;Truffle&lt;/h3&gt;
+
+&lt;p&gt;OK, so we can write a little HTML5 DApp that displays information to Status users through a simple webView component. However, we want to do so much more! We want to write smart contracts, deploy them, and interact with them through a fully mobile user interface; and we want to build decentralized chatbots that live within Status and make friends with all the humans.&lt;/p&gt;
+
+&lt;p&gt;If you want to get straight to making chatbots, please go &lt;a href=&#34;#my-first-status-command&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Frameworks can lighten the load of developing considerably, and so we include here some quick examples to get you up and running with the two most popular Ethereum frameworks currently available - Truffle and Embark.&lt;/p&gt;
+
+&lt;p&gt;Firstly, we&amp;rsquo;ll need a network to develop against, so let&amp;rsquo;s go get &lt;code&gt;testrpc&lt;/code&gt; - a neat little simulation of the rules and logic of the Ethereum network that runs much faster than the live network (because it&amp;rsquo;s only simulating things) and is very useful for quick and dirty iterations.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;npm install -g ethereumjs-testrpc
+testrpc -p &lt;span class=&#34;m&#34;&gt;8546&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# If you use android&lt;/span&gt;
+adb reverse tcp:8546 tcp:8546
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;That’s it! It will show you a list of available accounts, private keys, your HD wallet and mnemonic. Please note that we&amp;rsquo;re running testrpc on (non-default) RPC port 8546, just to avoid potential conflict with the node running inside Status. If using android, you need to open the connection from your PC to your phone on that port, so Status can listen for changes there.&lt;/p&gt;
+
+&lt;p&gt;We also need to make sure that our Status client is listening to our new &lt;code&gt;testrpc&lt;/code&gt; network, rather than Ropsten, so that we can get the information we need about our contracts etc. Luckily, this is as easy as running:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;status-dev-cli switch-node http://localhost:8546
+
+&lt;span class=&#34;c1&#34;&gt;# Of course, there are options. You can use go-ethereum instead of TestRPC, and instead of port forwarding you can switch to any other accessible node using its IP address.&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Open a new shell (i.e. a new Terminal window or tab) for the next part. You’ll leave &lt;code&gt;testrpc&lt;/code&gt; running in the first window, and use the second window for the rest of the tutorial.&lt;/p&gt;
+
+&lt;p&gt;Now that you have &lt;code&gt;testrpc&lt;/code&gt; is going, and a new shell is open, run:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;npm install -g truffle // Version &lt;span class=&#34;m&#34;&gt;3&lt;/span&gt;.0.5+ required.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This installs the Truffle framework, and you can find its GitHub &lt;a href=&#34;https://github.com/trufflesuite/truffle&#34; target=&#34;_blank&#34;&gt;page here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;With Truffle installed, we can grab the Status Truffle Box, and get a basic DApp running. All the Truffle Boxes also include the app frameworks React and Redux, which were designed by Facebook and are widely used by app developers. You can find the other Truffle Boxes &lt;a href=&#34;https://truffle-box.github.io/&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;To install the Status Truffle box, all you have to do is run this command in the same Terminal window:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;git clone https://github.com/status-im/truffle-box-status.git
+
+&lt;span class=&#34;c1&#34;&gt;# Change into the truffle box directory and install the node dependencies&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; truffle-box-status &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; npm install
+
+&lt;span class=&#34;c1&#34;&gt;# Compile the contracts from Solidity (much like JavaScript) into runnable EVM code&lt;/span&gt;
+ truffle compile
+ 
+&lt;span class=&#34;c1&#34;&gt;# Publish the compiled contracts to your network. testrpc must already be running&lt;/span&gt;
+ truffle migrate
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_02.png&#34; alt=&#34;Example on OS X: testrpc running on the left, and installing Truffle on the right&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Example on OS X: testrpc running on the left, and installing Truffle on the right&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;As you run the &lt;code&gt;migrate&lt;/code&gt; command - which is what deploys your contracts to the network - you can look at the window with &lt;code&gt;testrpc&lt;/code&gt; running, and you’ll see your transactions being published. If you get &lt;code&gt;Error: Invalid JSON RPC response&lt;/code&gt;, you probably forgot to run &lt;code&gt;testrpc&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;If you&amp;rsquo;re using an Android device, the application won&amp;rsquo;t be accessible automatically, since it runs on port 3000 and your device/emulator knows nothing about it. Execute the following to make web application accessible:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;adb reverse tcp:3000 tcp:3000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Now we are ready to see our DApp running on Status. From within your DApp directory, run:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Run your Javascript&lt;/span&gt;
+npm run start
+
+&lt;span class=&#34;c1&#34;&gt;#(Remember to set ENV variable if working with real device)&lt;/span&gt;
+ &lt;span class=&#34;nv&#34;&gt;IP&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&amp;lt;IP_of_your_phone&amp;gt; npm run start
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This should tell you that the the app is running, and that the DApp has been added to the Status Contacts.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_03.png&#34; alt=&#34;The DApp added to the default Contacts&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The DApp added to the default Contacts&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Again, the DApp should appear in your chats screen, and navigating to it should automatically open a browser that reveals all the goodies hidden in this truffle box. It should also display the stored value of &lt;code&gt;5&lt;/code&gt; from the SimpleStorage contract that we deployed to &lt;code&gt;testrpc&lt;/code&gt; by running &lt;code&gt;truffle migrate&lt;/code&gt; above.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Known problems:&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;1) &lt;code&gt;status-dev-cli&lt;/code&gt; currently has a hard-coded value for &lt;code&gt;localhost&lt;/code&gt;, rather than allowing dynamic inputs. We are working on a fix, but - depending on your setup - you may need to change this for everything to work smoothly. Do this simply by executing:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; node_modules/status-dev-cli/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; nano index.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;and change lines 13 and 33 to reflect the correct IP address of your machine.&lt;/p&gt;
+
+&lt;p&gt;2) If you are running on a real iOS device, you need to configure Truffle Box to use the network on your computer. In &lt;code&gt;truffle.js&lt;/code&gt;, change &lt;code&gt;host&lt;/code&gt; to the IP of your computer:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;module&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exports&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;migrations_directory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;./migrations&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;nx&#34;&gt;networks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;development&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;host&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;IP_of_your_computer&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;port&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8546&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+      &lt;span class=&#34;nx&#34;&gt;network_id&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;*&amp;quot;&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;// Match any network id&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&#34;content tab-content content-embark&#34;&gt;
+&lt;h3 id=&#34;embark&#34;&gt;Embark&lt;/h3&gt;
+
+&lt;p&gt;OK, so Truffle is not your favourite and you prefer using Embark. Fine with us. As always, make sure you have installed the framework first.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;npm -g install embark
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Embark makes it super easy to set up a demo and get up and running fast:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;embark demo
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; embark_demo
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Next we want to start the network. You can run a full Ethereum node with &lt;code&gt;embark blockchain&lt;/code&gt;, but for development you probably want to run &lt;code&gt;testrpc&lt;/code&gt;. We want it to run on port 8546 though, so it doesn&amp;rsquo;t interfere with Status, so we need to edit the &lt;code&gt;blockchain.js&lt;/code&gt;:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;nano config/blockchain.json
+
+&lt;span class=&#34;c1&#34;&gt;# Now edit the &amp;#39;Development&amp;#39; Network to read:&lt;/span&gt;
+
+&lt;span class=&#34;s2&#34;&gt;&amp;quot;development&amp;quot;&lt;/span&gt;: &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;enabled&amp;quot;&lt;/span&gt;: true,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;networkType&amp;quot;&lt;/span&gt;: &lt;span class=&#34;s2&#34;&gt;&amp;quot;custom&amp;quot;&lt;/span&gt;,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;genesisBlock&amp;quot;&lt;/span&gt;: &lt;span class=&#34;s2&#34;&gt;&amp;quot;config/development/genesis.json&amp;quot;&lt;/span&gt;,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;datadir&amp;quot;&lt;/span&gt;: &lt;span class=&#34;s2&#34;&gt;&amp;quot;.embark/development/datadir&amp;quot;&lt;/span&gt;,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;mineWhenNeeded&amp;quot;&lt;/span&gt;: true,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;nodiscover&amp;quot;&lt;/span&gt;: true,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;maxpeers&amp;quot;&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;0&lt;/span&gt;,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;rpcHost&amp;quot;&lt;/span&gt;: &lt;span class=&#34;s2&#34;&gt;&amp;quot;localhost&amp;quot;&lt;/span&gt;,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;rpcPort&amp;quot;&lt;/span&gt;: &lt;span class=&#34;m&#34;&gt;8546&lt;/span&gt;,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;rpcCorsDomain&amp;quot;&lt;/span&gt;: &lt;span class=&#34;s2&#34;&gt;&amp;quot;http://localhost:8000&amp;quot;&lt;/span&gt;,
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;account&amp;quot;&lt;/span&gt;: &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
+      &lt;span class=&#34;s2&#34;&gt;&amp;quot;password&amp;quot;&lt;/span&gt;: &lt;span class=&#34;s2&#34;&gt;&amp;quot;config/development/password&amp;quot;&lt;/span&gt;
+    &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+  &lt;span class=&#34;o&#34;&gt;}&lt;/span&gt;
+  
+&lt;span class=&#34;c1&#34;&gt;# ctrl+O will write your changes to file, ctrl+X will exit the file.&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Now, navigate back to the root of your project and start testrpc&lt;/span&gt;
+
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; .. &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; embark simulator
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Open a new shell tab, navigate to the same DApp directory, and - after ensuring you Android device has access to &lt;code&gt;testrpc&lt;/code&gt; - install Status Embark:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Android only &lt;/span&gt;
+adb reverse tcp:8546 tcp:8546 
+
+npm install embark-status --save
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;When using a real device, you will now need to insert the relevant IP into two config files.&lt;/p&gt;
+
+&lt;p&gt;Open the file &lt;code&gt;embark.json&lt;/code&gt; and edit the &lt;code&gt;plugins&lt;/code&gt; key to reflects your DEVICE&amp;rsquo;s IP address:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;plugins&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;s2&#34;&gt;&amp;quot;embark-status&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;deviceIp&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;your-device-ip&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;whisperIdentity&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;dapp-embark-test&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;s2&#34;&gt;&amp;quot;name&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;MyEmbarkDapp&amp;quot;&lt;/span&gt;
+  &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Once you have worked through the first tutorial and understood the basic steps to building a DApp and adding it into Status, it&amp;rsquo;s time to get our hands a little more dirty by actually writing some real commands that will begin to utilise the awesome power of the Status API. All we have done so far is added our DApp to Status and displayed our account in it using a &lt;code&gt;webView&lt;/code&gt;. Now, it&amp;rsquo;s time to start making use of the API proper, in order to leverage all that native mobile and chatbot functionality so that we can take your DApp to the next level.&lt;/p&gt;
+&lt;p&gt;Also, you need to tell Embark the IP of the DApp host. Navigate to and change the &lt;code&gt;config/webserver.js&lt;/code&gt; file so that it reflects your development machine&amp;rsquo;s IP address:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+  &lt;span class=&#34;s2&#34;&gt;&amp;quot;enabled&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;s2&#34;&gt;&amp;quot;host&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;your-machines-ip&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+  &lt;span class=&#34;s2&#34;&gt;&amp;quot;port&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;8000&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;We kind of cheated a little in the previous tutorial. While it is totally possible to have your html5 DApp work perfectly in Status via &lt;code&gt;webView&lt;/code&gt;, it&amp;rsquo;s obviously not the most optimal way to do things. We use &lt;a href=&#34;http://www.braveclojure.com/introduction/&#34; target=&#34;_blank&#34;&gt;ClojureScript&lt;/a&gt; and React Native to handle all our things, but you don&amp;rsquo;t have to. The main take away here is that the chat context itself is actually an Otto VM jail that executes the javascript you write and integrates that directly with Status. So, we can actually write bots that are purely javascript-based. Please see &lt;a href=&#34;https://github.com/status-im/status-react/tree/develop/bots&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; for a full list of all our current bots and their source code.&lt;/p&gt;
+&lt;p&gt;If you’re running Status on Android, remember to give your device access to the right ports again:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;adb reverse tcp:8000 tcp:8000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://github.com/status-im/docs.status.im/blob/develop/static/images/status-anatomy.png&#34; alt=&#34;status-anantomy.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Now we’re ready to run the DApp on Status. From within your DApp directory, run:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;embark run
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;The &lt;code&gt;status.command()&lt;/code&gt; function that we are calling in this example can take 12 different parameters, of which we are only using 4 to ensure that we can greet our user nicely and make them feel great about using all this new and awesome technology.&lt;/p&gt;
+&lt;p&gt;The Embark console will appear within your shell with useful information about the SimpleStorage contract it has created, compiled, and deployed. Now just add your DApp, and have some fun!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;embark&amp;quot;, &amp;quot;dapp-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8000/&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Embark&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;It is possible to build up the different parameters we want in a variable, and then pass this in to &lt;code&gt;status.command()&lt;/code&gt;. However, we are just building up the command ourselves as it is easy enough to keep track of four simple arguments.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_04.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Obviously, this small &lt;code&gt;hello&lt;/code&gt; example can be extended greatly so that we can get responses from users and do a bunch of other rad things, but that will all become clear in the sections below on interactive suggestion areas etc.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;faucet&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;faucet_title&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;faucet_description&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;#7099e6&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;registeredOnly&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
-        &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;url&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-        &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;types&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TEXT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-        &lt;span class=&#34;nx&#34;&gt;suggestions&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;faucetSuggestions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
-        &lt;span class=&#34;nx&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;faucet_placeholder&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;}],&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;preview&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;nx&#34;&gt;markup&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;components&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-                &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
-                &lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;
-            &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_05.png&#34; alt=&#34;The Embark simulator runs in one Terminal window on the left, and the Embark console on the right&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;The Embark simulator runs in one Terminal window on the top, and the Embark console on the bottom&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Known Issues:&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;1) To deploy the DApp successfully on a device you may need to patch &lt;a href=&#34;https://github.com/status-im/embark-status/blob/master/index.js#L13&#34; target=&#34;_blank&#34;&gt;this line&lt;/a&gt; in embark-status to include &lt;code&gt;+ &amp;quot; --dapp-port 5561&amp;quot;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;Using Status, you can now develop mobile DApps as easily as developing for MetaMask or Mist! But Status offers extra goodies as well.&lt;/p&gt;
+
+&lt;p&gt;In particular, Status will help you allow your users to chat with your DApp! The chat interface will let your users easily and intuitively accomplish tasks. In the future, your users will be able to hold group conversations where all the other participants are DApps, which is kind of amazing.&lt;/p&gt;
+
+&lt;p&gt;Later we’ll have an easy mechanism to make your DApp available for others to use on Status, but for now please just submit a pull request using our &lt;a href=&#34;http://wiki.status.im/contributing/development/adding-dapps/&#34; target=&#34;_blank&#34;&gt;guide on adding DApps&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;my-first-interactive-suggestion-area&#34;&gt;My First Interactive Suggestion Area&lt;/h2&gt;
+
+&lt;p&gt;Once you have worked through the first tutorials and understood the basic steps to building a DApp and adding it into Status, it&amp;rsquo;s time to get our hands a little more dirty by actually writing some real commands that will begin to utilise the awesome power of the Status API. It&amp;rsquo;s time to make use of the API proper in order to build a decentralized chatbot that leverages Status&amp;rsquo; awesome mobile interface, so that we can take your DApp to the next level.&lt;/p&gt;
+
+&lt;p&gt;We kind of cheated a little in the previous tutorials. While it is totally possible to have your html5 DApp work perfectly in Status via &lt;code&gt;webView&lt;/code&gt;, it&amp;rsquo;s obviously not the most optimal way to do things. We use &lt;a href=&#34;http://www.braveclojure.com/introduction/&#34; target=&#34;_blank&#34;&gt;ClojureScript&lt;/a&gt; and React Native to handle all our things, but you don&amp;rsquo;t have to. The main take away here is that the chat context itself is actually an Otto VM jail that executes the javascript you write, and then integrates that directly with Status. So, we can actually write bots that are purely javascript-based. Please see &lt;a href=&#34;https://github.com/status-im/status-react/tree/develop/bots&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; for a full list of all our current bots and their source code.&lt;/p&gt;
+
+&lt;p&gt;Please take a moment to familiarise yourself with the anatomy of Status so that you can get a visual sense of what is happening where and how you can best utilise it all.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://github.com/status-im/docs.status.im/blob/develop/static/images/status-anatomy.png&#34; alt=&#34;status-anatomy.png&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;style&gt;
+.tab-content { display: none; }
+
+
+.tab-diy:checked ~ .content-diy , 
+
+.tab-embark:checked ~ .content-embark , 
+
+.tab-truffle:checked ~ .content-truffle 
+ {
+    display: block;
+}
+&lt;/style&gt;
+&lt;div class=&#34;content tabs&#34;&gt;
+    
+        &lt;input class=&#34;tab-diy&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;diy&lt;/label&gt;
+    
+        &lt;input class=&#34;tab-embark&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;embark&lt;/label&gt;
+    
+        &lt;input class=&#34;tab-truffle&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;truffle&lt;/label&gt;
+    
+&lt;div class=&#34;content tab-content content-diy&#34;&gt;
+&lt;h3 id=&#34;do-it-yourself&#34;&gt;Do It Yourself&lt;/h3&gt;
+
+&lt;p&gt;First, we&amp;rsquo;re going to navigate back to our &lt;code&gt;my-dapp&lt;/code&gt; directory we created for the first tutorial and make a new directory and file to keep our javascript in.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/my-dapp
+mkdir bot &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; bot/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; touch bot.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Instead of simply adding a new DApp, we can now include a &lt;code&gt;bot-url&lt;/code&gt; parameter in our call to &lt;code&gt;status-dev-cli&lt;/code&gt;. The chatbot url targets a &lt;code&gt;js&lt;/code&gt; file, and this file will be loaded in the Otto VM shown in the anatomy. Code in this file сan interact with the input field, messages and react however we program it to.&lt;/p&gt;
+
+&lt;p&gt;Add the following code snippet to the newly-created &lt;code&gt;bot.js&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;on-message-send&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nx&#34;&gt;messages&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
         &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;shortPreview&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;nx&#34;&gt;markup&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;components&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-                &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt;
-                &lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;faucet_title&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;: &amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;
-            &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-        &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-    &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
-    &lt;span class=&#34;nx&#34;&gt;validator&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-        &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;f&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;faucets&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-        &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 
-        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;indexOf&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-            &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;components&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;validationMessage&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-                &lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;faucet_incorrect_title&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
-                &lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;faucet_incorrect_description&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-            &lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-
-            &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;markup&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;error&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
-        &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;text-message&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;You&amp;#39;re amazing, master!&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;We have also included a far more complete example that utilises 9 of the 12 parameters you can pass into &lt;code&gt;status.command()&lt;/code&gt; and is what we use to make it possible for our users to access the Status Faucet and get some of that tasty (test) ether to send to their friends and interact with the DApps already living in Status.&lt;/p&gt;
+&lt;p&gt;Then, navigate back to the &lt;code&gt;my-dapp&lt;/code&gt; directory, due the necessary Android steps if you are using that platform, and start the http server again. Then, open a new shell window and add your new bot.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#make sure you&amp;#39;re in my-dapp or the equivalent&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ..
 
-&lt;p&gt;Read on!&lt;/p&gt;
+&lt;span class=&#34;c1&#34;&gt;#start the server and then open a new shell window&lt;/span&gt;
+http-server
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# android only&lt;/span&gt;
+adb -s DEVICE_ID reverse tcp:8080 tcp::8080
 
-&lt;h2 id=&#34;my-first-interactive-suggestion-area&#34;&gt;My First Interactive Suggestion Area&lt;/h2&gt;
+status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;botler&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Botler&amp;quot;,  &amp;quot;dapp-url&amp;quot; : &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot; ,&amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot/bot.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This is pretty much the simplest responsive chatbot we can write, using only the &lt;code&gt;addListener&lt;/code&gt; function from the API. All it&amp;rsquo;s listening for is a message-send event, to which it will try to respond with the test &lt;code&gt;You&#39;re amazing, master!&lt;/code&gt;. You&amp;rsquo;ll see that it opens a browse window by default, which is not desired behaviour and will be fixed in the next release. Just close the window and type a message to your new bot.&lt;/p&gt;
+
+&lt;p&gt;Obviously, there&amp;rsquo;s much more we can do than simply listen for messages and send flattering responses. All will be revealed in the next tutorial. If you&amp;rsquo;re feeling impatient, you can find a full Demo Bot &lt;a href=&#34;https://github.com/status-im/status-react/tree/34b77022f7926dbabbb0e8c5e8471eaea5ed812f/bots/demo_bot&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Go ahead and try and add this bot too, and see if you can figure out how it works and what you can do with it!&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; bot/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; touch demo_bot.js &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ..
+status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;slider&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Slider&amp;quot;,  &amp;quot;dapp-url&amp;quot; : &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot; ,&amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot/demo_bot.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&#34;content tab-content content-truffle&#34;&gt;
+&lt;h3 id=&#34;truffle&#34;&gt;Truffle&lt;/h3&gt;
+
+&lt;p&gt;OK, so even though &lt;code&gt;status-dev-cli&lt;/code&gt; is lightweight and awesome, the frameworks offer some really cool features and make development significantly easier for many projects. So, let&amp;rsquo;s see what it looks like to add the same, flattering little chatbot to Status through the Truffle Box we set up earlier. Navigate back to that directory, ensure that &lt;code&gt;testrpc&lt;/code&gt; is switched on and that you have opened all the right ports if you&amp;rsquo;re on Android.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Android only&lt;/span&gt;
+adb forward tcp:5561 tcp:5561
+
+&lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; rpc -p &lt;span class=&#34;m&#34;&gt;8546&lt;/span&gt;
+
+&lt;span class=&#34;c1&#34;&gt;# Android only&lt;/span&gt;
+adb reverse tcp:8546 tcp:8546
+
+status-dev-cli switch-node &lt;span class=&#34;s2&#34;&gt;&amp;quot;http://localhost:8546&amp;quot;&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/truffle-box-status
+
+&lt;span class=&#34;c1&#34;&gt;# If you want to be extra sure your contracts are there, run:&lt;/span&gt;
+truffle migrate --reset
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, we need to make a new javascript file and put it in a place we can access in the browser. Copy the code provided into another &lt;code&gt;bot.js&lt;/code&gt; file.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; build/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; mkdir bot/
+touch bot/bot.js
+nano bot/bot.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;on-message-send&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+            &lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nx&#34;&gt;data&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+            &lt;span class=&#34;nx&#34;&gt;messages&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[]&lt;/span&gt;
+        &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;try&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;text-message&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;You&amp;#39;re amazing, master!&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;catch&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;err&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;This time, rather than running the &lt;code&gt;npm&lt;/code&gt; task, we&amp;rsquo;ll just start a quick server with &lt;code&gt;truffle&lt;/code&gt; itself. Writing the correct &lt;code&gt;start&lt;/code&gt; script is left as an exercise for the reader ;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Make sure you&amp;#39;re in the truflle-box-status/ directory&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ..
+
+truffle serve
+
+&lt;span class=&#34;c1&#34;&gt;# In another shell&lt;/span&gt;
+adb reverse tcp:8080 tcp:8080
+
+status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;truffle-botler&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Truffle Botler&amp;quot;,  &amp;quot;dapp-url&amp;quot; : &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot; ,&amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot/bot.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And you&amp;rsquo;re away! You should be able to see you DApp, browse to the same site as before, and chat with the reptitively flattering greeter bot.&lt;/p&gt;
+
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;div class=&#34;content tab-content content-embark&#34;&gt;
+&lt;h3 id=&#34;embark&#34;&gt;Embark&lt;/h3&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;my-first-status-command&#34;&gt;My First Status Command&lt;/h2&gt;
 
 &lt;p&gt;Great work! So, we have set up Status in &lt;code&gt;debug&lt;/code&gt; mode, added our DApp to it (hopefully run the &lt;code&gt;dapp watch&lt;/code&gt; command to get some live-reloading going) and learned how to issue a basic command that will greet our user when they open the app. Now it&amp;rsquo;s time to start doing what chatbots are meant to do - interact with users and gather the necessary info we need from them.&lt;/p&gt;
 
@@ -317,323 +645,6 @@ status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisp
 &lt;p&gt;You can also work with the &lt;code&gt;suggestionsTrigger&lt;/code&gt; parameter. Now that we’ve covered &lt;code&gt;params&lt;/code&gt; and the possibility of &lt;code&gt;suggestions&lt;/code&gt;, it’s easy to see that &lt;code&gt;suggestionsTrigger&lt;/code&gt; will take a string corresponding to an event that, when triggered, will show all your &lt;code&gt;suggestions&lt;/code&gt;. If you don’t include this parameter, the default is &amp;ldquo;on-change&amp;rdquo;, so your suggestions will show when your users selects the command.&lt;/p&gt;
 
 &lt;p&gt;It&amp;rsquo;s also worth knowing about the &lt;code&gt;fullscreen&lt;/code&gt; option. If your command has &lt;code&gt;suggestions&lt;/code&gt;, this &lt;code&gt;param&lt;/code&gt; controls whether that list of suggestions expands to fill the entire screen. If your command has a lot of suggestions, you might want to set &lt;code&gt;fullscreen&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;, so that your users don’t have to pull the list upwards. On the other hand, if your command has only a few suggestions and you set &lt;code&gt;fullscreen&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;, your users will have to pull the list downwards to keep it from hiding the screen. Choose whichever will be most convenient to your users, considering your command’s suggestions.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Errors</title>
-      <link>http://docs.status.im/errors/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://docs.status.im/errors/</guid>
-      <description>
-
-&lt;h1 id=&#34;errors&#34;&gt;Errors&lt;/h1&gt;
-
-&lt;aside class=&#34;notice&#34;&gt;This error section is stored in a separate file, errors.md. DocuAPI allows you to split the single page documentation in as many files as needed. Files are included in the  default Hugo page order . One way of ordering the pages is by setting the page `weight` in the front matter. Pages with lower weight will be listed first.&lt;/aside&gt;
-
-&lt;p&gt;The Kittn API uses the following error codes:&lt;/p&gt;
-
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;Error Code&lt;/th&gt;
-&lt;th&gt;Meaning&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;400&lt;/td&gt;
-&lt;td&gt;Bad Request &amp;ndash; Your request sucks&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;401&lt;/td&gt;
-&lt;td&gt;Unauthorized &amp;ndash; Your API key is wrong&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;403&lt;/td&gt;
-&lt;td&gt;Forbidden &amp;ndash; The kitten requested is hidden for administrators only&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;404&lt;/td&gt;
-&lt;td&gt;Not Found &amp;ndash; The specified kitten could not be found&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;405&lt;/td&gt;
-&lt;td&gt;Method Not Allowed &amp;ndash; You tried to access a kitten with an invalid method&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;406&lt;/td&gt;
-&lt;td&gt;Not Acceptable &amp;ndash; You requested a format that isn&amp;rsquo;t json&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;410&lt;/td&gt;
-&lt;td&gt;Gone &amp;ndash; The kitten requested has been removed from our servers&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;418&lt;/td&gt;
-&lt;td&gt;I&amp;rsquo;m a teapot&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;429&lt;/td&gt;
-&lt;td&gt;Too Many Requests &amp;ndash; You&amp;rsquo;re requesting too many kittens! Slow down!&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;500&lt;/td&gt;
-&lt;td&gt;Internal Server Error &amp;ndash; We had a problem with our server. Try again later.&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td&gt;503&lt;/td&gt;
-&lt;td&gt;Service Unavailable &amp;ndash; We&amp;rsquo;re temporarially offline for maintanance. Please try again later.&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Frameworks</title>
-      <link>http://docs.status.im/frameworks/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>http://docs.status.im/frameworks/</guid>
-      <description>
-
-&lt;h1 id=&#34;frameworks-truffle-embark&#34;&gt;Frameworks (Truffle / Embark)&lt;/h1&gt;
-
-&lt;p&gt;&lt;em&gt;(warning: the Truffle/Embark functionality is still a work in progress. Come ask in the &lt;a href=&#34;http://slack.status.im&#34; target=&#34;_blank&#34;&gt;Slack&lt;/a&gt; if you hit bumps!)&lt;/em&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
-
-&lt;p&gt;In this tutorial, we’ll use the Truffle and Embark frameworks to create a basic DApp ready for further development, and we’ll deploy it on mobile using Status. After we’re done, you’ll be ready to continue developing your DApp, and when you eventually go live, your users will be able to access your DApp by browsing through the Status app, the Chrome MetaMask extension, or the Ethereum Mist browser. One development process, three ways of accessing your DApp!&lt;/p&gt;
-
-&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
-
-&lt;p&gt;Broadly speaking, for both Truffle and Embark, you’ll get the Status app running and connected to your computer, either on a simulator or on a real phone. Next, you’ll install some necessary dependencies. Then, you’ll start testrpc, a mini-Ethereum network that runs on your computer. Finally, you’ll install the Status Truffle box or the Status Embark plugin, create a basic demo app, and add it to Status.&lt;/p&gt;
-
-&lt;p&gt;This is what we&amp;rsquo;re going to go through:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;#installing-git-node-and-npm&#34;&gt;Installing Git, Node, and NPM&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#installing-testrpc&#34;&gt;Installing testrpc&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#creating-a-dapp-using-truffle&#34;&gt;Creating a DApp using Truffle&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;#creating-a-dapp-using-embark&#34;&gt;Creating a DApp using Embark&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In order to install Status and enable debugging, please see the first of the &lt;a href=&#34;#installing-status&#34;&gt;tutorials&lt;/a&gt; &lt;a href=&#34;#enabling-debugging&#34;&gt;above&lt;/a&gt;&lt;/p&gt;
-
-&lt;h2 id=&#34;installing-git-node-and-npm&#34;&gt;Installing Git, Node, and NPM&lt;/h2&gt;
-
-&lt;aside&gt;Can we leave out this first paragraph about git? Truffle/Embark are installed using `npm`, afaict, which probably depends on git, but it&#39;s part of a basic dev toolset.&lt;/aside&gt;
-
-&lt;p&gt;We’ll use the version control tool Git to install the Truffle and Embark frameworks. If you have Xcode installed, Git is probably already installed. To see if it’s installed, open Terminal or any command line program and just enter &lt;code&gt;git&lt;/code&gt;. You should see a list of common Git commands. If you don’t, you can install Git with &lt;a href=&#34;https://git-scm.com/book/en/v2/Getting-Started-Installing-Git&#34; target=&#34;_blank&#34;&gt;these instructions&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;We will also need &lt;strong&gt;node&lt;/strong&gt; (Node.js) and &lt;strong&gt;npm&lt;/strong&gt; (Node Package Manager) to install some dependencies, so make sure you have the latest versions installed. In particular, &lt;code&gt;testrpc&lt;/code&gt; will complain if you don’t have at least Node 6.9.1.&lt;/p&gt;
-
-&lt;p&gt;On OS X, the easiest way to install node &amp;amp; npm is with &lt;a href=&#34;https://brew.sh&#34; target=&#34;_blank&#34;&gt;Homebrew&lt;/a&gt;. You can run &lt;code&gt;brew install node&lt;/code&gt;, and then check the version with &lt;code&gt;node --version&lt;/code&gt;. Npm is installed with node, but updated more often so it&amp;rsquo;s good to update it with &lt;code&gt;npm install npm@latest -g&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;installing-testrpc&#34;&gt;Installing testrpc&lt;/h2&gt;
-
-&lt;p&gt;To install testrpc, you just need to enter this on your command line:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;npm install -g ethereumjs-testrpc
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;What’s &lt;code&gt;testrpc&lt;/code&gt;? When you deploy your DApp, you are asking the Ethereum network to create an address for it. When you use your DApp, you pay the Ethereum network to execute your code. Your DApps talk to the Ethereum network through remote procedure calls, or RPC’s.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;testrpc&lt;/code&gt; is a local network that makes this whole process very fast and you don&amp;rsquo;t have to spend ether with real value, so that it’s easy to develop your DApps. Essentially, &lt;code&gt;testrpc&lt;/code&gt; gives you a small Ethereum network on your computer.&lt;/p&gt;
-
-&lt;p&gt;For more about gas and ether, see the top answer on this &lt;a href=&#34;http://ethereum.stackexchange.com/questions/3/what-is-gas-and-transaction-fee-in-ethereum&#34; target=&#34;_blank&#34;&gt;StackExchange question&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;creating-a-dapp-using-truffle&#34;&gt;Creating a DApp using Truffle&lt;/h2&gt;
-
-&lt;p&gt;While the steps up until now apply to using both Truffle and Embark, now we’ll cover steps specific to each framework. Let’s start with Truffle. If you just want to use Embark, you can skip to the next section.&lt;/p&gt;
-
-&lt;h3 id=&#34;running-testrpc&#34;&gt;Running testrpc&lt;/h3&gt;
-
-&lt;p&gt;Open Terminal or any command line program and enter the command:&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;testrpc&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;That’s it! It will show you a list of available accounts, private keys, Wallet, and mnemonic.&lt;/p&gt;
-
-&lt;p&gt;Now open a new shell (such as a new Terminal window or tab) for the next part. You’ll leave testrpc running in the first window, and use the second window for the rest of the tutorial.&lt;/p&gt;
-
-&lt;h3 id=&#34;installing-truffle&#34;&gt;Installing Truffle&lt;/h3&gt;
-
-&lt;p&gt;Now that you have &lt;code&gt;testrpc&lt;/code&gt; running, and a new shell open, you’ll run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;npm install -g truffle // Version 3.0.5+ required.
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This installs the Truffle framework, and you can find its GitHub &lt;a href=&#34;https://github.com/trufflesuite/truffle&#34; target=&#34;_blank&#34;&gt;page here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;With the Truffle framework installed, we can grab the Status Truffle Box, and get a basic DApp running. All the Truffle boxes also include the app frameworks React and Redux, which were designed by Facebook and are widely used by app developers. You can find the other Truffle &lt;a href=&#34;https://truffle-box.github.io/&#34; target=&#34;_blank&#34;&gt;boxes here&lt;/a&gt;, but for this tutorial you should use the Status Truffle Box, because it’s set up to be added to Status.&lt;/p&gt;
-
-&lt;p&gt;To install the Status Truffle box, all you have to do is run this command in the same Terminal window:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;git clone https://github.com/status-im/truffle-box-status.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;With the Status Truffle box successfully cloned, let’s walk through the next steps of running your DApp.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# Change into the truffle box directory
-cd truffle-box-status
-
-# install the node dependencies
- npm install
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_02.png&#34; alt=&#34;Example on OS X: testrpc running on the left, and installing Truffle on the right&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Example on OS X: testrpc running on the left, and installing Truffle on the right&lt;/em&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# Compile the contracts from Solidity (much like JavaScript) into
-# runnable EVM code
- truffle compile
-
-# Publish the compiled contracts to your network. testrpc must
-# already be running
- truffle migrate
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;As you run the &lt;code&gt;migrate&lt;/code&gt; command, you can look at the window with &lt;code&gt;testrpc&lt;/code&gt; running, and you’ll see your transactions being published to your local network. If you get &lt;code&gt;Error: Invalid JSON RPC response&lt;/code&gt;, you probably forgot to run &lt;code&gt;testrpc&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h3 id=&#34;running-our-truffle-dapp-on-status&#34;&gt;Running our Truffle DApp on Status&lt;/h3&gt;
-
-&lt;p&gt;Now we are ready to see our DApp running on Status.&lt;/p&gt;
-
-&lt;p&gt;From within your DApp directory, run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;# Run your JavaScript
- npm run start
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This should tell you that the the app is running, and that the DApp has been added to the Status Contacts.&lt;/p&gt;
-
-&lt;aside&gt;NOTE: If you&#39;re running Status on a real iOS device, you need to provide the IP of the device as an ENV variable, e.g. `IP=192.168.123.102 npm run start`.
-  &lt;br/&gt;
-Even then, `truffle-box-status` seems to rely on `status-dev-cli` which has a hardcoded value of `localhost` as the host of the DApp: &lt;a href=&#34;https://github.com/status-im/status-dev-cli/blob/7b51136d8d0dc7b0a95136e6489c34870f925e4b/index.js#L33&#34;&gt;(see github)&lt;/a&gt;&lt;/aside&gt;
-
-&lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_03.png&#34; alt=&#34;The DApp added to the default Contacts&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;The DApp added to the default Contacts&lt;/em&gt;&lt;/p&gt;
-
-&lt;p&gt;After you’ve clicked on your DApp within Status, you’ll see that the chat area at the bottom shows &lt;code&gt;/browse http://localhost:3000/&lt;/code&gt; for iOS, and &lt;code&gt;/browse http://10.0.3.2:3000/&lt;/code&gt; for Android.&lt;/p&gt;
-
-&lt;p&gt;In fact, you can also browse to that address from Console with the command &lt;code&gt;/browse&lt;/code&gt;, just like you could browse to any other web address inside Status. You can also enter that address into your browser, and you’ll see the same thing.&lt;/p&gt;
-
-&lt;h2 id=&#34;creating-a-dapp-using-embark&#34;&gt;Creating a DApp using Embark&lt;/h2&gt;
-
-&lt;p&gt;Now that we’ve covered Truffle, let’s take a look at Embark.&lt;/p&gt;
-
-&lt;h3 id=&#34;installing-embark-and-starting-the-network&#34;&gt;Installing Embark and Starting the Network&lt;/h3&gt;
-
-&lt;p&gt;Now that you have Status running and your dependencies installed, you’ll run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;npm -g install embark
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This installs the Embark framework, and you can find its GitHub &lt;a href=&#34;https://github.com/iurimatias/embark-framework&#34; target=&#34;_blank&#34;&gt;page here&lt;/a&gt;.&lt;/p&gt;
-
-&lt;p&gt;With the Embark framework installed, we can make a demo DApp:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;embark demo
-
-#change into the directory
-cd embark_demo
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Next we want to run the network. You can run a full Ethereum node with &lt;code&gt;embark blockchain&lt;/code&gt;, but for development you probably want to run &lt;code&gt;testrpc&lt;/code&gt; with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;embark simulator
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;configuring-our-embark-dapp-for-status&#34;&gt;Configuring our Embark DApp for Status&lt;/h3&gt;
-
-&lt;p&gt;Now we are almost ready to see our DApp running on Status — this part is short and easy. Open a new shell tab in the same DApp directory, and run:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;npm install embark-status --save
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In the same directory, open the file &lt;code&gt;embark.json&lt;/code&gt; and edit the &lt;code&gt;plugins&lt;/code&gt; key:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;&amp;quot;plugins&amp;quot;: {
-    &amp;quot;embark-status&amp;quot;: {
-      &amp;quot;deviceIp&amp;quot;: &amp;quot;your-device-ip&amp;quot;,
-      &amp;quot;whisperIdentity&amp;quot;: &amp;quot;dapp-embark-test&amp;quot;,
-      &amp;quot;name&amp;quot;: &amp;quot;MyEmbarkDapp&amp;quot;
-    }
-  }
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You can get the device IP from the Status Console, which was shown after you ran &lt;code&gt;/debug &amp;quot;On&amp;quot;&lt;/code&gt; above. For instance, if &lt;code&gt;/debug&lt;/code&gt; told me my IP was &lt;code&gt;192.168.123.102&lt;/code&gt;, the entire &lt;code&gt;embark_demo/embark.json&lt;/code&gt; file would look like this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{&amp;quot;contracts&amp;quot;: [&amp;quot;app/contracts/**&amp;quot;],
-  &amp;quot;app&amp;quot;: {
-    &amp;quot;css/app.css&amp;quot;: [&amp;quot;app/css/**&amp;quot;],
-    &amp;quot;images/&amp;quot;: [&amp;quot;app/images/**&amp;quot;],
-    &amp;quot;js/app.js&amp;quot;: [&amp;quot;embark.js&amp;quot;, &amp;quot;app/js/_vendor/jquery.min.js&amp;quot;, &amp;quot;app/js/_vendor/bootstrap.min.js&amp;quot;, &amp;quot;app/js/**&amp;quot;],
-    &amp;quot;index.html&amp;quot;: &amp;quot;app/index.html&amp;quot;
-  },
-  &amp;quot;buildDir&amp;quot;: &amp;quot;dist/&amp;quot;,
-  &amp;quot;config&amp;quot;: &amp;quot;config/&amp;quot;,
-  &amp;quot;plugins&amp;quot;: {
-    &amp;quot;embark-status&amp;quot;: {
-      &amp;quot;deviceIp&amp;quot;: &amp;quot;192.168.123.102&amp;quot;,
-      &amp;quot;whisperIdentity&amp;quot;: &amp;quot;dapp-embark-test&amp;quot;,
-      &amp;quot;name&amp;quot;: &amp;quot;MyEmbarkDapp&amp;quot;
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Finally, if you’re running Status on Android, enable port forwarding with:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;adb forward tcp:5561 tcp:5561
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;running-the-dapp&#34;&gt;Running the DApp&lt;/h3&gt;
-
-&lt;p&gt;Now we’re ready to run the DApp on Status. From within your DApp directory, run:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# start your DApp&lt;/span&gt;
-embark run
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;The Embark console will appear within your shell with useful information about the SimpleStorage contract it has created, compiled, and deployed. It will also tell you that the DApp has been added to Status!&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_04.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_05.png&#34; alt=&#34;The Embark simulator runs in one Terminal window on the left, and the Embark console on the right&#34; /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;The Embark simulator runs in one Terminal window on the top, and the Embark console on the bottom&lt;/em&gt;&lt;/p&gt;
-
-&lt;aside&gt;TODO: Again, this does not work on a real iOS device. To deploy the DApp on the device you&#39;d need to &lt;a href=&#34;https://github.com/status-im/embark-status/blob/master/index.js#L13&#34;&gt;patch this line in embark-status&lt;/a&gt; to include `--dapp-port 5561`?&lt;/aside&gt;
-
-&lt;p&gt;You should be able to tap the Contacts tab within Status and see your DApp there. After you’ve clicked on your DApp within Status, you’ll see that the chat area at the bottom shows &lt;code&gt;/browse http://localhost:8000/&lt;/code&gt; for iOS, and &lt;code&gt;/browse http://192.168.123.102:3000/&lt;/code&gt; for Android.&lt;/p&gt;
-
-&lt;aside&gt;TODO: Does this difference between address bar contents on iOS/Android presume that iOS is running in simulator and Android on real device? Make that clear and explicit.&lt;/aside&gt;
-
-&lt;p&gt;In fact, you can also browse to that address from Console with the command &lt;code&gt;/browse&lt;/code&gt;, just like you could browse to any other web address inside Status. You can also enter that address into your browser, and you’ll see the same thing.&lt;/p&gt;
-
-&lt;h2 id=&#34;you-re-off-to-the-races&#34;&gt;You’re Off to the Races&lt;/h2&gt;
-
-&lt;p&gt;Using Status, you can now develop mobile DApps as easily as developing for MetaMask or Mist! But Status offers extra goodies as well.&lt;/p&gt;
-
-&lt;p&gt;In particular, Status will help you allow your users to chat with your DApp! The chat interface will let your users easily and intuitively accomplish tasks. In the future, your users will be able to hold group conversations where all the other participants are DApps, which is kind of amazing.&lt;/p&gt;
-
-&lt;p&gt;Later we’ll have an easy mechanism to make your DApp available for others to use on Status, but for now please just submit a pull request using our &lt;a href=&#34;http://wiki.status.im/contributing/development/adding-dapps/&#34; target=&#34;_blank&#34;&gt;guide on adding DApps&lt;/a&gt;.&lt;/p&gt;
 </description>
     </item>
     
