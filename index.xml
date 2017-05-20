@@ -103,11 +103,11 @@
 &lt;div class=&#34;content tabs&#34;&gt;
    
     
-        &lt;input id=&#34;tab-Android-Device-jdocvwmxslhfzngzqtekaburyi&#34; class=&#34;tab tab-Android-Device&#34; type=&#34;radio&#34; name=&#34;tabs-jdocvwmxslhfzngzqtekaburyi&#34; checked&gt;
-        &lt;label for=&#34;tab-Android-Device-jdocvwmxslhfzngzqtekaburyi&#34; class=&#34;tab&#34;&gt;Android-Device&lt;/label&gt;
+        &lt;input id=&#34;tab-Android-Device-fdcrtzqiaymvjeszhbwluknxgo&#34; class=&#34;tab tab-Android-Device&#34; type=&#34;radio&#34; name=&#34;tabs-fdcrtzqiaymvjeszhbwluknxgo&#34; checked&gt;
+        &lt;label for=&#34;tab-Android-Device-fdcrtzqiaymvjeszhbwluknxgo&#34; class=&#34;tab&#34;&gt;Android-Device&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Genymotion-jdocvwmxslhfzngzqtekaburyi&#34; class=&#34;tab tab-Genymotion&#34; type=&#34;radio&#34; name=&#34;tabs-jdocvwmxslhfzngzqtekaburyi&#34; checked&gt;
-        &lt;label for=&#34;tab-Genymotion-jdocvwmxslhfzngzqtekaburyi&#34; class=&#34;tab&#34;&gt;Genymotion&lt;/label&gt;
+        &lt;input id=&#34;tab-Genymotion-fdcrtzqiaymvjeszhbwluknxgo&#34; class=&#34;tab tab-Genymotion&#34; type=&#34;radio&#34; name=&#34;tabs-fdcrtzqiaymvjeszhbwluknxgo&#34; checked&gt;
+        &lt;label for=&#34;tab-Genymotion-fdcrtzqiaymvjeszhbwluknxgo&#34; class=&#34;tab&#34;&gt;Genymotion&lt;/label&gt;
     
 &lt;div class=&#34;content tab-content content-Android-Device&#34;&gt;
 &lt;p&gt;First, connect your phone to your development machine. If you are using an android device, you can check that is is connected and then enable port forwarding on &lt;code&gt;5561&lt;/code&gt; for the debug server.&lt;/p&gt;
@@ -170,14 +170,14 @@ inet &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;.10.0.216 netmask 0xfffffe00 b
 &lt;div class=&#34;content tabs&#34;&gt;
    
     
-        &lt;input id=&#34;tab-DIY-zxgqbzhutkyinldwraojfmecsv&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-zxgqbzhutkyinldwraojfmecsv&#34; checked&gt;
-        &lt;label for=&#34;tab-DIY-zxgqbzhutkyinldwraojfmecsv&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
+        &lt;input id=&#34;tab-DIY-kgiqytrnuhcxofdjvazbmlsezw&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-kgiqytrnuhcxofdjvazbmlsezw&#34; checked&gt;
+        &lt;label for=&#34;tab-DIY-kgiqytrnuhcxofdjvazbmlsezw&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Embark-zxgqbzhutkyinldwraojfmecsv&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-zxgqbzhutkyinldwraojfmecsv&#34; checked&gt;
-        &lt;label for=&#34;tab-Embark-zxgqbzhutkyinldwraojfmecsv&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
+        &lt;input id=&#34;tab-Embark-kgiqytrnuhcxofdjvazbmlsezw&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-kgiqytrnuhcxofdjvazbmlsezw&#34; checked&gt;
+        &lt;label for=&#34;tab-Embark-kgiqytrnuhcxofdjvazbmlsezw&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Truffle-zxgqbzhutkyinldwraojfmecsv&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-zxgqbzhutkyinldwraojfmecsv&#34; checked&gt;
-        &lt;label for=&#34;tab-Truffle-zxgqbzhutkyinldwraojfmecsv&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
+        &lt;input id=&#34;tab-Truffle-kgiqytrnuhcxofdjvazbmlsezw&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-kgiqytrnuhcxofdjvazbmlsezw&#34; checked&gt;
+        &lt;label for=&#34;tab-Truffle-kgiqytrnuhcxofdjvazbmlsezw&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
     
 &lt;div class=&#34;content tab-content content-DIY&#34;&gt;
 &lt;h3 id=&#34;do-it-yourself-with-status-dev-cli&#34;&gt;Do It Yourself with &lt;code&gt;status-dev-cli&lt;/code&gt;&lt;/h3&gt;
@@ -469,14 +469,14 @@ npm install embark-status --save
 &lt;div class=&#34;content tabs&#34;&gt;
    
     
-        &lt;input id=&#34;tab-DIY-vhgynsczkfjliudzxwerbtomqa&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-vhgynsczkfjliudzxwerbtomqa&#34; checked&gt;
-        &lt;label for=&#34;tab-DIY-vhgynsczkfjliudzxwerbtomqa&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
+        &lt;input id=&#34;tab-DIY-cxertnwlgqzszbumfkoidayvjh&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-cxertnwlgqzszbumfkoidayvjh&#34; checked&gt;
+        &lt;label for=&#34;tab-DIY-cxertnwlgqzszbumfkoidayvjh&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Embark-vhgynsczkfjliudzxwerbtomqa&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-vhgynsczkfjliudzxwerbtomqa&#34; checked&gt;
-        &lt;label for=&#34;tab-Embark-vhgynsczkfjliudzxwerbtomqa&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
+        &lt;input id=&#34;tab-Embark-cxertnwlgqzszbumfkoidayvjh&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-cxertnwlgqzszbumfkoidayvjh&#34; checked&gt;
+        &lt;label for=&#34;tab-Embark-cxertnwlgqzszbumfkoidayvjh&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Truffle-vhgynsczkfjliudzxwerbtomqa&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-vhgynsczkfjliudzxwerbtomqa&#34; checked&gt;
-        &lt;label for=&#34;tab-Truffle-vhgynsczkfjliudzxwerbtomqa&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
+        &lt;input id=&#34;tab-Truffle-cxertnwlgqzszbumfkoidayvjh&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-cxertnwlgqzszbumfkoidayvjh&#34; checked&gt;
+        &lt;label for=&#34;tab-Truffle-cxertnwlgqzszbumfkoidayvjh&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
     
 &lt;div class=&#34;content tab-content content-DIY&#34;&gt;
 &lt;h3 id=&#34;do-it-yourself&#34;&gt;Do It Yourself&lt;/h3&gt;
@@ -620,14 +620,14 @@ status-dev-cli add &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-id
 &lt;div class=&#34;content tabs&#34;&gt;
    
     
-        &lt;input id=&#34;tab-DIY-oetzxdfmsrgqjzyvwhuabcilkn&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-oetzxdfmsrgqjzyvwhuabcilkn&#34; checked&gt;
-        &lt;label for=&#34;tab-DIY-oetzxdfmsrgqjzyvwhuabcilkn&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
+        &lt;input id=&#34;tab-DIY-wzbhgcrixnmsyvqdotzaejfukl&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-wzbhgcrixnmsyvqdotzaejfukl&#34; checked&gt;
+        &lt;label for=&#34;tab-DIY-wzbhgcrixnmsyvqdotzaejfukl&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Embark-oetzxdfmsrgqjzyvwhuabcilkn&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-oetzxdfmsrgqjzyvwhuabcilkn&#34; checked&gt;
-        &lt;label for=&#34;tab-Embark-oetzxdfmsrgqjzyvwhuabcilkn&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
+        &lt;input id=&#34;tab-Embark-wzbhgcrixnmsyvqdotzaejfukl&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-wzbhgcrixnmsyvqdotzaejfukl&#34; checked&gt;
+        &lt;label for=&#34;tab-Embark-wzbhgcrixnmsyvqdotzaejfukl&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Truffle-oetzxdfmsrgqjzyvwhuabcilkn&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-oetzxdfmsrgqjzyvwhuabcilkn&#34; checked&gt;
-        &lt;label for=&#34;tab-Truffle-oetzxdfmsrgqjzyvwhuabcilkn&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
+        &lt;input id=&#34;tab-Truffle-wzbhgcrixnmsyvqdotzaejfukl&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-wzbhgcrixnmsyvqdotzaejfukl&#34; checked&gt;
+        &lt;label for=&#34;tab-Truffle-wzbhgcrixnmsyvqdotzaejfukl&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
     
 &lt;div class=&#34;content tab-content content-DIY&#34;&gt;
 &lt;h3 id=&#34;do-it-yourself-with-status-dev-cli&#34;&gt;Do It Yourself with &lt;code&gt;status-dev-cli&lt;/code&gt;&lt;/h3&gt;
