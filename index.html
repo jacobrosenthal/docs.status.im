@@ -139,12 +139,36 @@
 
 <p>You can go to <a href="https://test.status.im" target="_blank">https://test.status.im</a> to download for Android. At the time of writing, we’re out of invitations for Testflight, but you can sign up for early iOS access <a href="http://status.im" target="_blank">on our website</a>.</p>
 
+<aside class="success">
+ Please note that these documents are intended for the latest version of "status-dev-cli" and the nightly developer builds of Status itself. To update `status-dev-cli` please run "npm uninstall -g status-dev-cli" and then "npm i -g status-dev-cli". Our nightly builds can be found here: http://artifacts.status.im:8081/artifactory/nightlies-local/.
+</aside>
+
 <p>If you don’t have a smartphone, or you only have an iPhone but want to get started right away, you can build Status yourself for either Android or iOS by following <a href="https://wiki.status.im/contributing/development/building-status/" target="_blank">these guidelines</a>. There, you will find instructions for installing an Android simulator, or starting up Status in the Xcode simulator.</p>
 
 <p>Our wiki guidelines should be all you need, but if you get lost come ask around in <a href="https://slack.status.im" target="_blank">our Slack</a>.</p>
 
 <h2 id="networking-and-debugging">Networking and Debugging</h2>
 
+<style>
+.tab-content { display: none; }
+
+
+.tab-android-device:checked ~ .content-android-device , 
+
+.tab-genymotion:checked ~ .content-genymotion 
+ {
+    display: block;
+}
+</style>
+<div class="content tabs">
+    
+        <input class="tab-android-device" type="radio" name="tabs" checked>
+        <label>android-device</label>
+    
+        <input class="tab-genymotion" type="radio" name="tabs" checked>
+        <label>genymotion</label>
+    
+<div class="content tab-content content-android-device">
 <p>First, connect your phone to your development machine. If you are using an android device, you can check that is is connected and then enable port forwarding on <code>5561</code> for the debug server.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># android only</span>
 adb devices
@@ -162,10 +186,30 @@ adb -s DEVICE_ID forward tcp:5561 tcp:5561
 
 <p>The important part of the message is your <code>device IP</code> address, which we&rsquo;ll be using throughout.</p>
 
-<p>To find out your computer&rsquo;s IP, use <code>ifconfig</code> from the command line and look for your internal IPv4 address:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>ifconfig <span class="p">|</span> grep inet
+<p></div></p>
 
-<span class="c1"># Find the line beginning with just inet - this is your IPv4 address</span>
+<div class="content tab-content content-genymotion">
+<ol>
+<li>Install genymotion</li>
+<li>Create a genymotion virtual device</li>
+<li>Switch to network bridge mode</li>
+<li>Start device</li>
+<li>Install status.im apk from nightly builds by dragging onto emulator window</li>
+<li>Start status.im app on device</li>
+<li>Turn on debugging in console (/debug). Record the ip address to use later as <DEVICE-IP>. You should be able to ping this ip from your actual os</li>
+<li>Forward port 5561 (use genymotion adb!): <code>/opt/genymotion/tools/adb forward tcp:5561 tcp:5561</code></li>
+<li>Serve your app over http</li>
+<li><code>status-dev-cli add [dapp]</code> where dapp is your json file with <code>whisper-identity</code> etc.</li>
+</ol>
+
+</div>
+
+</div>
+
+<p>To find out your computer&rsquo;s IP, use <code>ifconfig</code> from the command line and look for your internal IPv4 address:</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>ifconfig <span class="p">|</span> grep inet  
+
+<span class="c1"># Find the line beginning with just inet - this is your IPv4 address  </span>
 inet <span class="m">10</span>.10.0.216 netmask 0xfffffe00 broadcast <span class="m">10</span>.10.1.255
 </code></pre></div>
 
@@ -242,7 +286,7 @@ http-server
 <p><blockquote>
 <p>In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the <code>&ndash;ip</code> flag with the IP address listed by Console once you have selected the <code>debug</code> option and turned it on. You should already have enabled adb port forwarding on 5561 if you are using an Android device.</p>
 </blockquote>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;my-dapp&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;My DApp&quot;}&#39;</span> &ndash;ip &lt;DEVICE-IP&gt;
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;hello-bot&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;Hello&quot;}&#39;</span> &ndash;ip &lt;DEVICE-IP&gt;
 </code></pre></div></p>
 
 <p>First, install the <code>status-dev-cli</code> tools globally using NPM.</p>
@@ -259,7 +303,16 @@ http-server
 
 <p><code>&lt;MACHINE-IP&gt;</code> needs to be <code>localhost</code> or <code>127.0.0.1</code>, if you are using a simulator, or whatever your PC&rsquo;s (internal) IP is if you are using a connected phone.</p>
 
-<p>That&rsquo;s it! You should be able to see your DApp in the chats, and opening it should browse automatically to a page that shows your account information. You can also do live-reloading once you&rsquo;re happy with this by running <code>status-dev-cli watch-dapp . '{&quot;whisper-identity&quot;: &quot;my-dapp&quot;}'</code></p>
+<p>That&rsquo;s it! You should be able to see your DApp in the chats, and opening it should browse automatically to a page that shows your account information. You can also do live-reloading once you&rsquo;re happy with this by running <code>status-dev-cli watch $PWD '{&quot;whisper-identity&quot;: &quot;hello-bot&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;Hello&quot;}' --ip &lt;DEVICE-IP&gt;</code></p>
+
+<ul>
+<li>Known Issues</li>
+</ul>
+
+<p>1) You may need to escape the <code>json</code> information you are passing into <code>status-dev-cli</code> if you are on a windows machine, like so: <code>status-dev-cli add '{\&quot;whisper-identity\&quot;: \&quot;my-dapp5\&quot;, \&quot;dapp-url\&quot;: \&quot;http://&lt;MACHINE-ip&gt;:8
+080\&quot;,\&quot;name\&quot;: \&quot;My DApp\&quot;}' --ip &lt;DEVICE-IP&gt;</code></p>
+
+<p>2) If using a real device, you also need to ensure that it is set to use MTP (media transfer Protocol) in the USB-debugging settings. Open the equivalent of your settings or develop options by pulling down the top menu and clicking in the debugging options.</p>
 
 <p>Happy travels!</p>
 
@@ -274,7 +327,7 @@ http-server
 
 <p>OK, so we can write a little HTML5 DApp that displays information to Status users through a simple webView component. However, we want to do so much more! We want to write smart contracts, deploy them, and interact with them through a fully mobile user interface; and we want to build decentralized chatbots that live within Status and make friends with all the humans.</p>
 
-<p>If you want to get straight to making chatbots, please go <a href="#my-first-status-command">here</a>.</p>
+<p>If you want to get straight to making chatbots, please go <a href="#my-first-1-1-chatbot">here</a>.</p>
 
 <p>Frameworks can lighten the load of developing considerably, and so we include here some quick examples to get you up and running with the two most popular Ethereum frameworks currently available - Truffle and Embark.</p>
 
@@ -343,15 +396,11 @@ npm run start
 
 <p>Again, the DApp should appear in your chats screen, and navigating to it should automatically open a browser that reveals all the goodies hidden in this truffle box. It should also display the stored value of <code>5</code> from the SimpleStorage contract that we deployed to <code>testrpc</code> by running <code>truffle migrate</code> above.</p>
 
+<p>If you would like to change the name that appears for your bot when it gets added to Status, simply edit the <code>package.json</code> and update the name there.</p>
+
 <p><em>Known problems:</em></p>
 
-<p>1) <code>status-dev-cli</code> currently has a hard-coded value for <code>localhost</code>, rather than allowing dynamic inputs. We are working on a fix, but - depending on your setup - you may need to change this for everything to work smoothly. Do this simply by executing:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> node_modules/status-dev-cli/ <span class="o">&amp;&amp;</span> nano index.js
-</code></pre></div>
-
-<p>and change lines 13 and 33 to reflect the correct IP address of your machine.</p>
-
-<p>2) If you are running on a real iOS device, you need to configure Truffle Box to use the network on your computer. In <code>truffle.js</code>, change <code>host</code> to the IP of your computer:</p>
+<p>1) If you are running on a real iOS device, you need to configure Truffle Box to use the network on your computer. In <code>truffle.js</code>, change <code>host</code> to the IP of your computer:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">migrations_directory</span><span class="o">:</span> <span class="s2">&quot;./migrations&quot;</span><span class="p">,</span>
   <span class="nx">networks</span><span class="o">:</span> <span class="p">{</span>
@@ -381,7 +430,7 @@ npm run start
 <p>Next we want to start the network. You can run a full Ethereum node with <code>embark blockchain</code>, but for development you probably want to run <code>testrpc</code>. We want it to run on port 8546 though, so it doesn&rsquo;t interfere with Status, so we need to edit the <code>blockchain.js</code>:</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>nano config/blockchain.json
 
-<span class="c1"># Now edit the &#39;Development&#39; Network to read:</span>
+<span class="c1"># Now edit the &#39;Development&#39; Network and change only the rpcPort field to 8546:</span>
 
 <span class="s2">&quot;development&quot;</span>: <span class="o">{</span>
     <span class="s2">&quot;enabled&quot;</span>: true,
@@ -424,7 +473,7 @@ npm install embark-status --save
 <span class="p">}</span>
 </code></pre></div>
 
-<p>Also, you need to tell Embark the IP of the DApp host. Navigate to and change the <code>config/webserver.js</code> file so that it reflects your development machine&rsquo;s IP address:</p>
+<p>Also, you may need to tell Embark the IP of the DApp host if you&rsquo;re not using <code>localhost</code> as a default. Navigate to and change the <code>config/webserver.js</code> file so that it reflects your development machine&rsquo;s IP address:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">{</span>
   <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;your-machines-ip&gt;&quot;</span><span class="p">,</span>
@@ -441,7 +490,7 @@ npm install embark-status --save
 </code></pre></div>
 
 <p>The Embark console will appear within your shell with useful information about the SimpleStorage contract it has created, compiled, and deployed. Now just add your DApp, and have some fun!</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;embark&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8000/&quot;, &quot;name&quot;: &quot;Embark&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;embark&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8000/&quot;, &quot;name&quot;: &quot;Embark&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
 <p><img src="images/starting-a-dapp-on-status-with-frameworks_04.png" alt="" /></p>
@@ -464,15 +513,15 @@ npm install embark-status --save
 
 <p>Later we’ll have an easy mechanism to make your DApp available for others to use on Status, but for now please just submit a pull request using our <a href="http://wiki.status.im/contributing/development/adding-dapps/" target="_blank">guide on adding DApps</a>.</p>
 
-<h2 id="my-first-interactive-suggestion-area">My First Interactive Suggestion Area</h2>
+<h2 id="my-first-1-1-chatbot">My First 1-1 Chatbot</h2>
 
-<p>Once you have worked through the first tutorials and understood the basic steps to building a DApp and adding it into Status, it&rsquo;s time to get our hands a little more dirty by actually writing some real commands that will begin to utilise the awesome power of the Status API. It&rsquo;s time to make use of the API proper in order to build a decentralized chatbot that leverages Status&rsquo; awesome mobile interface, so that we can take your DApp to the next level.</p>
+<p>Once you have worked through the first tutorials and understood the basic steps to building a DApp and adding it into Status, it&rsquo;s time to get our hands a little more dirty by actually writing a simple, one-response chatbot that will begin to utilise the awesome power of the Status API.</p>
 
-<p>We kind of cheated a little in the previous tutorials. While it is totally possible to have your html5 DApp work perfectly in Status via <code>webView</code>, it&rsquo;s obviously not the most optimal way to do things. We use <a href="http://www.braveclojure.com/introduction/" target="_blank">ClojureScript</a> and React Native to handle all our things, but you don&rsquo;t have to. The main take away here is that the chat context itself is actually an Otto VM jail that executes the javascript you write, and then integrates that directly with Status. So, we can actually write bots that are purely javascript-based. Please see <a href="https://github.com/status-im/status-react/tree/develop/bots" target="_blank">here</a> for a full list of all our current bots and their source code.</p>
+<p>We kind of cheated a little in the previous tutorials. While it is totally possible to have your html5 DApp work perfectly in Status via <code>webView</code>, it&rsquo;s obviously not the most optimal way to do things. There are essentailly two different ways for developers to interact with Status, best illustrated by the Status Anatomy below:</p>
 
-<p>Please take a moment to familiarise yourself with the anatomy of Status so that you can get a visual sense of what is happening where and how you can best utilise it all.</p>
+<p><img src="images/status-anatomy.png" alt="status-anatomy.png" /></p>
 
-<p><img src="https://github.com/status-im/docs.status.im/blob/develop/static/images/status-anatomy.png" alt="status-anatomy.png" /></p>
+<p>The main take away here is that the chat context itself is actually an Otto VM jail that executes the javascript you write, and then integrates that directly with Status. So, we can actually write bots that are purely javascript-based. Please see <a href="https://github.com/status-im/status-react/tree/develop/bots" target="_blank">here</a> for a full list of all our current bots and their source code.</p>
 
 <p><style>
 .tab-content { display: none; }
@@ -501,12 +550,12 @@ npm install embark-status --save
 <div class="content tab-content content-diy">
 <h3 id="do-it-yourself">Do It Yourself</h3>
 
-<p>First, we&rsquo;re going to navigate back to our <code>my-dapp</code> directory we created for the first tutorial and make a new directory and file to keep our javascript in.</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/my-dapp
-mkdir bot <span class="o">&amp;&amp;</span> <span class="nb">cd</span> bot/ <span class="o">&amp;&amp;</span> touch bot.js
+<p>First, we&rsquo;re going to create a new <code>bots</code> directory and add file to keep our javascript in.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~
+mkdir bots <span class="o">&amp;&amp;</span> <span class="nb">cd</span> bots <span class="o">&amp;&amp;</span> touch bot.js
 </code></pre></div>
 
-<p>Instead of simply adding a new DApp, we can now include a <code>bot-url</code> parameter in our call to <code>status-dev-cli</code>. The chatbot url targets a <code>js</code> file, and this file will be loaded in the Otto VM shown in the anatomy. Code in this file сan interact with the input field, messages and react however we program it to.</p>
+<p>Instead of adding a new DApp, we can now include a <code>bot-url</code> parameter in our call to <code>status-dev-cli</code>. The chatbot url targets a <code>js</code> file, and this file will be loaded in the Otto VM shown in the anatomy. Code in this file сan interact with the input field, messages and react however we program it to.</p>
 
 <p>Add the following code snippet to the newly-created <code>bot.js</code> file.</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s2">&quot;on-message-send&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
@@ -526,7 +575,7 @@ mkdir bot <span class="o">&amp;&amp;</span> <span class="nb">cd</span> bot/ <spa
 <span class="p">});</span>
 </code></pre></div>
 
-<p>Then, navigate back to the <code>my-dapp</code> directory, due the necessary Android steps if you are using that platform, and start the http server again. Then, open a new shell window and add your new bot.</p>
+<p>Then, navigate back to the <code>bots</code> directory, do the necessary Android steps if you are using that platform, and start the http server again. Then, open a new shell window and add your new bot. It&rsquo;s important to note a few things here. We are <code>add</code>ing a new new bot, rather than just watching the DApp we built earlier for changes. Also, we are only passing in a <code>bot-url</code>, rather than a <code>dapp-url</code> - this will ensure that, when you open your new bot contact, it won&rsquo;t automatically launch a browser a window.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1">#make sure you&#39;re in my-dapp or the equivalent</span>
 <span class="nb">cd</span> ..
 
@@ -536,19 +585,14 @@ http-server
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># android only</span>
 adb -s DEVICE_ID reverse tcp:8080 tcp::8080
 
-status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;botler&quot;,  &quot;name&quot;: &quot;Botler&quot;,  &quot;dapp-url&quot; : &quot;http://&lt;MACHINE-IP&gt;:8080/&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bot/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;botler&quot;,  &quot;name&quot;: &quot;Botler&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
 <p>This is pretty much the simplest responsive chatbot we can write, using only the <code>addListener</code> function from the API. All it&rsquo;s listening for is a message-send event, to which it will try to respond with the test <code>You're amazing, master!</code>. You&rsquo;ll see that it opens a browse window by default, which is not desired behaviour and will be fixed in the next release. Just close the window and type a message to your new bot.</p>
 
 <p>Obviously, there&rsquo;s much more we can do than simply listen for messages and send flattering responses. All will be revealed in the next tutorial. If you&rsquo;re feeling impatient, you can find a full Demo Bot <a href="https://github.com/status-im/status-react/tree/34b77022f7926dbabbb0e8c5e8471eaea5ed812f/bots/demo_bot" target="_blank">here</a>.</p>
 
-<p>Go ahead and try and add this bot too, and see if you can figure out how it works and what you can do with it!</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> bot/ <span class="o">&amp;&amp;</span> touch demo_bot.js <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ..
-status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;slider&quot;,  &quot;name&quot;: &quot;Slider&quot;,  &quot;dapp-url&quot; : &quot;http://&lt;MACHINE-IP&gt;:8080/&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bot/demo_bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
-</code></pre></div>
-
-</div>
+<p></div></p>
 
 <div class="content tab-content content-truffle">
 <h3 id="truffle">Truffle</h3>
@@ -557,12 +601,13 @@ status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &qu
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># Android only</span>
 adb forward tcp:5561 tcp:5561
 
-<span class="nb">test</span> rpc -p <span class="m">8546</span>
+testrpc -p <span class="m">8546</span>
 
 <span class="c1"># Android only</span>
 adb reverse tcp:8546 tcp:8546
 
 status-dev-cli switch-node <span class="s2">&quot;http://localhost:8546&quot;</span>
+
 <span class="nb">cd</span> ~/truffle-box-status
 
 <span class="c1"># If you want to be extra sure your contracts are there, run:</span>
@@ -600,10 +645,141 @@ truffle serve
 <span class="c1"># In another shell</span>
 adb reverse tcp:8080 tcp:8080
 
-status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;truffle-botler&quot;,  &quot;name&quot;: &quot;Truffle Botler&quot;,  &quot;dapp-url&quot; : &quot;http://&lt;MACHINE-IP&gt;:8080/&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bot/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;truffle-botler&quot;,  &quot;name&quot;: &quot;Truffle Botler&quot;, &quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bot/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
-<p>And you&rsquo;re away! You should be able to see you DApp, browse to the same site as before, and chat with the reptitively flattering greeter bot.</p>
+<p>And you&rsquo;re away! You should be able to see your DApp, browse to the same site as before, and chat with the repetitively flattering greeter bot.</p>
+
+<p></div></p>
+
+<div class="content tab-content content-embark">
+<h3 id="embark">Embark</h3>
+
+<p>First, go back to the <code>embark_demo/</code> directory we created <a href="#my-first-dapp">earlier</a>, where we set up the correct configuration for Embark and Status. Essentially, you just want to make sure - as with the Truffle Box example - that you put the javascript file in the right place so that you can reference it correctly.</p>
+
+</div>
+
+</div></p>
+
+<h2 id="my-first-status-command">My First Status Command</h2>
+
+<style>
+.tab-content { display: none; }
+
+
+.tab-diy:checked ~ .content-diy , 
+
+.tab-embark:checked ~ .content-embark , 
+
+.tab-truffle:checked ~ .content-truffle 
+ {
+    display: block;
+}
+</style>
+<div class="content tabs">
+    
+        <input class="tab-diy" type="radio" name="tabs" checked>
+        <label>diy</label>
+    
+        <input class="tab-embark" type="radio" name="tabs" checked>
+        <label>embark</label>
+    
+        <input class="tab-truffle" type="radio" name="tabs" checked>
+        <label>truffle</label>
+    
+<div class="content tab-content content-diy">
+<h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
+
+<p>So, we have set up Status in <code>debug</code> mode, added our DApp to it (hopefully run the <code>dapp watch</code> command to get some live-reloading going) and learned how to start a conversation with a simple javascript chatbot. Now it&rsquo;s time to start using the API proper and start using the provided commands to interact with our users and help them out.</p>
+
+<p>Navigate back to your <code>bots</code> directory and open the <code>bot.js</code> file where we put the <code>status.addListener</code> function in the previous tutorials. We will again pass this fils in as a <code>bot-url</code> parameter to <code>status-dev-cli</code>, which will then execute the code in an Otto VM jail.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/bots/ <span class="o">&amp;&amp;</span> nano bot.js
+
+<span class="c1"># or use &#39;vi bot.js&#39; if that&#39;s your preference</span>
+</code></pre></div>
+
+<p>Then, open the file in the text editor of your choice and add in the code provided. All we want to do is provide our user with a command, called <code>hello</code> that they can issue into the chat and we can respond to. In order to achieve this effect, we set up a simple <code>status.command()</code> and pass in a name, title and description so as to identify our command and display it to the user, along with some helpful information about what it does.</p>
+
+<p>We then set a color for the command to appear in set up our preview function. You can read about exactly what the preview function can achieve in the formal API specififcation but, in a nutshell, the preview defines what the user will see returned in the markup - i.e. where the messages appear.</p>
+
+<p>Here, we are creating a simple text response by setting up a variable that we pass to <code>status.components.text</code>, which the perceptive will notice is a React Native component - a whole bunch more of which are available and detailed in the formal specification. Beneath the text, we are creating a standard response of &ldquo;Hello from the other side!&rdquo;, all of which will be returned as json to the markup. Note again the use of another React Native component - <code>status.components.view</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+     <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+     <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;HelloBot&quot;</span><span class="p">,</span>
+     <span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;Helps you say hello&quot;</span><span class="p">,</span>
+     <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#CCCCCC&quot;</span><span class="p">,</span>
+     <span class="nx">preview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+             <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                 <span class="p">{</span>
+                     <span class="nx">style</span><span class="o">:</span> <span class="p">{</span>
+                         <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+                         <span class="nx">marginHorizontal</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                         <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+                         <span class="nx">fontFamily</span><span class="o">:</span> <span class="s2">&quot;font&quot;</span><span class="p">,</span>
+                         <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;black&quot;</span>
+                     <span class="p">}</span>
+                 <span class="p">},</span> <span class="s2">&quot;Hello from the other side!&quot;</span><span class="p">);</span>
+
+             <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">({},</span> <span class="p">[</span><span class="nx">text</span><span class="p">])};</span>
+         <span class="p">}</span>
+ <span class="p">});</span>
+</code></pre></div>
+
+<p>Go ahead and serve your dapp again:</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>http-server
+
+<span class="c1"># In another shell if on android</span>
+adb -s DEVICE_ID reverse tcp:8080 tcp:8080
+
+status-dev-cli watch <span class="nv">$PWD</span> <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;botler&quot;,  &quot;name&quot;: &quot;Botler&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+</code></pre></div>
+
+<p>And there you go - we are now capable of greeting and interacting with our bot in two ways! You should be able to see your DApp, navigate to it, tap the new <code>/hello</code> command you see above the text input field and see your new Dapp respond.</p>
+
+<p></div></p>
+
+<div class="content tab-content content-truffle">
+<h3 id="truffle">Truffle</h3>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/truffle-box-status/build/bot/ <span class="o">&amp;&amp;</span> touch hello.js
+nano hello.js
+</code></pre></div>
+
+<p><p>Navigate back to the truffle box  <code>build</code> directory and make a new file for us to write a command in that we can display through truffle. Place the same command provided above in that file.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+     <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+     <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;HelloBot&quot;</span><span class="p">,</span>
+     <span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;Helps you say hello&quot;</span><span class="p">,</span>
+     <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#CCCCCC&quot;</span><span class="p">,</span>
+     <span class="nx">preview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+             <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                 <span class="p">{</span>
+                     <span class="nx">style</span><span class="o">:</span> <span class="p">{</span>
+                         <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+                         <span class="nx">marginHorizontal</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                         <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+                         <span class="nx">fontFamily</span><span class="o">:</span> <span class="s2">&quot;font&quot;</span><span class="p">,</span>
+                         <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;black&quot;</span>
+                     <span class="p">}</span>
+                 <span class="p">},</span> <span class="s2">&quot;Hello from the other side!&quot;</span><span class="p">);</span></p>
+
+<pre><code>         &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;markup&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;status&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;components&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;view&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;({},&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])};&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+</code></pre>
+
+<p><span class="p">});</span>
+</code></pre></div></p>
+
+<p><p>This time, rather than running the <code>npm</code> task, we&rsquo;ll just start a quick server with <code>truffle</code> itself. Writing the correct <code>start</code> script is left as an exercise for the reader ;)</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># Make sure you&#39;re in the truflle-box-status/ directory</span>
+<span class="nb">cd</span> ..</p>
+
+<p>truffle serve</p>
+
+<p><span class="c1"># In another shell</span>
+adb reverse tcp:8080 tcp:8080</p>
+
+<p>status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;truffle-hello&quot;,  &quot;name&quot;: &quot;Truffle Greeter&quot;, &quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bot/truffle-hello.js&quot;}&#39;</span> &ndash;ip &lt;DEVICE-IP&gt;
+</code></pre></div></p>
 
 <p></div></p>
 
@@ -612,41 +788,61 @@ status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &qu
 
 </div>
 
-</div></p>
+</div>
 
-<h2 id="my-first-status-command">My First Status Command</h2>
+<h2 id="my-first-interactive-suggestions-area">My First Interactive Suggestions Area</h2>
 
-<p>Great work! So, we have set up Status in <code>debug</code> mode, added our DApp to it (hopefully run the <code>dapp watch</code> command to get some live-reloading going) and learned how to issue a basic command that will greet our user when they open the app. Now it&rsquo;s time to start doing what chatbots are meant to do - interact with users and gather the necessary info we need from them.</p>
+<p>OK, so we can build up a basic command, show it to the user and have it do something (like return text) when the user taps it. That&rsquo;s great, but what happens if we want to be a bit more dynamic and interactive and suggest to our users a range of options to choose from when issuing the command?</p>
 
-<p>This first thing we must do is add a <code>preview</code> object to that neat little <code>hello</code> command we just wrote in app.js. <code>preview</code> defines what your user will see as a result of their action, before any other response. The preview parameter takes a function, which should return a <code>status.component</code>.</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">preview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">({},</span> <span class="s2">&quot;you’re saying hello&quot;</span><span class="p">);</span>
-<span class="p">},</span>
+<style>
+.tab-content { display: none; }
+
+
+.tab-diy:checked ~ .content-diy , 
+
+.tab-embark:checked ~ .content-embark , 
+
+.tab-truffle:checked ~ .content-truffle 
+ {
+    display: block;
+}
+</style>
+<div class="content tabs">
+    
+        <input class="tab-diy" type="radio" name="tabs" checked>
+        <label>diy</label>
+    
+        <input class="tab-embark" type="radio" name="tabs" checked>
+        <label>embark</label>
+    
+        <input class="tab-truffle" type="radio" name="tabs" checked>
+        <label>truffle</label>
+    
+<div class="content tab-content content-diy">
+<h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
+
+<p>Let&rsquo;s go ahead and make that <code>hello</code> command we just created a little bit more clever.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/my-dapp/bot/ <span class="o">&amp;&amp;</span> nano hello.js
 </code></pre></div>
 
-<p>Next, we can add a <code>params</code> object to define a bunch of useful things, including the <code>TYPE</code> of response we&rsquo;re expecting (so that Status knows which keyboard to show the user. We are ALL about UI!)</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span> <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
- <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
- <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span>
- <span class="nx">placeholder</span><span class="o">:</span> <span class="s2">&quot;Why not say hello&quot;</span>
-<span class="p">}],</span>
-</code></pre></div>
-
-<p>It&rsquo;s worth noting that these <code>params</code> are available in any parameter, including in <code>params</code> itself. For instance, if your users sends <code>/hello whatsup</code>, the input <code>whatsup</code> will be available in your command under <code>params.hello</code>. Also worth noting is the <code>placeholder</code> we have use in the provided example - full details can be found in the formal API spec.</p>
-
-<p>If you want to be more exact about what options there are for your user to respond and make this truly interactive, you can use a <code>suggestions</code> parameter instead:</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
- <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
- <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span>
- <span class="nx">suggestions</span><span class="o">:</span> <span class="nx">helloSuggestions</span>
-<span class="p">}],</span>
+<p>Instead of the preview parameter we used last time, let&rsquo;s build another <code>status.command()</code> and add in a <code>params</code> option with a <code>suggestions</code> object in it. This will create a suggestions area which - if you refer back to the <a href="#overview">Chat Anatomy</a> - is what rolls up above the keyboard, such as you see when turning on the debugging server with the options <code>On</code> and <code>Off</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+     <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;greet&quot;</span><span class="p">,</span>
+     <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Greeter&quot;</span><span class="p">,</span>
+     <span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;Helps you say choose greetings&quot;</span><span class="p">,</span>
+     <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#0000ff&quot;</span><span class="p">,</span>
+     <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+              <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;greet&quot;</span><span class="p">,</span>
+              <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span>
+              <span class="nx">suggestions</span><span class="o">:</span> <span class="nx">helloSuggestions</span>
+             <span class="p">}]</span>
+ <span class="p">})</span>
 </code></pre></div>
 
 <p>&ldquo;But wait!&rdquo; we hear you cry, &ldquo;what on earth is that <code>helloSuggestions</code> thing about?!&ldquo;. Well, let’s make a function to explain. This will return a <code>scrollView</code> with two suggestions: &ldquo;Hello&rdquo;, and &ldquo;Goodbye&rdquo;. Don’t get intimidated by the length, there’s actually not much to it.</p>
-<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="c1">// Three little helpers - don&#39;t worry about them, they&#39;re just for</span>
-<span class="c1">// style.</span>
 
-<span class="kd">function</span> <span class="nx">suggestionsContainerStyle</span><span class="p">(</span><span class="nx">suggestionsCount</span><span class="p">)</span> <span class="p">{</span>
+<p>First, we set up the helpers that will style the suggestion as it appears in the suggestions area.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">suggestionsContainerStyle</span><span class="p">(</span><span class="nx">suggestionsCount</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="p">{</span>
         <span class="nx">marginVertical</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
         <span class="nx">marginHorizontal</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -669,10 +865,10 @@ status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &qu
     <span class="nx">fontFamily</span><span class="o">:</span> <span class="s2">&quot;font&quot;</span><span class="p">,</span>
     <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#000000de&quot;</span>
 <span class="p">};</span>
+</code></pre></div>
 
-<span class="c1">// The main star of our show! It will return two touchable buttons.</span>
-
-<span class="kd">function</span> <span class="nx">helloSuggestions</span><span class="p">()</span> <span class="p">{</span>
+<p>Now, we need to write the main star of our show - that mysterious <code>helloSuggestions</code> function we passed into the <code>params</code> of our <code>status.command()</code>. The objective here is to return two touchable buttons - one for <code>Hello</code> and the other for <code>Goodbye</code>. We are making quite extensive use of React native Components here, so we expect at least some level of familiarity with the framework in order to get the most out of these tutorials.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">helloSuggestions</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">suggestions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;Goodbye&quot;</span><span class="p">].</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">)</span> <span class="p">{</span>
         <span class="k">return</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">touchable</span><span class="p">(</span>
             <span class="p">{</span><span class="nx">onPress</span><span class="o">:</span> <span class="p">[</span><span class="nx">status</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">SET_VALUE</span><span class="p">,</span> <span class="nx">entry</span><span class="p">]},</span>
@@ -704,9 +900,74 @@ status-dev-cli add-dapp <span class="s1">&#39;{&quot;whisper-identity&quot;: &qu
 
 <p>The main point of this example is that your <code>suggestions</code> parameter should accept users’ input, and then return a component to be rendered.</p>
 
+<p>We have already added this contact to Status, so let&rsquo;s se if we can set up our environment to do some live reloading so that we don&rsquo;t have to revert to the cli every time we want to change something in the process of building all the new things.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli watch <span class="nv">$PWD</span> <span class="s1">&#39;{&quot;whisper-identity&quot;:&quot;hello-bot&quot;, &quot;dapp-name&quot;:&quot;Hello&quot;, &quot;bot-url&quot;:&quot;http://localhost:8080/bot/hello.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+</code></pre></div>
+
 <p>You can also work with the <code>suggestionsTrigger</code> parameter. Now that we’ve covered <code>params</code> and the possibility of <code>suggestions</code>, it’s easy to see that <code>suggestionsTrigger</code> will take a string corresponding to an event that, when triggered, will show all your <code>suggestions</code>. If you don’t include this parameter, the default is &ldquo;on-change&rdquo;, so your suggestions will show when your users selects the command.</p>
 
 <p>It&rsquo;s also worth knowing about the <code>fullscreen</code> option. If your command has <code>suggestions</code>, this <code>param</code> controls whether that list of suggestions expands to fill the entire screen. If your command has a lot of suggestions, you might want to set <code>fullscreen</code> to <code>true</code>, so that your users don’t have to pull the list upwards. On the other hand, if your command has only a few suggestions and you set <code>fullscreen</code> to <code>true</code>, your users will have to pull the list downwards to keep it from hiding the screen. Choose whichever will be most convenient to your users, considering your command’s suggestions.</p>
+
+<p></div></p>
+
+<div class="content tab-content content-truffle">
+<h3 id="truffle">Truffle</h3>
+
+</div>
+
+<div class="content tab-content content-embark">
+<h3 id="embark">Embark</h3>
+
+</div>
+
+</div>
+
+<p>For another full example of an interactive suggestion area, please take a look over our <a href="https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js" target="_blank">Demo Bot</a>, which makes prominent use of the <code>defineSubscription</code> method from the API and may be helpful for those looking to waork with things like the <code>status.component.slider</code> React Native Component.</p>
+
+<p>You could also build a location bot following a similar pattern. We provide the code for you, just because we can. See if you can get it all working right this time&hellip;</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">I18n</span><span class="p">.</span><span class="nx">translations</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">en</span><span class="o">:</span> <span class="p">{</span>
+        <span class="nx">location_title</span><span class="o">:</span> <span class="s1">&#39;Location&#39;</span><span class="p">,</span>
+        <span class="nx">location_suggestions_title</span><span class="o">:</span> <span class="s1">&#39;Send location&#39;</span><span class="p">,</span>
+        <span class="nx">location_description</span><span class="o">:</span> <span class="s1">&#39;Share your location&#39;</span><span class="p">,</span>
+        <span class="nx">location_address</span><span class="o">:</span> <span class="s1">&#39;address&#39;</span>
+<span class="p">}}</span>
+
+<span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;location&quot;</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;location_title&#39;</span><span class="p">),</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;location_description&#39;</span><span class="p">)</span>
+    <span class="nx">hideSendButton</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">sequentialParams</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;address&quot;</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span><span class="p">,</span>
+        <span class="nx">placeholder</span><span class="o">:</span> <span class="nx">I18n</span><span class="p">.</span><span class="nx">t</span><span class="p">(</span><span class="s1">&#39;location_address&#39;</span><span class="p">)</span>
+    <span class="p">}]</span>
+ <span class="p">})</span>
+</code></pre></div>
+
+<p>Or, even better, can you get some location suggestions to display?</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span> <span class="kd">function</span> <span class="nx">locationsSuggestions</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="p">{</span><span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Send location&quot;</span><span class="p">};</span>
+    <span class="kd">var</span> <span class="nx">seqArg</span> <span class="o">=</span> <span class="nx">params</span><span class="p">.</span><span class="nx">seqArg</span> <span class="o">?</span> <span class="nx">params</span><span class="p">.</span><span class="nx">seqArg</span> <span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">seqArg</span> <span class="o">==</span> <span class="s2">&quot;Dropped pin&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">markup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;view&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;Dropped pin&quot;</span> <span class="o">+</span> <span class="nx">seqArg</span><span class="p">]];</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nx">seqArg</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">markup</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;view&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">,</span> <span class="p">{},</span> <span class="s2">&quot;Let&#39;s try to find something &quot;</span> <span class="o">+</span> <span class="nx">seqArg</span><span class="p">]];</span>
+    <span class="p">}</span>
+    <span class="k">else</span>
+    <span class="p">{</span>
+        <span class="nx">result</span><span class="p">.</span><span class="nx">markup</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;current-location&#39;</span><span class="p">,</span> <span class="p">{</span><span class="nx">showMap</span><span class="o">:</span> <span class="kc">true</span><span class="p">}];</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
 
     
         

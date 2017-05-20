@@ -81,12 +81,36 @@
 
 &lt;p&gt;You can go to &lt;a href=&#34;https://test.status.im&#34; target=&#34;_blank&#34;&gt;https://test.status.im&lt;/a&gt; to download for Android. At the time of writing, we’re out of invitations for Testflight, but you can sign up for early iOS access &lt;a href=&#34;http://status.im&#34; target=&#34;_blank&#34;&gt;on our website&lt;/a&gt;.&lt;/p&gt;
 
+&lt;aside class=&#34;success&#34;&gt;
+ Please note that these documents are intended for the latest version of &#34;status-dev-cli&#34; and the nightly developer builds of Status itself. To update `status-dev-cli` please run &#34;npm uninstall -g status-dev-cli&#34; and then &#34;npm i -g status-dev-cli&#34;. Our nightly builds can be found here: http://artifacts.status.im:8081/artifactory/nightlies-local/.
+&lt;/aside&gt;
+
 &lt;p&gt;If you don’t have a smartphone, or you only have an iPhone but want to get started right away, you can build Status yourself for either Android or iOS by following &lt;a href=&#34;https://wiki.status.im/contributing/development/building-status/&#34; target=&#34;_blank&#34;&gt;these guidelines&lt;/a&gt;. There, you will find instructions for installing an Android simulator, or starting up Status in the Xcode simulator.&lt;/p&gt;
 
 &lt;p&gt;Our wiki guidelines should be all you need, but if you get lost come ask around in &lt;a href=&#34;https://slack.status.im&#34; target=&#34;_blank&#34;&gt;our Slack&lt;/a&gt;.&lt;/p&gt;
 
 &lt;h2 id=&#34;networking-and-debugging&#34;&gt;Networking and Debugging&lt;/h2&gt;
 
+&lt;style&gt;
+.tab-content { display: none; }
+
+
+.tab-android-device:checked ~ .content-android-device , 
+
+.tab-genymotion:checked ~ .content-genymotion 
+ {
+    display: block;
+}
+&lt;/style&gt;
+&lt;div class=&#34;content tabs&#34;&gt;
+    
+        &lt;input class=&#34;tab-android-device&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;android-device&lt;/label&gt;
+    
+        &lt;input class=&#34;tab-genymotion&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;genymotion&lt;/label&gt;
+    
+&lt;div class=&#34;content tab-content content-android-device&#34;&gt;
 &lt;p&gt;First, connect your phone to your development machine. If you are using an android device, you can check that is is connected and then enable port forwarding on &lt;code&gt;5561&lt;/code&gt; for the debug server.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# android only&lt;/span&gt;
 adb devices
@@ -104,10 +128,30 @@ adb -s DEVICE_ID forward tcp:5561 tcp:5561
 
 &lt;p&gt;The important part of the message is your &lt;code&gt;device IP&lt;/code&gt; address, which we&amp;rsquo;ll be using throughout.&lt;/p&gt;
 
-&lt;p&gt;To find out your computer&amp;rsquo;s IP, use &lt;code&gt;ifconfig&lt;/code&gt; from the command line and look for your internal IPv4 address:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;ifconfig &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep inet
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;
 
-&lt;span class=&#34;c1&#34;&gt;# Find the line beginning with just inet - this is your IPv4 address&lt;/span&gt;
+&lt;div class=&#34;content tab-content content-genymotion&#34;&gt;
+&lt;ol&gt;
+&lt;li&gt;Install genymotion&lt;/li&gt;
+&lt;li&gt;Create a genymotion virtual device&lt;/li&gt;
+&lt;li&gt;Switch to network bridge mode&lt;/li&gt;
+&lt;li&gt;Start device&lt;/li&gt;
+&lt;li&gt;Install status.im apk from nightly builds by dragging onto emulator window&lt;/li&gt;
+&lt;li&gt;Start status.im app on device&lt;/li&gt;
+&lt;li&gt;Turn on debugging in console (/debug). Record the ip address to use later as &lt;DEVICE-IP&gt;. You should be able to ping this ip from your actual os&lt;/li&gt;
+&lt;li&gt;Forward port 5561 (use genymotion adb!): &lt;code&gt;/opt/genymotion/tools/adb forward tcp:5561 tcp:5561&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Serve your app over http&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;status-dev-cli add [dapp]&lt;/code&gt; where dapp is your json file with &lt;code&gt;whisper-identity&lt;/code&gt; etc.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;To find out your computer&amp;rsquo;s IP, use &lt;code&gt;ifconfig&lt;/code&gt; from the command line and look for your internal IPv4 address:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;ifconfig &lt;span class=&#34;p&#34;&gt;|&lt;/span&gt; grep inet  
+
+&lt;span class=&#34;c1&#34;&gt;# Find the line beginning with just inet - this is your IPv4 address  &lt;/span&gt;
 inet &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;.10.0.216 netmask 0xfffffe00 broadcast &lt;span class=&#34;m&#34;&gt;10&lt;/span&gt;.10.1.255
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
@@ -184,7 +228,7 @@ http-server
 &lt;p&gt;&lt;blockquote&gt;
 &lt;p&gt;In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the &lt;code&gt;&amp;ndash;ip&lt;/code&gt; flag with the IP address listed by Console once you have selected the &lt;code&gt;debug&lt;/code&gt; option and turned it on. You should already have enabled adb port forwarding on 5561 if you are using an Android device.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;my-dapp&amp;quot;, &amp;quot;dapp-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;My DApp&amp;quot;}&amp;#39;&lt;/span&gt; &amp;ndash;ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;status-dev-cli add &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;hello-bot&amp;quot;, &amp;quot;dapp-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Hello&amp;quot;}&amp;#39;&lt;/span&gt; &amp;ndash;ip &amp;lt;DEVICE-IP&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;First, install the &lt;code&gt;status-dev-cli&lt;/code&gt; tools globally using NPM.&lt;/p&gt;
@@ -201,7 +245,16 @@ http-server
 
 &lt;p&gt;&lt;code&gt;&amp;lt;MACHINE-IP&amp;gt;&lt;/code&gt; needs to be &lt;code&gt;localhost&lt;/code&gt; or &lt;code&gt;127.0.0.1&lt;/code&gt;, if you are using a simulator, or whatever your PC&amp;rsquo;s (internal) IP is if you are using a connected phone.&lt;/p&gt;
 
-&lt;p&gt;That&amp;rsquo;s it! You should be able to see your DApp in the chats, and opening it should browse automatically to a page that shows your account information. You can also do live-reloading once you&amp;rsquo;re happy with this by running &lt;code&gt;status-dev-cli watch-dapp . &#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;my-dapp&amp;quot;}&#39;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;That&amp;rsquo;s it! You should be able to see your DApp in the chats, and opening it should browse automatically to a page that shows your account information. You can also do live-reloading once you&amp;rsquo;re happy with this by running &lt;code&gt;status-dev-cli watch $PWD &#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;hello-bot&amp;quot;, &amp;quot;dapp-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Hello&amp;quot;}&#39; --ip &amp;lt;DEVICE-IP&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Known Issues&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;1) You may need to escape the &lt;code&gt;json&lt;/code&gt; information you are passing into &lt;code&gt;status-dev-cli&lt;/code&gt; if you are on a windows machine, like so: &lt;code&gt;status-dev-cli add &#39;{\&amp;quot;whisper-identity\&amp;quot;: \&amp;quot;my-dapp5\&amp;quot;, \&amp;quot;dapp-url\&amp;quot;: \&amp;quot;http://&amp;lt;MACHINE-ip&amp;gt;:8
+080\&amp;quot;,\&amp;quot;name\&amp;quot;: \&amp;quot;My DApp\&amp;quot;}&#39; --ip &amp;lt;DEVICE-IP&amp;gt;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;2) If using a real device, you also need to ensure that it is set to use MTP (media transfer Protocol) in the USB-debugging settings. Open the equivalent of your settings or develop options by pulling down the top menu and clicking in the debugging options.&lt;/p&gt;
 
 &lt;p&gt;Happy travels!&lt;/p&gt;
 
@@ -216,7 +269,7 @@ http-server
 
 &lt;p&gt;OK, so we can write a little HTML5 DApp that displays information to Status users through a simple webView component. However, we want to do so much more! We want to write smart contracts, deploy them, and interact with them through a fully mobile user interface; and we want to build decentralized chatbots that live within Status and make friends with all the humans.&lt;/p&gt;
 
-&lt;p&gt;If you want to get straight to making chatbots, please go &lt;a href=&#34;#my-first-status-command&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you want to get straight to making chatbots, please go &lt;a href=&#34;#my-first-1-1-chatbot&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
 &lt;p&gt;Frameworks can lighten the load of developing considerably, and so we include here some quick examples to get you up and running with the two most popular Ethereum frameworks currently available - Truffle and Embark.&lt;/p&gt;
 
@@ -285,15 +338,11 @@ npm run start
 
 &lt;p&gt;Again, the DApp should appear in your chats screen, and navigating to it should automatically open a browser that reveals all the goodies hidden in this truffle box. It should also display the stored value of &lt;code&gt;5&lt;/code&gt; from the SimpleStorage contract that we deployed to &lt;code&gt;testrpc&lt;/code&gt; by running &lt;code&gt;truffle migrate&lt;/code&gt; above.&lt;/p&gt;
 
+&lt;p&gt;If you would like to change the name that appears for your bot when it gets added to Status, simply edit the &lt;code&gt;package.json&lt;/code&gt; and update the name there.&lt;/p&gt;
+
 &lt;p&gt;&lt;em&gt;Known problems:&lt;/em&gt;&lt;/p&gt;
 
-&lt;p&gt;1) &lt;code&gt;status-dev-cli&lt;/code&gt; currently has a hard-coded value for &lt;code&gt;localhost&lt;/code&gt;, rather than allowing dynamic inputs. We are working on a fix, but - depending on your setup - you may need to change this for everything to work smoothly. Do this simply by executing:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; node_modules/status-dev-cli/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; nano index.js
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;and change lines 13 and 33 to reflect the correct IP address of your machine.&lt;/p&gt;
-
-&lt;p&gt;2) If you are running on a real iOS device, you need to configure Truffle Box to use the network on your computer. In &lt;code&gt;truffle.js&lt;/code&gt;, change &lt;code&gt;host&lt;/code&gt; to the IP of your computer:&lt;/p&gt;
+&lt;p&gt;1) If you are running on a real iOS device, you need to configure Truffle Box to use the network on your computer. In &lt;code&gt;truffle.js&lt;/code&gt;, change &lt;code&gt;host&lt;/code&gt; to the IP of your computer:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;module&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;exports&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;nx&#34;&gt;migrations_directory&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;./migrations&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;nx&#34;&gt;networks&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -323,7 +372,7 @@ npm run start
 &lt;p&gt;Next we want to start the network. You can run a full Ethereum node with &lt;code&gt;embark blockchain&lt;/code&gt;, but for development you probably want to run &lt;code&gt;testrpc&lt;/code&gt;. We want it to run on port 8546 though, so it doesn&amp;rsquo;t interfere with Status, so we need to edit the &lt;code&gt;blockchain.js&lt;/code&gt;:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;nano config/blockchain.json
 
-&lt;span class=&#34;c1&#34;&gt;# Now edit the &amp;#39;Development&amp;#39; Network to read:&lt;/span&gt;
+&lt;span class=&#34;c1&#34;&gt;# Now edit the &amp;#39;Development&amp;#39; Network and change only the rpcPort field to 8546:&lt;/span&gt;
 
 &lt;span class=&#34;s2&#34;&gt;&amp;quot;development&amp;quot;&lt;/span&gt;: &lt;span class=&#34;o&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;s2&#34;&gt;&amp;quot;enabled&amp;quot;&lt;/span&gt;: true,
@@ -366,7 +415,7 @@ npm install embark-status --save
 &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Also, you need to tell Embark the IP of the DApp host. Navigate to and change the &lt;code&gt;config/webserver.js&lt;/code&gt; file so that it reflects your development machine&amp;rsquo;s IP address:&lt;/p&gt;
+&lt;p&gt;Also, you may need to tell Embark the IP of the DApp host if you&amp;rsquo;re not using &lt;code&gt;localhost&lt;/code&gt; as a default. Navigate to and change the &lt;code&gt;config/webserver.js&lt;/code&gt; file so that it reflects your development machine&amp;rsquo;s IP address:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
   &lt;span class=&#34;s2&#34;&gt;&amp;quot;enabled&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
   &lt;span class=&#34;s2&#34;&gt;&amp;quot;host&amp;quot;&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;lt;your-machines-ip&amp;gt;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -383,7 +432,7 @@ npm install embark-status --save
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;The Embark console will appear within your shell with useful information about the SimpleStorage contract it has created, compiled, and deployed. Now just add your DApp, and have some fun!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;embark&amp;quot;, &amp;quot;dapp-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8000/&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Embark&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;status-dev-cli add &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;embark&amp;quot;, &amp;quot;dapp-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8000/&amp;quot;, &amp;quot;name&amp;quot;: &amp;quot;Embark&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;img src=&#34;images/starting-a-dapp-on-status-with-frameworks_04.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
@@ -406,15 +455,15 @@ npm install embark-status --save
 
 &lt;p&gt;Later we’ll have an easy mechanism to make your DApp available for others to use on Status, but for now please just submit a pull request using our &lt;a href=&#34;http://wiki.status.im/contributing/development/adding-dapps/&#34; target=&#34;_blank&#34;&gt;guide on adding DApps&lt;/a&gt;.&lt;/p&gt;
 
-&lt;h2 id=&#34;my-first-interactive-suggestion-area&#34;&gt;My First Interactive Suggestion Area&lt;/h2&gt;
+&lt;h2 id=&#34;my-first-1-1-chatbot&#34;&gt;My First 1-1 Chatbot&lt;/h2&gt;
 
-&lt;p&gt;Once you have worked through the first tutorials and understood the basic steps to building a DApp and adding it into Status, it&amp;rsquo;s time to get our hands a little more dirty by actually writing some real commands that will begin to utilise the awesome power of the Status API. It&amp;rsquo;s time to make use of the API proper in order to build a decentralized chatbot that leverages Status&amp;rsquo; awesome mobile interface, so that we can take your DApp to the next level.&lt;/p&gt;
+&lt;p&gt;Once you have worked through the first tutorials and understood the basic steps to building a DApp and adding it into Status, it&amp;rsquo;s time to get our hands a little more dirty by actually writing a simple, one-response chatbot that will begin to utilise the awesome power of the Status API.&lt;/p&gt;
 
-&lt;p&gt;We kind of cheated a little in the previous tutorials. While it is totally possible to have your html5 DApp work perfectly in Status via &lt;code&gt;webView&lt;/code&gt;, it&amp;rsquo;s obviously not the most optimal way to do things. We use &lt;a href=&#34;http://www.braveclojure.com/introduction/&#34; target=&#34;_blank&#34;&gt;ClojureScript&lt;/a&gt; and React Native to handle all our things, but you don&amp;rsquo;t have to. The main take away here is that the chat context itself is actually an Otto VM jail that executes the javascript you write, and then integrates that directly with Status. So, we can actually write bots that are purely javascript-based. Please see &lt;a href=&#34;https://github.com/status-im/status-react/tree/develop/bots&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; for a full list of all our current bots and their source code.&lt;/p&gt;
+&lt;p&gt;We kind of cheated a little in the previous tutorials. While it is totally possible to have your html5 DApp work perfectly in Status via &lt;code&gt;webView&lt;/code&gt;, it&amp;rsquo;s obviously not the most optimal way to do things. There are essentailly two different ways for developers to interact with Status, best illustrated by the Status Anatomy below:&lt;/p&gt;
 
-&lt;p&gt;Please take a moment to familiarise yourself with the anatomy of Status so that you can get a visual sense of what is happening where and how you can best utilise it all.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;images/status-anatomy.png&#34; alt=&#34;status-anatomy.png&#34; /&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&#34;https://github.com/status-im/docs.status.im/blob/develop/static/images/status-anatomy.png&#34; alt=&#34;status-anatomy.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;The main take away here is that the chat context itself is actually an Otto VM jail that executes the javascript you write, and then integrates that directly with Status. So, we can actually write bots that are purely javascript-based. Please see &lt;a href=&#34;https://github.com/status-im/status-react/tree/develop/bots&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt; for a full list of all our current bots and their source code.&lt;/p&gt;
 
 &lt;p&gt;&lt;style&gt;
 .tab-content { display: none; }
@@ -443,12 +492,12 @@ npm install embark-status --save
 &lt;div class=&#34;content tab-content content-diy&#34;&gt;
 &lt;h3 id=&#34;do-it-yourself&#34;&gt;Do It Yourself&lt;/h3&gt;
 
-&lt;p&gt;First, we&amp;rsquo;re going to navigate back to our &lt;code&gt;my-dapp&lt;/code&gt; directory we created for the first tutorial and make a new directory and file to keep our javascript in.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/my-dapp
-mkdir bot &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; bot/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; touch bot.js
+&lt;p&gt;First, we&amp;rsquo;re going to create a new &lt;code&gt;bots&lt;/code&gt; directory and add file to keep our javascript in.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~
+mkdir bots &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; bots &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; touch bot.js
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Instead of simply adding a new DApp, we can now include a &lt;code&gt;bot-url&lt;/code&gt; parameter in our call to &lt;code&gt;status-dev-cli&lt;/code&gt;. The chatbot url targets a &lt;code&gt;js&lt;/code&gt; file, and this file will be loaded in the Otto VM shown in the anatomy. Code in this file сan interact with the input field, messages and react however we program it to.&lt;/p&gt;
+&lt;p&gt;Instead of adding a new DApp, we can now include a &lt;code&gt;bot-url&lt;/code&gt; parameter in our call to &lt;code&gt;status-dev-cli&lt;/code&gt;. The chatbot url targets a &lt;code&gt;js&lt;/code&gt; file, and this file will be loaded in the Otto VM shown in the anatomy. Code in this file сan interact with the input field, messages and react however we program it to.&lt;/p&gt;
 
 &lt;p&gt;Add the following code snippet to the newly-created &lt;code&gt;bot.js&lt;/code&gt; file.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;addListener&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;on-message-send&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;context&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
@@ -468,7 +517,7 @@ mkdir bot &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span
 &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Then, navigate back to the &lt;code&gt;my-dapp&lt;/code&gt; directory, due the necessary Android steps if you are using that platform, and start the http server again. Then, open a new shell window and add your new bot.&lt;/p&gt;
+&lt;p&gt;Then, navigate back to the &lt;code&gt;bots&lt;/code&gt; directory, do the necessary Android steps if you are using that platform, and start the http server again. Then, open a new shell window and add your new bot. It&amp;rsquo;s important to note a few things here. We are &lt;code&gt;add&lt;/code&gt;ing a new new bot, rather than just watching the DApp we built earlier for changes. Also, we are only passing in a &lt;code&gt;bot-url&lt;/code&gt;, rather than a &lt;code&gt;dapp-url&lt;/code&gt; - this will ensure that, when you open your new bot contact, it won&amp;rsquo;t automatically launch a browser a window.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;#make sure you&amp;#39;re in my-dapp or the equivalent&lt;/span&gt;
 &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ..
 
@@ -478,19 +527,14 @@ http-server
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# android only&lt;/span&gt;
 adb -s DEVICE_ID reverse tcp:8080 tcp::8080
 
-status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;botler&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Botler&amp;quot;,  &amp;quot;dapp-url&amp;quot; : &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot; ,&amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot/bot.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
+status-dev-cli add &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;botler&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Botler&amp;quot; ,&amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;This is pretty much the simplest responsive chatbot we can write, using only the &lt;code&gt;addListener&lt;/code&gt; function from the API. All it&amp;rsquo;s listening for is a message-send event, to which it will try to respond with the test &lt;code&gt;You&#39;re amazing, master!&lt;/code&gt;. You&amp;rsquo;ll see that it opens a browse window by default, which is not desired behaviour and will be fixed in the next release. Just close the window and type a message to your new bot.&lt;/p&gt;
 
 &lt;p&gt;Obviously, there&amp;rsquo;s much more we can do than simply listen for messages and send flattering responses. All will be revealed in the next tutorial. If you&amp;rsquo;re feeling impatient, you can find a full Demo Bot &lt;a href=&#34;https://github.com/status-im/status-react/tree/34b77022f7926dbabbb0e8c5e8471eaea5ed812f/bots/demo_bot&#34; target=&#34;_blank&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;Go ahead and try and add this bot too, and see if you can figure out how it works and what you can do with it!&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; bot/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; touch demo_bot.js &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ..
-status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;slider&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Slider&amp;quot;,  &amp;quot;dapp-url&amp;quot; : &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot; ,&amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot/demo_bot.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;/div&gt;
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;div class=&#34;content tab-content content-truffle&#34;&gt;
 &lt;h3 id=&#34;truffle&#34;&gt;Truffle&lt;/h3&gt;
@@ -499,12 +543,13 @@ status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisp
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Android only&lt;/span&gt;
 adb forward tcp:5561 tcp:5561
 
-&lt;span class=&#34;nb&#34;&gt;test&lt;/span&gt; rpc -p &lt;span class=&#34;m&#34;&gt;8546&lt;/span&gt;
+testrpc -p &lt;span class=&#34;m&#34;&gt;8546&lt;/span&gt;
 
 &lt;span class=&#34;c1&#34;&gt;# Android only&lt;/span&gt;
 adb reverse tcp:8546 tcp:8546
 
 status-dev-cli switch-node &lt;span class=&#34;s2&#34;&gt;&amp;quot;http://localhost:8546&amp;quot;&lt;/span&gt;
+
 &lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/truffle-box-status
 
 &lt;span class=&#34;c1&#34;&gt;# If you want to be extra sure your contracts are there, run:&lt;/span&gt;
@@ -542,10 +587,141 @@ truffle serve
 &lt;span class=&#34;c1&#34;&gt;# In another shell&lt;/span&gt;
 adb reverse tcp:8080 tcp:8080
 
-status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;truffle-botler&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Truffle Botler&amp;quot;,  &amp;quot;dapp-url&amp;quot; : &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/&amp;quot; ,&amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot/bot.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
+status-dev-cli add &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;truffle-botler&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Truffle Botler&amp;quot;, &amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot/bot.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;And you&amp;rsquo;re away! You should be able to see you DApp, browse to the same site as before, and chat with the reptitively flattering greeter bot.&lt;/p&gt;
+&lt;p&gt;And you&amp;rsquo;re away! You should be able to see your DApp, browse to the same site as before, and chat with the repetitively flattering greeter bot.&lt;/p&gt;
+
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;div class=&#34;content tab-content content-embark&#34;&gt;
+&lt;h3 id=&#34;embark&#34;&gt;Embark&lt;/h3&gt;
+
+&lt;p&gt;First, go back to the &lt;code&gt;embark_demo/&lt;/code&gt; directory we created &lt;a href=&#34;#my-first-dapp&#34;&gt;earlier&lt;/a&gt;, where we set up the correct configuration for Embark and Status. Essentially, you just want to make sure - as with the Truffle Box example - that you put the javascript file in the right place so that you can reference it correctly.&lt;/p&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;my-first-status-command&#34;&gt;My First Status Command&lt;/h2&gt;
+
+&lt;style&gt;
+.tab-content { display: none; }
+
+
+.tab-diy:checked ~ .content-diy , 
+
+.tab-embark:checked ~ .content-embark , 
+
+.tab-truffle:checked ~ .content-truffle 
+ {
+    display: block;
+}
+&lt;/style&gt;
+&lt;div class=&#34;content tabs&#34;&gt;
+    
+        &lt;input class=&#34;tab-diy&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;diy&lt;/label&gt;
+    
+        &lt;input class=&#34;tab-embark&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;embark&lt;/label&gt;
+    
+        &lt;input class=&#34;tab-truffle&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;truffle&lt;/label&gt;
+    
+&lt;div class=&#34;content tab-content content-diy&#34;&gt;
+&lt;h3 id=&#34;do-it-yourself-with-status-dev-cli&#34;&gt;Do It Yourself with &lt;code&gt;status-dev-cli&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;So, we have set up Status in &lt;code&gt;debug&lt;/code&gt; mode, added our DApp to it (hopefully run the &lt;code&gt;dapp watch&lt;/code&gt; command to get some live-reloading going) and learned how to start a conversation with a simple javascript chatbot. Now it&amp;rsquo;s time to start using the API proper and start using the provided commands to interact with our users and help them out.&lt;/p&gt;
+
+&lt;p&gt;Navigate back to your &lt;code&gt;bots&lt;/code&gt; directory and open the &lt;code&gt;bot.js&lt;/code&gt; file where we put the &lt;code&gt;status.addListener&lt;/code&gt; function in the previous tutorials. We will again pass this fils in as a &lt;code&gt;bot-url&lt;/code&gt; parameter to &lt;code&gt;status-dev-cli&lt;/code&gt;, which will then execute the code in an Otto VM jail.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/bots/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; nano bot.js
+
+&lt;span class=&#34;c1&#34;&gt;# or use &amp;#39;vi bot.js&amp;#39; if that&amp;#39;s your preference&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Then, open the file in the text editor of your choice and add in the code provided. All we want to do is provide our user with a command, called &lt;code&gt;hello&lt;/code&gt; that they can issue into the chat and we can respond to. In order to achieve this effect, we set up a simple &lt;code&gt;status.command()&lt;/code&gt; and pass in a name, title and description so as to identify our command and display it to the user, along with some helpful information about what it does.&lt;/p&gt;
+
+&lt;p&gt;We then set a color for the command to appear in set up our preview function. You can read about exactly what the preview function can achieve in the formal API specififcation but, in a nutshell, the preview defines what the user will see returned in the markup - i.e. where the messages appear.&lt;/p&gt;
+
+&lt;p&gt;Here, we are creating a simple text response by setting up a variable that we pass to &lt;code&gt;status.components.text&lt;/code&gt;, which the perceptive will notice is a React Native component - a whole bunch more of which are available and detailed in the formal specification. Beneath the text, we are creating a standard response of &amp;ldquo;Hello from the other side!&amp;rdquo;, all of which will be returned as json to the markup. Note again the use of another React Native component - &lt;code&gt;status.components.view&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;HelloBot&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Helps you say hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;#CCCCCC&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;preview&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+             &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;components&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+                 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                     &lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;marginTop&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;marginHorizontal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;fontSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;fontFamily&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;font&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;black&amp;quot;&lt;/span&gt;
+                     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+                 &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Hello from the other side!&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
+
+             &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;markup&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;components&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;view&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({},&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])};&lt;/span&gt;
+         &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Go ahead and serve your dapp again:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;http-server
+
+&lt;span class=&#34;c1&#34;&gt;# In another shell if on android&lt;/span&gt;
+adb -s DEVICE_ID reverse tcp:8080 tcp:8080
+
+status-dev-cli watch &lt;span class=&#34;nv&#34;&gt;$PWD&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;botler&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Botler&amp;quot; ,&amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;And there you go - we are now capable of greeting and interacting with our bot in two ways! You should be able to see your DApp, navigate to it, tap the new &lt;code&gt;/hello&lt;/code&gt; command you see above the text input field and see your new Dapp respond.&lt;/p&gt;
+
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;div class=&#34;content tab-content content-truffle&#34;&gt;
+&lt;h3 id=&#34;truffle&#34;&gt;Truffle&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/truffle-box-status/build/bot/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; touch hello.js
+nano hello.js
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;p&gt;Navigate back to the truffle box  &lt;code&gt;build&lt;/code&gt; directory and make a new file for us to write a command in that we can display through truffle. Place the same command provided above in that file.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;HelloBot&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Helps you say hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;#CCCCCC&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;preview&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+             &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;components&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+                 &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                     &lt;span class=&#34;nx&#34;&gt;style&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;marginTop&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;marginHorizontal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;fontSize&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;14&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;fontFamily&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;font&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+                         &lt;span class=&#34;nx&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;black&amp;quot;&lt;/span&gt;
+                     &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+                 &lt;span class=&#34;p&#34;&gt;},&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Hello from the other side!&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;         &amp;lt;span class=&amp;quot;k&amp;quot;&amp;gt;return&amp;lt;/span&amp;gt; &amp;lt;span class=&amp;quot;p&amp;quot;&amp;gt;{&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;quot;nx&amp;quot;&amp;gt;markup&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;quot;o&amp;quot;&amp;gt;:&amp;lt;/span&amp;gt; &amp;lt;span class=&amp;quot;nx&amp;quot;&amp;gt;status&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;quot;p&amp;quot;&amp;gt;.&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;quot;nx&amp;quot;&amp;gt;components&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;quot;p&amp;quot;&amp;gt;.&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;quot;nx&amp;quot;&amp;gt;view&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;quot;p&amp;quot;&amp;gt;({},&amp;lt;/span&amp;gt; &amp;lt;span class=&amp;quot;p&amp;quot;&amp;gt;[&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;quot;nx&amp;quot;&amp;gt;text&amp;lt;/span&amp;gt;&amp;lt;span class=&amp;quot;p&amp;quot;&amp;gt;])};&amp;lt;/span&amp;gt;
+     &amp;lt;span class=&amp;quot;p&amp;quot;&amp;gt;}&amp;lt;/span&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;span class=&#34;p&#34;&gt;});&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;p&gt;This time, rather than running the &lt;code&gt;npm&lt;/code&gt; task, we&amp;rsquo;ll just start a quick server with &lt;code&gt;truffle&lt;/code&gt; itself. Writing the correct &lt;code&gt;start&lt;/code&gt; script is left as an exercise for the reader ;)&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;# Make sure you&amp;#39;re in the truflle-box-status/ directory&lt;/span&gt;
+&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ..&lt;/p&gt;
+
+&lt;p&gt;truffle serve&lt;/p&gt;
+
+&lt;p&gt;&lt;span class=&#34;c1&#34;&gt;# In another shell&lt;/span&gt;
+adb reverse tcp:8080 tcp:8080&lt;/p&gt;
+
+&lt;p&gt;status-dev-cli add &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;: &amp;quot;truffle-hello&amp;quot;,  &amp;quot;name&amp;quot;: &amp;quot;Truffle Greeter&amp;quot;, &amp;quot;bot-url&amp;quot;: &amp;quot;http://&amp;lt;MACHINE-IP&amp;gt;:8080/bot/truffle-hello.js&amp;quot;}&amp;#39;&lt;/span&gt; &amp;ndash;ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;/div&gt;&lt;/p&gt;
 
@@ -554,41 +730,61 @@ status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisp
 
 &lt;/div&gt;
 
-&lt;/div&gt;&lt;/p&gt;
+&lt;/div&gt;
 
-&lt;h2 id=&#34;my-first-status-command&#34;&gt;My First Status Command&lt;/h2&gt;
+&lt;h2 id=&#34;my-first-interactive-suggestions-area&#34;&gt;My First Interactive Suggestions Area&lt;/h2&gt;
 
-&lt;p&gt;Great work! So, we have set up Status in &lt;code&gt;debug&lt;/code&gt; mode, added our DApp to it (hopefully run the &lt;code&gt;dapp watch&lt;/code&gt; command to get some live-reloading going) and learned how to issue a basic command that will greet our user when they open the app. Now it&amp;rsquo;s time to start doing what chatbots are meant to do - interact with users and gather the necessary info we need from them.&lt;/p&gt;
+&lt;p&gt;OK, so we can build up a basic command, show it to the user and have it do something (like return text) when the user taps it. That&amp;rsquo;s great, but what happens if we want to be a bit more dynamic and interactive and suggest to our users a range of options to choose from when issuing the command?&lt;/p&gt;
 
-&lt;p&gt;This first thing we must do is add a &lt;code&gt;preview&lt;/code&gt; object to that neat little &lt;code&gt;hello&lt;/code&gt; command we just wrote in app.js. &lt;code&gt;preview&lt;/code&gt; defines what your user will see as a result of their action, before any other response. The preview parameter takes a function, which should return a &lt;code&gt;status.component&lt;/code&gt;.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;preview&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;components&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;text&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({},&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;you’re saying hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;},&lt;/span&gt;
+&lt;style&gt;
+.tab-content { display: none; }
+
+
+.tab-diy:checked ~ .content-diy , 
+
+.tab-embark:checked ~ .content-embark , 
+
+.tab-truffle:checked ~ .content-truffle 
+ {
+    display: block;
+}
+&lt;/style&gt;
+&lt;div class=&#34;content tabs&#34;&gt;
+    
+        &lt;input class=&#34;tab-diy&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;diy&lt;/label&gt;
+    
+        &lt;input class=&#34;tab-embark&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;embark&lt;/label&gt;
+    
+        &lt;input class=&#34;tab-truffle&#34; type=&#34;radio&#34; name=&#34;tabs&#34; checked&gt;
+        &lt;label&gt;truffle&lt;/label&gt;
+    
+&lt;div class=&#34;content tab-content content-diy&#34;&gt;
+&lt;h3 id=&#34;do-it-yourself-with-status-dev-cli&#34;&gt;Do It Yourself with &lt;code&gt;status-dev-cli&lt;/code&gt;&lt;/h3&gt;
+
+&lt;p&gt;Let&amp;rsquo;s go ahead and make that &lt;code&gt;hello&lt;/code&gt; command we just created a little bit more clever.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;cd&lt;/span&gt; ~/my-dapp/bot/ &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; nano hello.js
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Next, we can add a &lt;code&gt;params&lt;/code&gt; object to define a bunch of useful things, including the &lt;code&gt;TYPE&lt;/code&gt; of response we&amp;rsquo;re expecting (so that Status knows which keyboard to show the user. We are ALL about UI!)&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
- &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
- &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;types&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TEXT&lt;/span&gt;
- &lt;span class=&#34;nx&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Why not say hello&amp;quot;&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}],&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;It&amp;rsquo;s worth noting that these &lt;code&gt;params&lt;/code&gt; are available in any parameter, including in &lt;code&gt;params&lt;/code&gt; itself. For instance, if your users sends &lt;code&gt;/hello whatsup&lt;/code&gt;, the input &lt;code&gt;whatsup&lt;/code&gt; will be available in your command under &lt;code&gt;params.hello&lt;/code&gt;. Also worth noting is the &lt;code&gt;placeholder&lt;/code&gt; we have use in the provided example - full details can be found in the formal API spec.&lt;/p&gt;
-
-&lt;p&gt;If you want to be more exact about what options there are for your user to respond and make this truly interactive, you can use a &lt;code&gt;suggestions&lt;/code&gt; parameter instead:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
- &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
- &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;types&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TEXT&lt;/span&gt;
- &lt;span class=&#34;nx&#34;&gt;suggestions&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;helloSuggestions&lt;/span&gt;
-&lt;span class=&#34;p&#34;&gt;}],&lt;/span&gt;
+&lt;p&gt;Instead of the preview parameter we used last time, let&amp;rsquo;s build another &lt;code&gt;status.command()&lt;/code&gt; and add in a &lt;code&gt;params&lt;/code&gt; option with a &lt;code&gt;suggestions&lt;/code&gt; object in it. This will create a suggestions area which - if you refer back to the &lt;a href=&#34;#overview&#34;&gt;Chat Anatomy&lt;/a&gt; - is what rolls up above the keyboard, such as you see when turning on the debugging server with the options &lt;code&gt;On&lt;/code&gt; and &lt;code&gt;Off&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;greet&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Greeter&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Helps you say choose greetings&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;#0000ff&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+     &lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
+              &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;greet&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+              &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;types&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TEXT&lt;/span&gt;
+              &lt;span class=&#34;nx&#34;&gt;suggestions&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;helloSuggestions&lt;/span&gt;
+             &lt;span class=&#34;p&#34;&gt;}]&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;&amp;ldquo;But wait!&amp;rdquo; we hear you cry, &amp;ldquo;what on earth is that &lt;code&gt;helloSuggestions&lt;/code&gt; thing about?!&amp;ldquo;. Well, let’s make a function to explain. This will return a &lt;code&gt;scrollView&lt;/code&gt; with two suggestions: &amp;ldquo;Hello&amp;rdquo;, and &amp;ldquo;Goodbye&amp;rdquo;. Don’t get intimidated by the length, there’s actually not much to it.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// Three little helpers - don&amp;#39;t worry about them, they&amp;#39;re just for&lt;/span&gt;
-&lt;span class=&#34;c1&#34;&gt;// style.&lt;/span&gt;
 
-&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;suggestionsContainerStyle&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;suggestionsCount&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;p&gt;First, we set up the helpers that will style the suggestion as it appears in the suggestions area.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;suggestionsContainerStyle&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;suggestionsCount&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;nx&#34;&gt;marginVertical&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
         &lt;span class=&#34;nx&#34;&gt;marginHorizontal&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
@@ -611,10 +807,10 @@ status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisp
     &lt;span class=&#34;nx&#34;&gt;fontFamily&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;font&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
     &lt;span class=&#34;nx&#34;&gt;color&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;#000000de&amp;quot;&lt;/span&gt;
 &lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;span class=&#34;c1&#34;&gt;// The main star of our show! It will return two touchable buttons.&lt;/span&gt;
-
-&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;helloSuggestions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;p&gt;Now, we need to write the main star of our show - that mysterious &lt;code&gt;helloSuggestions&lt;/code&gt; function we passed into the &lt;code&gt;params&lt;/code&gt; of our &lt;code&gt;status.command()&lt;/code&gt;. The objective here is to return two touchable buttons - one for &lt;code&gt;Hello&lt;/code&gt; and the other for &lt;code&gt;Goodbye&lt;/code&gt;. We are making quite extensive use of React native Components here, so we expect at least some level of familiarity with the framework in order to get the most out of these tutorials.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;helloSuggestions&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;()&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
     &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;suggestions&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;Hello&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Goodbye&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;].&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;map&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
         &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;components&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;touchable&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
             &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;onPress&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;events&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;SET_VALUE&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;entry&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]},&lt;/span&gt;
@@ -646,9 +842,74 @@ status-dev-cli add-dapp &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisp
 
 &lt;p&gt;The main point of this example is that your &lt;code&gt;suggestions&lt;/code&gt; parameter should accept users’ input, and then return a component to be rendered.&lt;/p&gt;
 
+&lt;p&gt;We have already added this contact to Status, so let&amp;rsquo;s se if we can set up our environment to do some live reloading so that we don&amp;rsquo;t have to revert to the cli every time we want to change something in the process of building all the new things.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span&gt;&lt;/span&gt;status-dev-cli watch &lt;span class=&#34;nv&#34;&gt;$PWD&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;{&amp;quot;whisper-identity&amp;quot;:&amp;quot;hello-bot&amp;quot;, &amp;quot;dapp-name&amp;quot;:&amp;quot;Hello&amp;quot;, &amp;quot;bot-url&amp;quot;:&amp;quot;http://localhost:8080/bot/hello.js&amp;quot;}&amp;#39;&lt;/span&gt; --ip &amp;lt;DEVICE-IP&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
 &lt;p&gt;You can also work with the &lt;code&gt;suggestionsTrigger&lt;/code&gt; parameter. Now that we’ve covered &lt;code&gt;params&lt;/code&gt; and the possibility of &lt;code&gt;suggestions&lt;/code&gt;, it’s easy to see that &lt;code&gt;suggestionsTrigger&lt;/code&gt; will take a string corresponding to an event that, when triggered, will show all your &lt;code&gt;suggestions&lt;/code&gt;. If you don’t include this parameter, the default is &amp;ldquo;on-change&amp;rdquo;, so your suggestions will show when your users selects the command.&lt;/p&gt;
 
 &lt;p&gt;It&amp;rsquo;s also worth knowing about the &lt;code&gt;fullscreen&lt;/code&gt; option. If your command has &lt;code&gt;suggestions&lt;/code&gt;, this &lt;code&gt;param&lt;/code&gt; controls whether that list of suggestions expands to fill the entire screen. If your command has a lot of suggestions, you might want to set &lt;code&gt;fullscreen&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;, so that your users don’t have to pull the list upwards. On the other hand, if your command has only a few suggestions and you set &lt;code&gt;fullscreen&lt;/code&gt; to &lt;code&gt;true&lt;/code&gt;, your users will have to pull the list downwards to keep it from hiding the screen. Choose whichever will be most convenient to your users, considering your command’s suggestions.&lt;/p&gt;
+
+&lt;p&gt;&lt;/div&gt;&lt;/p&gt;
+
+&lt;div class=&#34;content tab-content content-truffle&#34;&gt;
+&lt;h3 id=&#34;truffle&#34;&gt;Truffle&lt;/h3&gt;
+
+&lt;/div&gt;
+
+&lt;div class=&#34;content tab-content content-embark&#34;&gt;
+&lt;h3 id=&#34;embark&#34;&gt;Embark&lt;/h3&gt;
+
+&lt;/div&gt;
+
+&lt;/div&gt;
+
+&lt;p&gt;For another full example of an interactive suggestion area, please take a look over our &lt;a href=&#34;https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js&#34; target=&#34;_blank&#34;&gt;Demo Bot&lt;/a&gt;, which makes prominent use of the &lt;code&gt;defineSubscription&lt;/code&gt; method from the API and may be helpful for those looking to waork with things like the &lt;code&gt;status.component.slider&lt;/code&gt; React Native Component.&lt;/p&gt;
+
+&lt;p&gt;You could also build a location bot following a similar pattern. We provide the code for you, just because we can. See if you can get it all working right this time&amp;hellip;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;translations&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;en&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;location_title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Location&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;location_suggestions_title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Send location&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;location_description&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;Share your location&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;location_address&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s1&#34;&gt;&amp;#39;address&amp;#39;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}}&lt;/span&gt;
+
+&lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;command&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;({&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;location&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;location_title&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;description&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;location_description&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;hideSendButton&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;sequentialParams&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+    &lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;address&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;status&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;types&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;TEXT&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;placeholder&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;I18n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;location_address&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}]&lt;/span&gt;
+ &lt;span class=&#34;p&#34;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Or, even better, can you get some location suggestions to display?&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre&gt;&lt;code class=&#34;language-js&#34; data-lang=&#34;js&#34;&gt;&lt;span&gt;&lt;/span&gt; &lt;span class=&#34;kd&#34;&gt;function&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;locationsSuggestions&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Send location&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
+    &lt;span class=&#34;kd&#34;&gt;var&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;seqArg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;seqArg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;params&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;seqArg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;seqArg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Dropped pin&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;markup&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;view&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;text&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Dropped pin&amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;seqArg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]];&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;seqArg&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;!=&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;markup&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;view&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;quot;text&amp;quot;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{},&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;quot;Let&amp;#39;s try to find something &amp;quot;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;seqArg&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]];&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+    &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+        &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;markup&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s1&#34;&gt;&amp;#39;current-location&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;nx&#34;&gt;showMap&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;kc&#34;&gt;true&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}];&lt;/span&gt;
+    &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+
+    &lt;span class=&#34;k&#34;&gt;return&lt;/span&gt; &lt;span class=&#34;nx&#34;&gt;result&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
+&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 </description>
     </item>
     
