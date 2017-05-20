@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<meta name="generator" content="Hugo 0.20.7" />
+	<meta name="generator" content="Hugo 0.18.1" />
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -22,6 +22,43 @@
   ga('create', 'UA-79146816-3', 'auto');
   ga('send', 'pageview');
 </script>
+<link rel="stylesheet" href="https://use.fontawesome.com/e0160a4032.css"><style>
+.tab-content { display: none; }
+
+.tabgroup {
+    padding: 0 28px;
+}
+input.tab {
+    display:none;
+}
+
+label.tab {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 0 -1px;
+    padding: 15px 25px;
+    font-weight: 600;
+    text-align: center;
+    color: #bbb;
+    border: 1px solid transparent;
+}
+
+div.tabs > label:first-of-type {
+    margin-left: 28px;
+}
+
+label:before {
+    margin-right: 10px;
+    font-family: FontAwesome;
+}
+label.tab:before { content: '\f19d'; }
+
+input:checked + label {
+  color: #555;
+  border: 1px solid #ddd;
+  border-top: 2px solid #2467af;
+}
+</style>
 </head>
 <body class="index" data-languages="[ &#34;js&#34; ,  &#34;cljs&#34; ]">
     <a href="#" id="nav-button">
@@ -150,25 +187,24 @@
 <h2 id="networking-and-debugging">Networking and Debugging</h2>
 
 <style>
-.tab-content { display: none; }
 
+.tab-Android-Device:checked ~ .content-Android-Device , 
 
-.tab-android-device:checked ~ .content-android-device , 
-
-.tab-genymotion:checked ~ .content-genymotion 
+.tab-Genymotion:checked ~ .content-Genymotion 
  {
     display: block;
 }
 </style>
 <div class="content tabs">
+   
     
-        <input class="tab-android-device" type="radio" name="tabs" checked>
-        <label>android-device</label>
+        <input id="tab-Android-Device-jdocvwmxslhfzngzqtekaburyi" class="tab tab-Android-Device" type="radio" name="tabs-jdocvwmxslhfzngzqtekaburyi" checked>
+        <label for="tab-Android-Device-jdocvwmxslhfzngzqtekaburyi" class="tab">Android-Device</label>
     
-        <input class="tab-genymotion" type="radio" name="tabs" checked>
-        <label>genymotion</label>
+        <input id="tab-Genymotion-jdocvwmxslhfzngzqtekaburyi" class="tab tab-Genymotion" type="radio" name="tabs-jdocvwmxslhfzngzqtekaburyi" checked>
+        <label for="tab-Genymotion-jdocvwmxslhfzngzqtekaburyi" class="tab">Genymotion</label>
     
-<div class="content tab-content content-android-device">
+<div class="content tab-content content-Android-Device">
 <p>First, connect your phone to your development machine. If you are using an android device, you can check that is is connected and then enable port forwarding on <code>5561</code> for the debug server.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># android only</span>
 adb devices
@@ -188,7 +224,7 @@ adb -s DEVICE_ID forward tcp:5561 tcp:5561
 
 <p></div></p>
 
-<div class="content tab-content content-genymotion">
+<div class="content tab-content content-Genymotion">
 <ol>
 <li>Install genymotion</li>
 <li>Create a genymotion virtual device</li>
@@ -216,30 +252,29 @@ inet <span class="m">10</span>.10.0.216 netmask 0xfffffe00 broadcast <span class
 <h2 id="my-first-dapp">My First DApp</h2>
 
 <style>
-.tab-content { display: none; }
 
+.tab-DIY:checked ~ .content-DIY , 
 
-.tab-diy:checked ~ .content-diy , 
+.tab-Embark:checked ~ .content-Embark , 
 
-.tab-embark:checked ~ .content-embark , 
-
-.tab-truffle:checked ~ .content-truffle 
+.tab-Truffle:checked ~ .content-Truffle 
  {
     display: block;
 }
 </style>
 <div class="content tabs">
+   
     
-        <input class="tab-diy" type="radio" name="tabs" checked>
-        <label>diy</label>
+        <input id="tab-DIY-zxgqbzhutkyinldwraojfmecsv" class="tab tab-DIY" type="radio" name="tabs-zxgqbzhutkyinldwraojfmecsv" checked>
+        <label for="tab-DIY-zxgqbzhutkyinldwraojfmecsv" class="tab">DIY</label>
     
-        <input class="tab-embark" type="radio" name="tabs" checked>
-        <label>embark</label>
+        <input id="tab-Embark-zxgqbzhutkyinldwraojfmecsv" class="tab tab-Embark" type="radio" name="tabs-zxgqbzhutkyinldwraojfmecsv" checked>
+        <label for="tab-Embark-zxgqbzhutkyinldwraojfmecsv" class="tab">Embark</label>
     
-        <input class="tab-truffle" type="radio" name="tabs" checked>
-        <label>truffle</label>
+        <input id="tab-Truffle-zxgqbzhutkyinldwraojfmecsv" class="tab tab-Truffle" type="radio" name="tabs-zxgqbzhutkyinldwraojfmecsv" checked>
+        <label for="tab-Truffle-zxgqbzhutkyinldwraojfmecsv" class="tab">Truffle</label>
     
-<div class="content tab-content content-diy">
+<div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install -g status-dev-cli
 mkdir my-dapp <span class="o">&amp;&amp;</span> <span class="nb">cd</span> my-dapp
@@ -322,7 +357,7 @@ http-server
 
 <p></div></p>
 
-<div class="content tab-content content-truffle">
+<div class="content tab-content content-Truffle">
 <h3 id="truffle">Truffle</h3>
 
 <p>OK, so we can write a little HTML5 DApp that displays information to Status users through a simple webView component. However, we want to do so much more! We want to write smart contracts, deploy them, and interact with them through a fully mobile user interface; and we want to build decentralized chatbots that live within Status and make friends with all the humans.</p>
@@ -415,7 +450,7 @@ npm run start
 
 </div>
 
-<div class="content tab-content content-embark">
+<div class="content tab-content content-Embark">
 <h3 id="embark">Embark</h3>
 
 <p>OK, so Truffle is not your favourite and you prefer using Embark. Fine with us. As always, make sure you have installed the framework first.</p>
@@ -516,30 +551,29 @@ npm install embark-status --save
 <h2 id="my-first-1-1-chatbot">My First 1-1 Chatbot</h2>
 
 <p><style>
-.tab-content { display: none; }
 
+.tab-DIY:checked ~ .content-DIY , 
 
-.tab-diy:checked ~ .content-diy , 
+.tab-Embark:checked ~ .content-Embark , 
 
-.tab-embark:checked ~ .content-embark , 
-
-.tab-truffle:checked ~ .content-truffle 
+.tab-Truffle:checked ~ .content-Truffle 
  {
     display: block;
 }
 </style>
 <div class="content tabs">
+   
     
-        <input class="tab-diy" type="radio" name="tabs" checked>
-        <label>diy</label>
+        <input id="tab-DIY-vhgynsczkfjliudzxwerbtomqa" class="tab tab-DIY" type="radio" name="tabs-vhgynsczkfjliudzxwerbtomqa" checked>
+        <label for="tab-DIY-vhgynsczkfjliudzxwerbtomqa" class="tab">DIY</label>
     
-        <input class="tab-embark" type="radio" name="tabs" checked>
-        <label>embark</label>
+        <input id="tab-Embark-vhgynsczkfjliudzxwerbtomqa" class="tab tab-Embark" type="radio" name="tabs-vhgynsczkfjliudzxwerbtomqa" checked>
+        <label for="tab-Embark-vhgynsczkfjliudzxwerbtomqa" class="tab">Embark</label>
     
-        <input class="tab-truffle" type="radio" name="tabs" checked>
-        <label>truffle</label>
+        <input id="tab-Truffle-vhgynsczkfjliudzxwerbtomqa" class="tab tab-Truffle" type="radio" name="tabs-vhgynsczkfjliudzxwerbtomqa" checked>
+        <label for="tab-Truffle-vhgynsczkfjliudzxwerbtomqa" class="tab">Truffle</label>
     
-<div class="content tab-content content-diy">
+<div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
 
 <p>First, we&rsquo;re going to create a new <code>bots</code> directory and add file to keep our javascript in.</p>
@@ -586,7 +620,7 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;bo
 
 <p></div></p>
 
-<div class="content tab-content content-embark">
+<div class="content tab-content content-Embark">
 <h3 id="embark">Embark</h3>
 
 <p>OK, so even though <code>status-dev-cli</code> is lightweight and awesome, the frameworks offer some really cool features and make development significantly easier for many projects. Let&rsquo;s see what it&rsquo;s like to add the same chatbot to Status using Embark.</p>
@@ -597,7 +631,7 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;bo
 
 </div>
 
-<div class="content tab-content content-truffle">
+<div class="content tab-content content-Truffle">
 <h3 id="truffle">Truffle</h3>
 
 <p>Let&rsquo;s see what it looks like to add the same, flattering little chatbot to Status through the Truffle Box we set up earlier. Navigate back to that directory, ensure that <code>testrpc</code> is switched on and that you have opened all the right ports if you&rsquo;re on Android.</p>
@@ -668,30 +702,29 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;tr
 <h2 id="my-first-status-command">My First Status Command</h2>
 
 <style>
-.tab-content { display: none; }
 
+.tab-DIY:checked ~ .content-DIY , 
 
-.tab-diy:checked ~ .content-diy , 
+.tab-Embark:checked ~ .content-Embark , 
 
-.tab-embark:checked ~ .content-embark , 
-
-.tab-truffle:checked ~ .content-truffle 
+.tab-Truffle:checked ~ .content-Truffle 
  {
     display: block;
 }
 </style>
 <div class="content tabs">
+   
     
-        <input class="tab-diy" type="radio" name="tabs" checked>
-        <label>diy</label>
+        <input id="tab-DIY-oetzxdfmsrgqjzyvwhuabcilkn" class="tab tab-DIY" type="radio" name="tabs-oetzxdfmsrgqjzyvwhuabcilkn" checked>
+        <label for="tab-DIY-oetzxdfmsrgqjzyvwhuabcilkn" class="tab">DIY</label>
     
-        <input class="tab-embark" type="radio" name="tabs" checked>
-        <label>embark</label>
+        <input id="tab-Embark-oetzxdfmsrgqjzyvwhuabcilkn" class="tab tab-Embark" type="radio" name="tabs-oetzxdfmsrgqjzyvwhuabcilkn" checked>
+        <label for="tab-Embark-oetzxdfmsrgqjzyvwhuabcilkn" class="tab">Embark</label>
     
-        <input class="tab-truffle" type="radio" name="tabs" checked>
-        <label>truffle</label>
+        <input id="tab-Truffle-oetzxdfmsrgqjzyvwhuabcilkn" class="tab tab-Truffle" type="radio" name="tabs-oetzxdfmsrgqjzyvwhuabcilkn" checked>
+        <label for="tab-Truffle-oetzxdfmsrgqjzyvwhuabcilkn" class="tab">Truffle</label>
     
-<div class="content tab-content content-diy">
+<div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
 
 <p>So, we have set up Status in <code>debug</code> mode, added our DApp to it (hopefully run the <code>dapp watch</code> command to get some live-reloading going) and learned how to start a conversation with a simple javascript chatbot. Now it&rsquo;s time to start using the API proper and start using the provided commands to interact with our users and help them out.</p>
@@ -742,12 +775,12 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s1">&#39;{&quot;w
 
 <p></div></p>
 
-<div class="content tab-content content-embark">
+<div class="content tab-content content-Embark">
 <h3 id="embark">Embark</h3>
 
 </div>
 
-<div class="content tab-content content-truffle">
+<div class="content tab-content content-Truffle">
 <h3 id="truffle">Truffle</h3>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/truffle-box-status/build/bot/ <span class="o">&amp;&amp;</span> nano bot.js
 </code></pre></div>
@@ -3738,6 +3771,20 @@ or deploy the contract using the compiled byte code:</p>
             
         </div>
     </div>
-    
+    <script type="text/javascript">
+var tab = document.getElementsByClassName("tab");
+
+var globalTabSwitch = function() {
+    var attr = this.getAttribute("class").split(' ')[1];
+    var type = document.getElementsByClassName(attr);
+    for (var i = 0; i < type.length; i++) {
+        type[i].checked = true;
+    }
+};
+
+for (var i = 0; i < tab.length; i++) {
+    tab[i].addEventListener('click', globalTabSwitch, false);
+}
+</script>
 </body>
 </html>
