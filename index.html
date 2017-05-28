@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<meta name="generator" content="Hugo 0.18.1" />
+	<meta name="generator" content="Hugo 0.20.7" />
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -186,9 +186,9 @@ input:checked + label {
 
 <style>
 
-.tab-Android-Device:checked ~ .content-Android-Device , 
+.tab-Device:checked ~ .content-Device , 
 
-.tab-Genymotion:checked ~ .content-Genymotion 
+.tab-Emulator:checked ~ .content-Emulator 
  {
     display: block;
 }
@@ -196,33 +196,33 @@ input:checked + label {
 <div class="content tabs">
    
     
-        <input id="tab-Android-Device-fdcrtzqiaymvjeszhbwluknxgo" class="tab tab-Android-Device" type="radio" name="tabs-fdcrtzqiaymvjeszhbwluknxgo" checked>
-        <label for="tab-Android-Device-fdcrtzqiaymvjeszhbwluknxgo" class="tab">Android-Device</label>
+        <input id="tab-Device-lizxavyodmznhweukcgqtbfrjs" class="tab tab-Device" type="radio" name="tabs-lizxavyodmznhweukcgqtbfrjs" checked>
+        <label for="tab-Device-lizxavyodmznhweukcgqtbfrjs" class="tab">Device</label>
     
-        <input id="tab-Genymotion-fdcrtzqiaymvjeszhbwluknxgo" class="tab tab-Genymotion" type="radio" name="tabs-fdcrtzqiaymvjeszhbwluknxgo" checked>
-        <label for="tab-Genymotion-fdcrtzqiaymvjeszhbwluknxgo" class="tab">Genymotion</label>
+        <input id="tab-Emulator-lizxavyodmznhweukcgqtbfrjs" class="tab tab-Emulator" type="radio" name="tabs-lizxavyodmznhweukcgqtbfrjs" checked>
+        <label for="tab-Emulator-lizxavyodmznhweukcgqtbfrjs" class="tab">Emulator</label>
     
-<div class="content tab-content content-Android-Device">
-<p>First, connect your phone to your development machine. If you are using an android device, you can check that is is connected and then enable port forwarding on <code>5561</code> for the debug server.</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># android only</span>
-adb devices
-adb forward tcp:5561 tcp:5561
+<div class="content tab-content content-Device">
+<p>First, connect your phone to your development machine and ensure that you are using MTP (Media Transfer Protocol) by tapping on the USB settings option that pops up. Navigate to the Console Bot, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools if you want.</p>
 
-<span class="c1"># more than one device connected?</span>
-adb -s DEVICE_ID forward tcp:5561 tcp:5561
+<p>You also need to install <code>status-dev-cli</code> to make talking between Status and your machine a breeze.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm i -g status-dev-cli
 </code></pre></div>
 
 <p><img src="images/starting-a-dapp-on-status-with-frameworks_01.png" alt="With your phone connected, /debug &quot;On&quot;" /></p>
 
 <p><em>With your phone connected, /debug &ldquo;On&rdquo;</em></p>
 
-<p>You then need to open Status, navigate to <code>Console</code>, hit the <code>debug</code> suggestion and turn on the debugging server. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools if you want.</p>
+<p>The important part of the message is your <code>device IP</code> address, which we&rsquo;ll be using throughout. You can check that this is the right address by running the <code>scan</code> command in ther terminal. Another useful command we will be using a lot later on is <code>list</code> which will return a list of all DApps you have added to Status.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli scan
+status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to use the IPv4 address</span>
+</code></pre></div>
 
-<p>The important part of the message is your <code>device IP</code> address, which we&rsquo;ll be using throughout.</p>
+</div>
 
-<p></div></p>
+<div class="content tab-content content-Emulator">
+<p>We give instructions here for Genymotion (a popular Android emulator). If you want to build Status and run it in XCode and use an iOS simulator, I offer you this <a href="https://gist.github.com/andytudhope/a06e1c9916e23909321f6ac427aaf348" target="_blank">gist</a> though you&rsquo;ll have to either convert to iTerm2 or edit it somewhat. You will also need to run <code>instruments -s devices</code> and change the <code>uuid</code> in the script to the one that matches the emulator you want to run Status in from XCode.</p>
 
-<div class="content tab-content content-Genymotion">
 <ol>
 <li>Install genymotion</li>
 <li>Create a genymotion virtual device</li>
@@ -230,13 +230,12 @@ adb -s DEVICE_ID forward tcp:5561 tcp:5561
 <li>Start device</li>
 <li>Install status.im apk from nightly builds by dragging onto emulator window</li>
 <li>Start status.im app on device</li>
-<li>Turn on debugging in console (/debug). Record the ip address to use later as THE_DEVICE_IP. You should be able to ping this ip from your actual os</li>
-<li>Forward port 5561 (use genymotion adb!): <code>/opt/genymotion/tools/adb forward tcp:5561 tcp:5561</code></li>
+<li>Turn on debugging in console (/debug). Record the ip address to use later as DEVICE-IP. You should be able to ping this ip from your actual os</li>
 <li>Serve your app over http</li>
-<li><code>status-dev-cli add [dapp]</code> where dapp is your json file with <code>whisper-identity</code> etc.</li>
+<li><code>status-dev-cli add [dapp] --ip &lt;DEVICE-iP&gt;</code> where dapp is your json file with <code>whisper-identity</code> etc.</li>
 </ol>
 
-</div>
+<p></div></p>
 
 </div>
 
@@ -263,14 +262,14 @@ inet <span class="m">10</span>.10.0.216 netmask 0xfffffe00 broadcast <span class
 <div class="content tabs">
    
     
-        <input id="tab-DIY-kgiqytrnuhcxofdjvazbmlsezw" class="tab tab-DIY" type="radio" name="tabs-kgiqytrnuhcxofdjvazbmlsezw" checked>
-        <label for="tab-DIY-kgiqytrnuhcxofdjvazbmlsezw" class="tab">DIY</label>
+        <input id="tab-DIY-fajytkgmrxcloiqdneuhbvwzsz" class="tab tab-DIY" type="radio" name="tabs-fajytkgmrxcloiqdneuhbvwzsz" checked>
+        <label for="tab-DIY-fajytkgmrxcloiqdneuhbvwzsz" class="tab">DIY</label>
     
-        <input id="tab-Embark-kgiqytrnuhcxofdjvazbmlsezw" class="tab tab-Embark" type="radio" name="tabs-kgiqytrnuhcxofdjvazbmlsezw" checked>
-        <label for="tab-Embark-kgiqytrnuhcxofdjvazbmlsezw" class="tab">Embark</label>
+        <input id="tab-Embark-fajytkgmrxcloiqdneuhbvwzsz" class="tab tab-Embark" type="radio" name="tabs-fajytkgmrxcloiqdneuhbvwzsz" checked>
+        <label for="tab-Embark-fajytkgmrxcloiqdneuhbvwzsz" class="tab">Embark</label>
     
-        <input id="tab-Truffle-kgiqytrnuhcxofdjvazbmlsezw" class="tab tab-Truffle" type="radio" name="tabs-kgiqytrnuhcxofdjvazbmlsezw" checked>
-        <label for="tab-Truffle-kgiqytrnuhcxofdjvazbmlsezw" class="tab">Truffle</label>
+        <input id="tab-Truffle-fajytkgmrxcloiqdneuhbvwzsz" class="tab tab-Truffle" type="radio" name="tabs-fajytkgmrxcloiqdneuhbvwzsz" checked>
+        <label for="tab-Truffle-fajytkgmrxcloiqdneuhbvwzsz" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -317,7 +316,7 @@ http-server
 </code></pre></div></p>
 
 <p><blockquote>
-<p>In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the <code>&ndash;ip</code> flag with the IP address listed by Console once you have selected the <code>debug</code> option and turned it on. You should already have enabled adb port forwarding on 5561 if you are using an Android device.</p>
+<p>In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the <code>&ndash;ip</code> flag with the IP address listed by Console once you have selected the <code>debug</code> option and turned it on.</p>
 </blockquote>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;hello-bot&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;Hello&quot;}&#39;</span> &ndash;ip &lt;DEVICE-IP&gt;
 </code></pre></div></p>
@@ -347,6 +346,8 @@ http-server
 
 <p>2) If using a real device, you also need to ensure that it is set to use MTP (media transfer Protocol) in the USB-debugging settings. Open the equivalent of your settings or develop options by pulling down the top menu and clicking in the debugging options.</p>
 
+<p>3) The new version of <code>status-dev-cli</code> does not require you to do any <code>adb</code> port forwarding any more and will, in fact, fail if you do. Just use the <code>scan</code> and <code>list</code> commands as and when you need them.</p>
+
 <p>Happy travels!</p>
 
 <aside class="success">
@@ -368,14 +369,14 @@ http-server
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install -g ethereumjs-testrpc
 testrpc -p <span class="m">8546</span>
 
-<span class="c1"># If you use android</span>
+<span class="c1"># If you&#39;re using Android (device only)</span>
 adb reverse tcp:8546 tcp:8546
 </code></pre></div>
 
 <p>That’s it! It will show you a list of available accounts, private keys, your HD wallet and mnemonic. Please note that we&rsquo;re running testrpc on (non-default) RPC port 8546, just to avoid potential conflict with the node running inside Status. If using android, you need to open the connection from your PC to your phone on that port, so Status can listen for changes there.</p>
 
 <p>We also need to make sure that our Status client is listening to our new <code>testrpc</code> network, rather than Ropsten, so that we can get the information we need about our contracts etc. Luckily, this is as easy as running:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli switch-node http://localhost:8546
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli switch-node <span class="s2">&quot;http://localhost:8546&quot;</span> --ip &lt;DEVICE-IP&gt;
 
 <span class="c1"># Of course, there are options. You can use go-ethereum instead of TestRPC, and instead of port forwarding you can switch to any other accessible node using its IP address.</span>
 </code></pre></div>
@@ -410,7 +411,8 @@ adb reverse tcp:8546 tcp:8546
 <p>As you run the <code>migrate</code> command - which is what deploys your contracts to the network - you can look at the window with <code>testrpc</code> running, and you’ll see your transactions being published. If you get <code>Error: Invalid JSON RPC response</code>, you probably forgot to run <code>testrpc</code>.</p>
 
 <p>If you&rsquo;re using an Android device, the application won&rsquo;t be accessible automatically, since it runs on port 3000 and your device/emulator knows nothing about it. Execute the following to make web application accessible:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>adb reverse tcp:3000 tcp:3000
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># If you&#39;re using Android (device only)</span>
+adb reverse tcp:3000 tcp:3000
 </code></pre></div>
 
 <p>Now we are ready to see our DApp running on Status. From within your DApp directory, run:</p>
@@ -418,7 +420,7 @@ adb reverse tcp:8546 tcp:8546
 npm run start
 
 <span class="c1">#(Remember to set ENV variable if working with real device)</span>
- <span class="nv">IP</span><span class="o">=</span>&lt;IP_of_your_phone&gt; npm run start
+ <span class="nv">IP</span><span class="o">=</span>&lt;DEVICE-IP&gt; npm run start
 </code></pre></div>
 
 <p>This should tell you that the the app is running, and that the DApp has been added to the Status Contacts.</p>
@@ -438,7 +440,7 @@ npm run start
   <span class="nx">migrations_directory</span><span class="o">:</span> <span class="s2">&quot;./migrations&quot;</span><span class="p">,</span>
   <span class="nx">networks</span><span class="o">:</span> <span class="p">{</span>
     <span class="nx">development</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">host</span><span class="o">:</span> <span class="s2">&quot;&lt;IP_of_your_computer&gt;&quot;</span><span class="p">,</span>
+      <span class="nx">host</span><span class="o">:</span> <span class="s2">&quot;&lt;MACHINE-IP&gt;&quot;</span><span class="p">,</span>
       <span class="nx">port</span><span class="o">:</span> <span class="mi">8546</span><span class="p">,</span>
       <span class="nx">network_id</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span> <span class="c1">// Match any network id</span>
     <span class="p">}</span>
@@ -562,14 +564,14 @@ npm install embark-status --save
 <div class="content tabs">
    
     
-        <input id="tab-DIY-cxertnwlgqzszbumfkoidayvjh" class="tab tab-DIY" type="radio" name="tabs-cxertnwlgqzszbumfkoidayvjh" checked>
-        <label for="tab-DIY-cxertnwlgqzszbumfkoidayvjh" class="tab">DIY</label>
+        <input id="tab-DIY-mfbthzwderxqgycliozsjuakvn" class="tab tab-DIY" type="radio" name="tabs-mfbthzwderxqgycliozsjuakvn" checked>
+        <label for="tab-DIY-mfbthzwderxqgycliozsjuakvn" class="tab">DIY</label>
     
-        <input id="tab-Embark-cxertnwlgqzszbumfkoidayvjh" class="tab tab-Embark" type="radio" name="tabs-cxertnwlgqzszbumfkoidayvjh" checked>
-        <label for="tab-Embark-cxertnwlgqzszbumfkoidayvjh" class="tab">Embark</label>
+        <input id="tab-Embark-mfbthzwderxqgycliozsjuakvn" class="tab tab-Embark" type="radio" name="tabs-mfbthzwderxqgycliozsjuakvn" checked>
+        <label for="tab-Embark-mfbthzwderxqgycliozsjuakvn" class="tab">Embark</label>
     
-        <input id="tab-Truffle-cxertnwlgqzszbumfkoidayvjh" class="tab tab-Truffle" type="radio" name="tabs-cxertnwlgqzszbumfkoidayvjh" checked>
-        <label for="tab-Truffle-cxertnwlgqzszbumfkoidayvjh" class="tab">Truffle</label>
+        <input id="tab-Truffle-mfbthzwderxqgycliozsjuakvn" class="tab tab-Truffle" type="radio" name="tabs-mfbthzwderxqgycliozsjuakvn" checked>
+        <label for="tab-Truffle-mfbthzwderxqgycliozsjuakvn" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
@@ -713,14 +715,14 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;tr
 <div class="content tabs">
    
     
-        <input id="tab-DIY-wzbhgcrixnmsyvqdotzaejfukl" class="tab tab-DIY" type="radio" name="tabs-wzbhgcrixnmsyvqdotzaejfukl" checked>
-        <label for="tab-DIY-wzbhgcrixnmsyvqdotzaejfukl" class="tab">DIY</label>
+        <input id="tab-DIY-dhumnravzzxkjbciewtfqlsgyo" class="tab tab-DIY" type="radio" name="tabs-dhumnravzzxkjbciewtfqlsgyo" checked>
+        <label for="tab-DIY-dhumnravzzxkjbciewtfqlsgyo" class="tab">DIY</label>
     
-        <input id="tab-Embark-wzbhgcrixnmsyvqdotzaejfukl" class="tab tab-Embark" type="radio" name="tabs-wzbhgcrixnmsyvqdotzaejfukl" checked>
-        <label for="tab-Embark-wzbhgcrixnmsyvqdotzaejfukl" class="tab">Embark</label>
+        <input id="tab-Embark-dhumnravzzxkjbciewtfqlsgyo" class="tab tab-Embark" type="radio" name="tabs-dhumnravzzxkjbciewtfqlsgyo" checked>
+        <label for="tab-Embark-dhumnravzzxkjbciewtfqlsgyo" class="tab">Embark</label>
     
-        <input id="tab-Truffle-wzbhgcrixnmsyvqdotzaejfukl" class="tab tab-Truffle" type="radio" name="tabs-wzbhgcrixnmsyvqdotzaejfukl" checked>
-        <label for="tab-Truffle-wzbhgcrixnmsyvqdotzaejfukl" class="tab">Truffle</label>
+        <input id="tab-Truffle-dhumnravzzxkjbciewtfqlsgyo" class="tab tab-Truffle" type="radio" name="tabs-dhumnravzzxkjbciewtfqlsgyo" checked>
+        <label for="tab-Truffle-dhumnravzzxkjbciewtfqlsgyo" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
