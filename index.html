@@ -165,7 +165,7 @@ input:checked + label {
 <p>OK, let&rsquo;s learn how to build our first DApp on Status (mobile-first ftw!). To progress further, you need to have Status running.</p>
 
 <aside class="success">
- Please note that these documents are intended for the latest version of "status-dev-cli" and the nightly developer builds of Status itself (available only on Android). To update `status-dev-cli` please run "npm uninstall -g status-dev-cli" and then "npm i -g status-dev-cli". Our nightly builds can be found here: http://artifacts.status.im:8081/artifactory/nightlies-local/.
+ Please note that these documents are intended for the latest version of "status-dev-cli" and the nightly developer builds of Status itself (available only on Android). To update "status-dev-cli" please run "npm uninstall -g status-dev-cli" and then "npm i -g status-dev-cli". Our nightly builds can be found here: http://artifacts.status.im:8081/artifactory/nightlies-local/.
 </aside>
 
 <p>Our wiki guidelines should be all you need, but if you get lost come ask around in <a href="https://slack.status.im" target="_blank">our Slack</a>.</p>
@@ -184,11 +184,11 @@ input:checked + label {
 <div class="content tabs">
    
     
-        <input id="tab-Device-zrbikefthucomwxdanqlzygjvs" class="tab tab-Device" type="radio" name="tabs-zrbikefthucomwxdanqlzygjvs" checked>
-        <label for="tab-Device-zrbikefthucomwxdanqlzygjvs" class="tab">Device</label>
+        <input id="tab-Device-dqohlfmijrtyeankbxuvgzwszc" class="tab tab-Device" type="radio" name="tabs-dqohlfmijrtyeankbxuvgzwszc" checked>
+        <label for="tab-Device-dqohlfmijrtyeankbxuvgzwszc" class="tab">Device</label>
     
-        <input id="tab-Emulator-zrbikefthucomwxdanqlzygjvs" class="tab tab-Emulator" type="radio" name="tabs-zrbikefthucomwxdanqlzygjvs" checked>
-        <label for="tab-Emulator-zrbikefthucomwxdanqlzygjvs" class="tab">Emulator</label>
+        <input id="tab-Emulator-dqohlfmijrtyeankbxuvgzwszc" class="tab tab-Emulator" type="radio" name="tabs-dqohlfmijrtyeankbxuvgzwszc" checked>
+        <label for="tab-Emulator-dqohlfmijrtyeankbxuvgzwszc" class="tab">Emulator</label>
     
 <div class="content tab-content content-Device">
 <p>First, connect your phone to your development machine and ensure that you are using MTP (Media Transfer Protocol) by tapping on the USB settings option that pops up. Navigate to the Console Bot, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools if you want.</p>
@@ -219,8 +219,8 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <li>Install status.im apk from nightly builds by dragging onto emulator window</li>
 <li>Start status.im app on virtual device</li>
 <li>Turn on debugging in console (/debug On).</li>
-<li>Open terminal and run <code>status-dev-cli scan</code> it returns two <DEVICE-iP> addresses, use 192.168.1.<em>, and ignore 192.168.56.</em></li>
-<li><code>status-dev-cli add [dapp] --ip &lt;DEVICE-iP&gt;</code> where dapp is your json file with <code>whisper-identity</code> etc.</li>
+<li>Open terminal and run <code>status-dev-cli scan</code> it returns two <DEVICE-IP> addresses, use 192.168.1.<em>, and ignore 192.168.56.</em></li>
+<li><code>status-dev-cli add [dapp] --ip &lt;DEVICE-IP&gt;</code> where dapp is your json file with <code>whisper-identity</code> etc.</li>
 </ol>
 
 <p></div></p>
@@ -243,21 +243,21 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <div class="content tabs">
    
     
-        <input id="tab-DIY-qedslmbjkhwzfyvzorucgiatnx" class="tab tab-DIY" type="radio" name="tabs-qedslmbjkhwzfyvzorucgiatnx" checked>
-        <label for="tab-DIY-qedslmbjkhwzfyvzorucgiatnx" class="tab">DIY</label>
+        <input id="tab-DIY-vfmqealjuzozykhwsxdbircntg" class="tab tab-DIY" type="radio" name="tabs-vfmqealjuzozykhwsxdbircntg" checked>
+        <label for="tab-DIY-vfmqealjuzozykhwsxdbircntg" class="tab">DIY</label>
     
-        <input id="tab-Embark-qedslmbjkhwzfyvzorucgiatnx" class="tab tab-Embark" type="radio" name="tabs-qedslmbjkhwzfyvzorucgiatnx" checked>
-        <label for="tab-Embark-qedslmbjkhwzfyvzorucgiatnx" class="tab">Embark</label>
+        <input id="tab-Embark-vfmqealjuzozykhwsxdbircntg" class="tab tab-Embark" type="radio" name="tabs-vfmqealjuzozykhwsxdbircntg" checked>
+        <label for="tab-Embark-vfmqealjuzozykhwsxdbircntg" class="tab">Embark</label>
     
-        <input id="tab-Truffle-qedslmbjkhwzfyvzorucgiatnx" class="tab tab-Truffle" type="radio" name="tabs-qedslmbjkhwzfyvzorucgiatnx" checked>
-        <label for="tab-Truffle-qedslmbjkhwzfyvzorucgiatnx" class="tab">Truffle</label>
+        <input id="tab-Truffle-vfmqealjuzozykhwsxdbircntg" class="tab tab-Truffle" type="radio" name="tabs-vfmqealjuzozykhwsxdbircntg" checked>
+        <label for="tab-Truffle-vfmqealjuzozykhwsxdbircntg" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
 
 <p>First, install the <code>status-dev-cli</code> tools globally using NPM. Then, create a directory for your app to live in, switch into it, and create an <code>index.html</code> file and an <code>app.js</code> file.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install -g status-dev-cli
-mkdir my-dapp <span class="o">&amp;&amp;</span> <span class="nb">cd</span> my-dapp
+mkdir ~/my-dapp <span class="o">&amp;&amp;</span> <span class="nb">cd</span> my-dapp
 touch index.html app.js
 </code></pre></div>
 
@@ -295,7 +295,7 @@ touch index.html app.js
 <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span> <span class="nx">onContentLoaded</span><span class="p">);</span>
 </code></pre></div></p>
 
-<p>You then need to install a really simple <code>http-server</code> from NPM (we recommend this for ease of use), and start it in the <code>my-dapp</code> directory we just created.</p>
+<p>You then need to install a really simple <code>http-server</code> from NPM (we recommend it for ease-of-use), and start it in the <code>my-dapp</code> directory we just created.</p>
 
 <p>Open a new terminal session, navigate back to your <code>my-dapp</code> directory, and go ahead and add your dapp to Status! Make sure to pass in the <code>--ip</code> flag using the address returned to you by Console, when you <a href="#enabling-debugging">enabled debugging</a>.</p>
 
@@ -307,10 +307,7 @@ http-server
 <blockquote>
 <p>In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the <code>--ip</code> flag with the IP address listed by Console once you have selected the <code>debug</code> option and turned it on.</p>
 </blockquote>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># Android device only</span>
-adb reverse tcp:8080 tcp:8080
-
-status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;hello-bot&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;Hello&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;hello-bot&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;Hello&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
 <p>That&rsquo;s it! You should be able to see your DApp in the chats, and opening it should browse automatically to a page that shows your account information. You can also do live-reloading once you&rsquo;re happy with this by running <code>status-dev-cli watch $PWD '{&quot;whisper-identity&quot;: &quot;hello-bot&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;Hello&quot;}' --ip &lt;DEVICE-IP&gt;</code></p>
@@ -319,12 +316,12 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;he
 <li>Known Issues</li>
 </ul>
 
-<p>1) You may need to escape the <code>json</code> information you are passing into <code>status-dev-cli</code> if you are on a windows machine, like so: <code>status-dev-cli add '{\&quot;whisper-identity\&quot;: \&quot;my-dapp5\&quot;, \&quot;dapp-url\&quot;: \&quot;http://&lt;MACHINE-ip&gt;:8
+<p>1) You may need to escape the <code>json</code> information you are passing into <code>status-dev-cli</code> if you are on a windows machine, like so: <code>status-dev-cli add '{\&quot;whisper-identity\&quot;: \&quot;my-dapp5\&quot;, \&quot;dapp-url\&quot;: \&quot;http://&lt;MACHINE-IP&gt;:8
 080\&quot;,\&quot;name\&quot;: \&quot;My DApp\&quot;}' --ip &lt;DEVICE-IP&gt;</code></p>
 
 <p>2) If using a real device, you also need to ensure that it is set to use MTP (media transfer Protocol) in the USB-debugging settings. Open the equivalent of your settings or develop options by pulling down the top menu and clicking in the debugging options.</p>
 
-<p>3) If using Genymotion, please make sure you use the 2nd IP address returned by <code>status-dev-cli scan</code> that begins 192.168.1.*</p>
+<p>3) The new version of <code>status-dev-cli</code> does not require you to do any <code>adb</code> port forwarding any more and will, in fact, fail if you do. Just use the <code>scan</code> and <code>list</code> commands as and when you need them.</p>
 
 <p>Happy travels!</p>
 
@@ -362,7 +359,7 @@ adb reverse tcp:8546 tcp:8546
 <p>Open a new shell (i.e. a new Terminal window or tab) for the next part. You’ll leave <code>testrpc</code> running in the first window, and use the second window for the rest of the tutorial.</p>
 
 <p>Now that you have <code>testrpc</code> is going, and a new shell is open, run:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install -g truffle // Version <span class="m">3</span>.0.5+ required.
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install -g truffle <span class="c1"># Version 3.0.5+ required.</span>
 </code></pre></div>
 
 <p>This installs the Truffle framework, and you can find its GitHub <a href="https://github.com/trufflesuite/truffle" target="_blank">page here</a>.</p>
@@ -413,7 +410,7 @@ npm run start
 
 <p><em>Known problems:</em></p>
 
-<p>1) If you are running on a real iOS device, you may need to configure Truffle Box to use the network on your computer. In <code>truffle.js</code>, change <code>host</code> to the IP of your computer:</p>
+<p>1) If you are running on a real iOS device, you need to configure Truffle Box to use the network on your computer. In <code>truffle.js</code>, change <code>host</code> to the IP of your computer:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">migrations_directory</span><span class="o">:</span> <span class="s2">&quot;./migrations&quot;</span><span class="p">,</span>
   <span class="nx">networks</span><span class="o">:</span> <span class="p">{</span>
@@ -542,20 +539,20 @@ npm install embark-status --save
 <div class="content tabs">
    
     
-        <input id="tab-DIY-halbzvxzuitedmscgowqykjrfn" class="tab tab-DIY" type="radio" name="tabs-halbzvxzuitedmscgowqykjrfn" checked>
-        <label for="tab-DIY-halbzvxzuitedmscgowqykjrfn" class="tab">DIY</label>
+        <input id="tab-DIY-gavlfbrzzkdewcnjmtqioysxhu" class="tab tab-DIY" type="radio" name="tabs-gavlfbrzzkdewcnjmtqioysxhu" checked>
+        <label for="tab-DIY-gavlfbrzzkdewcnjmtqioysxhu" class="tab">DIY</label>
     
-        <input id="tab-Embark-halbzvxzuitedmscgowqykjrfn" class="tab tab-Embark" type="radio" name="tabs-halbzvxzuitedmscgowqykjrfn" checked>
-        <label for="tab-Embark-halbzvxzuitedmscgowqykjrfn" class="tab">Embark</label>
+        <input id="tab-Embark-gavlfbrzzkdewcnjmtqioysxhu" class="tab tab-Embark" type="radio" name="tabs-gavlfbrzzkdewcnjmtqioysxhu" checked>
+        <label for="tab-Embark-gavlfbrzzkdewcnjmtqioysxhu" class="tab">Embark</label>
     
-        <input id="tab-Truffle-halbzvxzuitedmscgowqykjrfn" class="tab tab-Truffle" type="radio" name="tabs-halbzvxzuitedmscgowqykjrfn" checked>
-        <label for="tab-Truffle-halbzvxzuitedmscgowqykjrfn" class="tab">Truffle</label>
+        <input id="tab-Truffle-gavlfbrzzkdewcnjmtqioysxhu" class="tab tab-Truffle" type="radio" name="tabs-gavlfbrzzkdewcnjmtqioysxhu" checked>
+        <label for="tab-Truffle-gavlfbrzzkdewcnjmtqioysxhu" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
 
 <p>First, we&rsquo;re going to create a new <code>bots</code> directory and add file to keep our javascript in.</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/my-dapp
 mkdir bots <span class="o">&amp;&amp;</span> <span class="nb">cd</span> bots <span class="o">&amp;&amp;</span> touch bot.js
 </code></pre></div>
 
@@ -581,7 +578,7 @@ mkdir bots <span class="o">&amp;&amp;</span> <span class="nb">cd</span> bots <sp
 
 <p>Then, navigate back to the <code>bots</code> directory, do the necessary Android steps if you are using that platform, and start the http server again. Then, open a new shell window and add your new bot. It&rsquo;s important to note a few things here. We are <code>add</code>ing a new new bot, rather than just watching the DApp we built earlier for changes. Also, we are only passing in a <code>bot-url</code>, rather than a <code>dapp-url</code> - this will ensure that, when you open your new bot contact, it won&rsquo;t automatically launch a browser a window.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1">#make sure you&#39;re in my-dapp or the equivalent</span>
-<span class="nb">cd</span> ..
+<span class="nb">cd</span> ~/my-dapp
 
 <span class="c1">#start the server and then open a new shell window</span>
 http-server
@@ -589,7 +586,7 @@ http-server
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># android only</span>
 adb -s DEVICE_ID reverse tcp:8080 tcp::8080
 
-status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;botler&quot;,  &quot;name&quot;: &quot;Botler&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;botler&quot;,  &quot;name&quot;: &quot;Botler&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bots/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
 <p>This is pretty much the simplest responsive chatbot we can write, using only the <code>addListener</code> function from the API. All it&rsquo;s listening for is a message-send event, to which it will try to respond with the test <code>You're amazing, master!</code>.</p>
@@ -693,22 +690,22 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;tr
 <div class="content tabs">
    
     
-        <input id="tab-DIY-inmghfazjrzcvowbdklyseutxq" class="tab tab-DIY" type="radio" name="tabs-inmghfazjrzcvowbdklyseutxq" checked>
-        <label for="tab-DIY-inmghfazjrzcvowbdklyseutxq" class="tab">DIY</label>
+        <input id="tab-DIY-cdvzojhxqzrmegsbikunwflaty" class="tab tab-DIY" type="radio" name="tabs-cdvzojhxqzrmegsbikunwflaty" checked>
+        <label for="tab-DIY-cdvzojhxqzrmegsbikunwflaty" class="tab">DIY</label>
     
-        <input id="tab-Embark-inmghfazjrzcvowbdklyseutxq" class="tab tab-Embark" type="radio" name="tabs-inmghfazjrzcvowbdklyseutxq" checked>
-        <label for="tab-Embark-inmghfazjrzcvowbdklyseutxq" class="tab">Embark</label>
+        <input id="tab-Embark-cdvzojhxqzrmegsbikunwflaty" class="tab tab-Embark" type="radio" name="tabs-cdvzojhxqzrmegsbikunwflaty" checked>
+        <label for="tab-Embark-cdvzojhxqzrmegsbikunwflaty" class="tab">Embark</label>
     
-        <input id="tab-Truffle-inmghfazjrzcvowbdklyseutxq" class="tab tab-Truffle" type="radio" name="tabs-inmghfazjrzcvowbdklyseutxq" checked>
-        <label for="tab-Truffle-inmghfazjrzcvowbdklyseutxq" class="tab">Truffle</label>
+        <input id="tab-Truffle-cdvzojhxqzrmegsbikunwflaty" class="tab tab-Truffle" type="radio" name="tabs-cdvzojhxqzrmegsbikunwflaty" checked>
+        <label for="tab-Truffle-cdvzojhxqzrmegsbikunwflaty" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
 
-<p>So, we have set up Status in <code>debug</code> mode, added our DApp to it (hopefully run the <code>dapp watch</code> command to get some live-reloading going) and learned how to start a conversation with a simple javascript chatbot. Now it&rsquo;s time to start using the API proper and start using the provided commands to interact with our users and help them out.</p>
+<p>So, we have set up Status in <code>debug</code> mode, added our DApp to it (hopefully run the <code>status-dev-cli watch</code> command to get some live-reloading going) and learned how to start a conversation with a simple javascript chatbot. Now it&rsquo;s time to start using the API proper and start using the provided commands to interact with our users and help them out.</p>
 
 <p>Navigate back to your <code>bots</code> directory and open the <code>bot.js</code> file where we put the <code>status.addListener</code> function in the previous tutorials. We will again pass this fils in as a <code>bot-url</code> parameter to <code>status-dev-cli</code>, which will then execute the code in an Otto VM jail.</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/bots/ <span class="o">&amp;&amp;</span> nano bot.js
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/my-dapp/bots/ <span class="o">&amp;&amp;</span> nano bot.js
 
 <span class="c1"># or use &#39;vi bot.js&#39; if that&#39;s your preference</span>
 </code></pre></div>
@@ -746,7 +743,7 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;tr
 <span class="c1"># In another shell if on android</span>
 adb -s DEVICE_ID reverse tcp:8080 tcp:8080
 
-status-dev-cli watch <span class="nv">$PWD</span> <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;botler&quot;,  &quot;name&quot;: &quot;Botler&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+status-dev-cli watch <span class="nv">$PWD</span> <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;botler&quot;,  &quot;name&quot;: &quot;Botler&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bots/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
 <p>And there you go - we are now capable of greeting and interacting with our bot in two ways! You should be able to see your DApp, navigate to it, tap the new <code>/hello</code> command you see above the text input field and see your new Dapp respond.</p>
@@ -808,7 +805,7 @@ adb reverse tcp:8080 tcp:8080</p>
 <h2 id="my-first-interactive-suggestions-area">My First Interactive Suggestions Area</h2>
 
 <p>Let&rsquo;s go ahead and make that <code>hello</code> command we just created a little bit more clever.</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/my-dapp/bot/ <span class="o">&amp;&amp;</span> nano hello.js
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="nb">cd</span> ~/my-dapp/bots/ <span class="o">&amp;&amp;</span> nano hello.js
 </code></pre></div>
 
 <p>Instead of the preview parameter we used last time, let&rsquo;s build another <code>status.command()</code> and add in a <code>params</code> option with a <code>suggestions</code> object in it. This will create a suggestions area which - if you refer back to the <a href="#overview">Chat Anatomy</a> - is what rolls up above the keyboard, such as you see when turning on the debugging server with the options <code>On</code> and <code>Off</code>.</p>
@@ -819,7 +816,7 @@ adb reverse tcp:8080 tcp:8080</p>
      <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#0000ff&quot;</span><span class="p">,</span>
      <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
               <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;greet&quot;</span><span class="p">,</span>
-              <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span>
+              <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span><span class="p">,</span>
               <span class="nx">suggestions</span><span class="o">:</span> <span class="nx">helloSuggestions</span>
              <span class="p">}]</span>
  <span class="p">})</span>
@@ -859,7 +856,7 @@ adb reverse tcp:8080 tcp:8080</p>
         <span class="k">return</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">touchable</span><span class="p">(</span>
             <span class="p">{</span><span class="nx">onPress</span><span class="o">:</span> <span class="p">[</span><span class="nx">status</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">SET_VALUE</span><span class="p">,</span> <span class="nx">entry</span><span class="p">]},</span>
             <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">(</span>
-                <span class="nx">suggestionContainerStyle</span><span class="p">,</span>
+                <span class="nx">suggestionsContainerStyle</span><span class="p">,</span>
                 <span class="p">[</span><span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">(</span>
                     <span class="nx">suggestionSubContainerStyle</span><span class="p">,</span>
                     <span class="p">[</span>
@@ -887,7 +884,9 @@ adb reverse tcp:8080 tcp:8080</p>
 <p>The main point of this example is that your <code>suggestions</code> parameter should accept users’ input, and then return a component to be rendered.</p>
 
 <p>We have already added this contact to Status, so let&rsquo;s se if we can set up our environment to do some live reloading so that we don&rsquo;t have to revert to the cli every time we want to change something in the process of building all the new things.</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli watch <span class="nv">$PWD</span> <span class="s1">&#39;{&quot;whisper-identity&quot;:&quot;hello-bot&quot;, &quot;dapp-name&quot;:&quot;Hello&quot;, &quot;bot-url&quot;:&quot;http://localhost:8080/bot/hello.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>http-server
+
+status-dev-cli watch <span class="nv">$PWD</span> <span class="s1">&#39;{&quot;whisper-identity&quot;:&quot;hello-bot&quot;, &quot;dapp-name&quot;:&quot;Hello&quot;, &quot;bot-url&quot;:&quot;http://&lt;MACHINE-IP&gt;:8080/bots/hello.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
 <p>You can also work with the <code>suggestionsTrigger</code> parameter. Now that we’ve covered <code>params</code> and the possibility of <code>suggestions</code>, it’s easy to see that <code>suggestionsTrigger</code> will take a string corresponding to an event that, when triggered, will show all your <code>suggestions</code>. If you don’t include this parameter, the default is &ldquo;on-change&rdquo;, so your suggestions will show when your users selects the command.</p>
