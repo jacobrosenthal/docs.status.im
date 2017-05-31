@@ -162,23 +162,11 @@ input:checked + label {
 
 <h2 id="installing-status">Installing Status</h2>
 
-<p>OK, let&rsquo;s learn how to build our first DApp on Status (mobile-first ftw!). To progress further, you need to have Status running either:</p>
-
-<ul>
-<li><p>on a real phone,</p></li>
-
-<li><p>in an Android simulator, or</p></li>
-
-<li><p>in an iOS simulator.</p></li>
-</ul>
-
-<p>You can go to <a href="https://test.status.im" target="_blank">https://test.status.im</a> to download for Android. At the time of writing, we’re out of invitations for Testflight, but you can sign up for early iOS access <a href="http://status.im" target="_blank">on our website</a>.</p>
+<p>OK, let&rsquo;s learn how to build our first DApp on Status (mobile-first ftw!). To progress further, you need to have Status running.</p>
 
 <aside class="success">
- Please note that these documents are intended for the latest version of "status-dev-cli" and the nightly developer builds of Status itself. To update `status-dev-cli` please run "npm uninstall -g status-dev-cli" and then "npm i -g status-dev-cli". Our nightly builds can be found here: http://artifacts.status.im:8081/artifactory/nightlies-local/.
+ Please note that these documents are intended for the latest version of "status-dev-cli" and the nightly developer builds of Status itself (available only on Android). To update `status-dev-cli` please run "npm uninstall -g status-dev-cli" and then "npm i -g status-dev-cli". Our nightly builds can be found here: http://artifacts.status.im:8081/artifactory/nightlies-local/.
 </aside>
-
-<p>If you don’t have a smartphone, or you only have an iPhone but want to get started right away, you can build Status yourself for either Android or iOS by following <a href="https://wiki.status.im/contributing/development/building-status/" target="_blank">these guidelines</a>. There, you will find instructions for installing an Android simulator, or starting up Status in the Xcode simulator.</p>
 
 <p>Our wiki guidelines should be all you need, but if you get lost come ask around in <a href="https://slack.status.im" target="_blank">our Slack</a>.</p>
 
@@ -196,11 +184,11 @@ input:checked + label {
 <div class="content tabs">
    
     
-        <input id="tab-Device-lizxavyodmznhweukcgqtbfrjs" class="tab tab-Device" type="radio" name="tabs-lizxavyodmznhweukcgqtbfrjs" checked>
-        <label for="tab-Device-lizxavyodmznhweukcgqtbfrjs" class="tab">Device</label>
+        <input id="tab-Device-zrbikefthucomwxdanqlzygjvs" class="tab tab-Device" type="radio" name="tabs-zrbikefthucomwxdanqlzygjvs" checked>
+        <label for="tab-Device-zrbikefthucomwxdanqlzygjvs" class="tab">Device</label>
     
-        <input id="tab-Emulator-lizxavyodmznhweukcgqtbfrjs" class="tab tab-Emulator" type="radio" name="tabs-lizxavyodmznhweukcgqtbfrjs" checked>
-        <label for="tab-Emulator-lizxavyodmznhweukcgqtbfrjs" class="tab">Emulator</label>
+        <input id="tab-Emulator-zrbikefthucomwxdanqlzygjvs" class="tab tab-Emulator" type="radio" name="tabs-zrbikefthucomwxdanqlzygjvs" checked>
+        <label for="tab-Emulator-zrbikefthucomwxdanqlzygjvs" class="tab">Emulator</label>
     
 <div class="content tab-content content-Device">
 <p>First, connect your phone to your development machine and ensure that you are using MTP (Media Transfer Protocol) by tapping on the USB settings option that pops up. Navigate to the Console Bot, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools if you want.</p>
@@ -213,7 +201,7 @@ input:checked + label {
 
 <p><em>With your phone connected, /debug &ldquo;On&rdquo;</em></p>
 
-<p>The important part of the message is your <code>device IP</code> address, which we&rsquo;ll be using throughout. You can check that this is the right address by running the <code>scan</code> command in ther terminal. Another useful command we will be using a lot later on is <code>list</code> which will return a list of all DApps you have added to Status.</p>
+<p>You can check DEVICE-IP by running the <code>scan</code> command in the terminal. Another useful command we will be using a lot later on is <code>list</code> which will return a list of all DApps you have added to Status.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli scan
 status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to use the IPv4 address</span>
 </code></pre></div>
@@ -221,30 +209,23 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 </div>
 
 <div class="content tab-content content-Emulator">
-<p>We give instructions here for Genymotion (a popular Android emulator). If you want to build Status and run it in XCode and use an iOS simulator, I offer you this <a href="https://gist.github.com/andytudhope/a06e1c9916e23909321f6ac427aaf348" target="_blank">gist</a> though you&rsquo;ll have to either convert to iTerm2 or edit it somewhat. You will also need to run <code>instruments -s devices</code> and change the <code>uuid</code> in the script to the one that matches the emulator you want to run Status in from XCode.</p>
+<p>We give instructions here for Genymotion (a popular Android emulator).</p>
 
 <ol>
 <li>Install genymotion</li>
 <li>Create a genymotion virtual device</li>
-<li>Switch to network bridge mode</li>
-<li>Start device</li>
+<li>Switch to network bridge mode (in settings of virtual device)</li>
+<li>Start virtual device</li>
 <li>Install status.im apk from nightly builds by dragging onto emulator window</li>
-<li>Start status.im app on device</li>
-<li>Turn on debugging in console (/debug). Record the ip address to use later as DEVICE-IP. You should be able to ping this ip from your actual os</li>
-<li>Serve your app over http</li>
+<li>Start status.im app on virtual device</li>
+<li>Turn on debugging in console (/debug On).</li>
+<li>Open terminal and run <code>status-dev-cli scan</code> it returns two <DEVICE-iP> addresses, use 192.168.1.<em>, and ignore 192.168.56.</em></li>
 <li><code>status-dev-cli add [dapp] --ip &lt;DEVICE-iP&gt;</code> where dapp is your json file with <code>whisper-identity</code> etc.</li>
 </ol>
 
 <p></div></p>
 
 </div>
-
-<p>To find out your computer&rsquo;s IP, use <code>ifconfig</code> from the command line and look for your internal IPv4 address:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>ifconfig <span class="p">|</span> grep inet  
-
-<span class="c1"># Find the line beginning with just inet - this is your IPv4 address  </span>
-inet <span class="m">10</span>.10.0.216 netmask 0xfffffe00 broadcast <span class="m">10</span>.10.1.255
-</code></pre></div>
 
 <h2 id="my-first-dapp">My First DApp</h2>
 
@@ -262,21 +243,27 @@ inet <span class="m">10</span>.10.0.216 netmask 0xfffffe00 broadcast <span class
 <div class="content tabs">
    
     
-        <input id="tab-DIY-fajytkgmrxcloiqdneuhbvwzsz" class="tab tab-DIY" type="radio" name="tabs-fajytkgmrxcloiqdneuhbvwzsz" checked>
-        <label for="tab-DIY-fajytkgmrxcloiqdneuhbvwzsz" class="tab">DIY</label>
+        <input id="tab-DIY-qedslmbjkhwzfyvzorucgiatnx" class="tab tab-DIY" type="radio" name="tabs-qedslmbjkhwzfyvzorucgiatnx" checked>
+        <label for="tab-DIY-qedslmbjkhwzfyvzorucgiatnx" class="tab">DIY</label>
     
-        <input id="tab-Embark-fajytkgmrxcloiqdneuhbvwzsz" class="tab tab-Embark" type="radio" name="tabs-fajytkgmrxcloiqdneuhbvwzsz" checked>
-        <label for="tab-Embark-fajytkgmrxcloiqdneuhbvwzsz" class="tab">Embark</label>
+        <input id="tab-Embark-qedslmbjkhwzfyvzorucgiatnx" class="tab tab-Embark" type="radio" name="tabs-qedslmbjkhwzfyvzorucgiatnx" checked>
+        <label for="tab-Embark-qedslmbjkhwzfyvzorucgiatnx" class="tab">Embark</label>
     
-        <input id="tab-Truffle-fajytkgmrxcloiqdneuhbvwzsz" class="tab tab-Truffle" type="radio" name="tabs-fajytkgmrxcloiqdneuhbvwzsz" checked>
-        <label for="tab-Truffle-fajytkgmrxcloiqdneuhbvwzsz" class="tab">Truffle</label>
+        <input id="tab-Truffle-qedslmbjkhwzfyvzorucgiatnx" class="tab tab-Truffle" type="radio" name="tabs-qedslmbjkhwzfyvzorucgiatnx" checked>
+        <label for="tab-Truffle-qedslmbjkhwzfyvzorucgiatnx" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
+
+<p>First, install the <code>status-dev-cli</code> tools globally using NPM. Then, create a directory for your app to live in, switch into it, and create an <code>index.html</code> file and an <code>app.js</code> file.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install -g status-dev-cli
 mkdir my-dapp <span class="o">&amp;&amp;</span> <span class="nb">cd</span> my-dapp
 touch index.html app.js
 </code></pre></div>
+
+<p>The index.html will be really simple. We are going to add several meta tags to make our DApp look good on the small screens of mobile phones, and add a span that will be used by our JavaScript.</p>
+
+<p>Our <code>app.js</code> file will also be simple. We are going to display the information about your account inside a span with <code>account id</code>. Status injects <code>web3.js</code> automatically, so you have an access to web3 variable from everywhere and you don’t need to care about including <code>web3.js</code> manually. However, you can do this and most probably you want to do this if you want to make your DApps work on other platforms.</p>
 
 <p><blockquote>
 <p>In index.html, add:</p>
@@ -308,32 +295,23 @@ touch index.html app.js
 <span class="nb">document</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;DOMContentLoaded&quot;</span><span class="p">,</span> <span class="nx">onContentLoaded</span><span class="p">);</span>
 </code></pre></div></p>
 
-<p><blockquote>
-<p>Install and start an HTTP server - we recommend NPM for ease-of-use. Make sure you are still in your my-dapp directory when running the 2nd command.</p>
-</blockquote>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install http-server -g
-http-server
-</code></pre></div></p>
-
-<p><blockquote>
-<p>In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the <code>&ndash;ip</code> flag with the IP address listed by Console once you have selected the <code>debug</code> option and turned it on.</p>
-</blockquote>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;hello-bot&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;Hello&quot;}&#39;</span> &ndash;ip &lt;DEVICE-IP&gt;
-</code></pre></div></p>
-
-<p>First, install the <code>status-dev-cli</code> tools globally using NPM.</p>
-
-<p>Then, create a directory for your app to live in, switch into it, and create an <code>index.html</code> file and an <code>app.js</code> file.</p>
-
-<p>The index.html will be really simple. We are going to add several meta tags to make our DApp look good on the small screens of mobile phones, and add a span that will be used by our JavaScript.</p>
-
-<p>Our <code>app.js</code> file will also be simple. We are going to display the information about your account inside a span with <code>account id</code>. Status injects <code>web3.js</code> automatically, so you have an access to web3 variable from everywhere and you don’t need to care about including <code>web3.js</code> manually. However, you can do this and most probably you want to do this if you want to make your DApps work on other platforms.</p>
-
-<p>You then need to install a really simple <code>http-server</code> from NPM, and start it in the <code>my-dapp</code> directory we just created.</p>
+<p>You then need to install a really simple <code>http-server</code> from NPM (we recommend this for ease of use), and start it in the <code>my-dapp</code> directory we just created.</p>
 
 <p>Open a new terminal session, navigate back to your <code>my-dapp</code> directory, and go ahead and add your dapp to Status! Make sure to pass in the <code>--ip</code> flag using the address returned to you by Console, when you <a href="#enabling-debugging">enabled debugging</a>.</p>
 
 <p><code>&lt;MACHINE-IP&gt;</code> needs to be <code>localhost</code> or <code>127.0.0.1</code>, if you are using a simulator, or whatever your PC&rsquo;s (internal) IP is if you are using a connected phone.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install http-server -g
+http-server
+</code></pre></div>
+
+<blockquote>
+<p>In a new terminal window run the port forwarding and DApp connection stuff. It is important to pass in the <code>--ip</code> flag with the IP address listed by Console once you have selected the <code>debug</code> option and turned it on.</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># Android device only</span>
+adb reverse tcp:8080 tcp:8080
+
+status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;hello-bot&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;Hello&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+</code></pre></div>
 
 <p>That&rsquo;s it! You should be able to see your DApp in the chats, and opening it should browse automatically to a page that shows your account information. You can also do live-reloading once you&rsquo;re happy with this by running <code>status-dev-cli watch $PWD '{&quot;whisper-identity&quot;: &quot;hello-bot&quot;, &quot;dapp-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/&quot;, &quot;name&quot;: &quot;Hello&quot;}' --ip &lt;DEVICE-IP&gt;</code></p>
 
@@ -346,7 +324,7 @@ http-server
 
 <p>2) If using a real device, you also need to ensure that it is set to use MTP (media transfer Protocol) in the USB-debugging settings. Open the equivalent of your settings or develop options by pulling down the top menu and clicking in the debugging options.</p>
 
-<p>3) The new version of <code>status-dev-cli</code> does not require you to do any <code>adb</code> port forwarding any more and will, in fact, fail if you do. Just use the <code>scan</code> and <code>list</code> commands as and when you need them.</p>
+<p>3) If using Genymotion, please make sure you use the 2nd IP address returned by <code>status-dev-cli scan</code> that begins 192.168.1.*</p>
 
 <p>Happy travels!</p>
 
@@ -435,7 +413,7 @@ npm run start
 
 <p><em>Known problems:</em></p>
 
-<p>1) If you are running on a real iOS device, you need to configure Truffle Box to use the network on your computer. In <code>truffle.js</code>, change <code>host</code> to the IP of your computer:</p>
+<p>1) If you are running on a real iOS device, you may need to configure Truffle Box to use the network on your computer. In <code>truffle.js</code>, change <code>host</code> to the IP of your computer:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
   <span class="nx">migrations_directory</span><span class="o">:</span> <span class="s2">&quot;./migrations&quot;</span><span class="p">,</span>
   <span class="nx">networks</span><span class="o">:</span> <span class="p">{</span>
@@ -564,14 +542,14 @@ npm install embark-status --save
 <div class="content tabs">
    
     
-        <input id="tab-DIY-mfbthzwderxqgycliozsjuakvn" class="tab tab-DIY" type="radio" name="tabs-mfbthzwderxqgycliozsjuakvn" checked>
-        <label for="tab-DIY-mfbthzwderxqgycliozsjuakvn" class="tab">DIY</label>
+        <input id="tab-DIY-halbzvxzuitedmscgowqykjrfn" class="tab tab-DIY" type="radio" name="tabs-halbzvxzuitedmscgowqykjrfn" checked>
+        <label for="tab-DIY-halbzvxzuitedmscgowqykjrfn" class="tab">DIY</label>
     
-        <input id="tab-Embark-mfbthzwderxqgycliozsjuakvn" class="tab tab-Embark" type="radio" name="tabs-mfbthzwderxqgycliozsjuakvn" checked>
-        <label for="tab-Embark-mfbthzwderxqgycliozsjuakvn" class="tab">Embark</label>
+        <input id="tab-Embark-halbzvxzuitedmscgowqykjrfn" class="tab tab-Embark" type="radio" name="tabs-halbzvxzuitedmscgowqykjrfn" checked>
+        <label for="tab-Embark-halbzvxzuitedmscgowqykjrfn" class="tab">Embark</label>
     
-        <input id="tab-Truffle-mfbthzwderxqgycliozsjuakvn" class="tab tab-Truffle" type="radio" name="tabs-mfbthzwderxqgycliozsjuakvn" checked>
-        <label for="tab-Truffle-mfbthzwderxqgycliozsjuakvn" class="tab">Truffle</label>
+        <input id="tab-Truffle-halbzvxzuitedmscgowqykjrfn" class="tab tab-Truffle" type="radio" name="tabs-halbzvxzuitedmscgowqykjrfn" checked>
+        <label for="tab-Truffle-halbzvxzuitedmscgowqykjrfn" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
@@ -715,14 +693,14 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;tr
 <div class="content tabs">
    
     
-        <input id="tab-DIY-dhumnravzzxkjbciewtfqlsgyo" class="tab tab-DIY" type="radio" name="tabs-dhumnravzzxkjbciewtfqlsgyo" checked>
-        <label for="tab-DIY-dhumnravzzxkjbciewtfqlsgyo" class="tab">DIY</label>
+        <input id="tab-DIY-inmghfazjrzcvowbdklyseutxq" class="tab tab-DIY" type="radio" name="tabs-inmghfazjrzcvowbdklyseutxq" checked>
+        <label for="tab-DIY-inmghfazjrzcvowbdklyseutxq" class="tab">DIY</label>
     
-        <input id="tab-Embark-dhumnravzzxkjbciewtfqlsgyo" class="tab tab-Embark" type="radio" name="tabs-dhumnravzzxkjbciewtfqlsgyo" checked>
-        <label for="tab-Embark-dhumnravzzxkjbciewtfqlsgyo" class="tab">Embark</label>
+        <input id="tab-Embark-inmghfazjrzcvowbdklyseutxq" class="tab tab-Embark" type="radio" name="tabs-inmghfazjrzcvowbdklyseutxq" checked>
+        <label for="tab-Embark-inmghfazjrzcvowbdklyseutxq" class="tab">Embark</label>
     
-        <input id="tab-Truffle-dhumnravzzxkjbciewtfqlsgyo" class="tab tab-Truffle" type="radio" name="tabs-dhumnravzzxkjbciewtfqlsgyo" checked>
-        <label for="tab-Truffle-dhumnravzzxkjbciewtfqlsgyo" class="tab">Truffle</label>
+        <input id="tab-Truffle-inmghfazjrzcvowbdklyseutxq" class="tab tab-Truffle" type="radio" name="tabs-inmghfazjrzcvowbdklyseutxq" checked>
+        <label for="tab-Truffle-inmghfazjrzcvowbdklyseutxq" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
