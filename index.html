@@ -168,7 +168,7 @@ input:checked + label {
  Please note that these documents are intended for the latest version of "status-dev-cli" and the nightly developer builds of Status itself (available only on Android). To update "status-dev-cli" please run "npm uninstall -g status-dev-cli" and then "npm i -g status-dev-cli". Our nightly builds can be found here: http://artifacts.status.im:8081/artifactory/nightlies-local/.
 </aside>
 
-<p>Our wiki guidelines should be all you need, but if you get lost come ask around in <a href="https://slack.status.im" target="_blank">our Slack</a>.</p>
+<p>If you are on Android, please use the <code>.apk</code> files linked above. If you&rsquo;re on iOS and can&rsquo;t get a TestFlight invite, you can <a href="https://wiki.status.im/contributing/development/building-status/" target="_blank">build Status yourself</a>. Our wiki guidelines should be all you need, but if you get lost come ask around in <a href="https://slack.status.im" target="_blank">our Slack</a>. You can also use and adapt this <a href="https://gist.github.com/andytudhope/a06e1c9916e23909321f6ac427aaf348" target="_blank">gist</a>, though you will need to change the UUID by running <code>instruments -s devices</code>, choosing the simulator you want to use and replacing the UUID in the script with your own. You will also need iTerm2.</p>
 
 <h2 id="networking-and-debugging">Networking and Debugging</h2>
 
@@ -184,14 +184,14 @@ input:checked + label {
 <div class="content tabs">
    
     
-        <input id="tab-Device-dqohlfmijrtyeankbxuvgzwszc" class="tab tab-Device" type="radio" name="tabs-dqohlfmijrtyeankbxuvgzwszc" checked>
-        <label for="tab-Device-dqohlfmijrtyeankbxuvgzwszc" class="tab">Device</label>
+        <input id="tab-Device-ljszyaokquezrigmxtcdbwhvfn" class="tab tab-Device" type="radio" name="tabs-ljszyaokquezrigmxtcdbwhvfn" checked>
+        <label for="tab-Device-ljszyaokquezrigmxtcdbwhvfn" class="tab">Device</label>
     
-        <input id="tab-Emulator-dqohlfmijrtyeankbxuvgzwszc" class="tab tab-Emulator" type="radio" name="tabs-dqohlfmijrtyeankbxuvgzwszc" checked>
-        <label for="tab-Emulator-dqohlfmijrtyeankbxuvgzwszc" class="tab">Emulator</label>
+        <input id="tab-Emulator-ljszyaokquezrigmxtcdbwhvfn" class="tab tab-Emulator" type="radio" name="tabs-ljszyaokquezrigmxtcdbwhvfn" checked>
+        <label for="tab-Emulator-ljszyaokquezrigmxtcdbwhvfn" class="tab">Emulator</label>
     
 <div class="content tab-content content-Device">
-<p>First, connect your phone to your development machine and ensure that you are using MTP (Media Transfer Protocol) by tapping on the USB settings option that pops up. Navigate to the Console Bot, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools if you want.</p>
+<p>First, connect your phone to your Wi-Fi network (do not use USB). Development machine and phone should be in the same network. Navigate to the Console, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools.</p>
 
 <p>You also need to install <code>status-dev-cli</code> to make talking between Status and your machine a breeze.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm i -g status-dev-cli
@@ -201,7 +201,7 @@ input:checked + label {
 
 <p><em>With your phone connected, /debug &ldquo;On&rdquo;</em></p>
 
-<p>You can check DEVICE-IP by running the <code>scan</code> command in the terminal. Another useful command we will be using a lot later on is <code>list</code> which will return a list of all DApps you have added to Status.</p>
+<p>You can check <code>&lt;DEVICE-IP&gt;</code> by running the <code>scan</code> command in the terminal. Another useful command we will be using a lot later on is <code>list</code> which will return a list of all DApps you have added to Status.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli scan
 status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to use the IPv4 address</span>
 </code></pre></div>
@@ -219,7 +219,7 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <li>Install status.im apk from nightly builds by dragging onto emulator window</li>
 <li>Start status.im app on virtual device</li>
 <li>Turn on debugging in console (/debug On).</li>
-<li>Open terminal and run <code>status-dev-cli scan</code> it returns two <DEVICE-IP> addresses, use 192.168.1.<em>, and ignore 192.168.56.</em></li>
+<li>Open terminal and run <code>status-dev-cli scan</code> it returns two <code>&lt;DEVICE-IP&gt;</code> addresses, use <code>192.168.1.*</code>, and ignore <code>192.168.56.*</code></li>
 <li><code>status-dev-cli add [dapp] --ip &lt;DEVICE-IP&gt;</code> where dapp is your json file with <code>whisper-identity</code> etc.</li>
 </ol>
 
@@ -243,14 +243,14 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <div class="content tabs">
    
     
-        <input id="tab-DIY-vfmqealjuzozykhwsxdbircntg" class="tab tab-DIY" type="radio" name="tabs-vfmqealjuzozykhwsxdbircntg" checked>
-        <label for="tab-DIY-vfmqealjuzozykhwsxdbircntg" class="tab">DIY</label>
+        <input id="tab-DIY-vjxoezugarcbldtshkiyznwmqf" class="tab tab-DIY" type="radio" name="tabs-vjxoezugarcbldtshkiyznwmqf" checked>
+        <label for="tab-DIY-vjxoezugarcbldtshkiyznwmqf" class="tab">DIY</label>
     
-        <input id="tab-Embark-vfmqealjuzozykhwsxdbircntg" class="tab tab-Embark" type="radio" name="tabs-vfmqealjuzozykhwsxdbircntg" checked>
-        <label for="tab-Embark-vfmqealjuzozykhwsxdbircntg" class="tab">Embark</label>
+        <input id="tab-Embark-vjxoezugarcbldtshkiyznwmqf" class="tab tab-Embark" type="radio" name="tabs-vjxoezugarcbldtshkiyznwmqf" checked>
+        <label for="tab-Embark-vjxoezugarcbldtshkiyznwmqf" class="tab">Embark</label>
     
-        <input id="tab-Truffle-vfmqealjuzozykhwsxdbircntg" class="tab tab-Truffle" type="radio" name="tabs-vfmqealjuzozykhwsxdbircntg" checked>
-        <label for="tab-Truffle-vfmqealjuzozykhwsxdbircntg" class="tab">Truffle</label>
+        <input id="tab-Truffle-vjxoezugarcbldtshkiyznwmqf" class="tab tab-Truffle" type="radio" name="tabs-vjxoezugarcbldtshkiyznwmqf" checked>
+        <label for="tab-Truffle-vjxoezugarcbldtshkiyznwmqf" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -539,14 +539,14 @@ npm install embark-status --save
 <div class="content tabs">
    
     
-        <input id="tab-DIY-gavlfbrzzkdewcnjmtqioysxhu" class="tab tab-DIY" type="radio" name="tabs-gavlfbrzzkdewcnjmtqioysxhu" checked>
-        <label for="tab-DIY-gavlfbrzzkdewcnjmtqioysxhu" class="tab">DIY</label>
+        <input id="tab-DIY-hjbxmlcsiokztfnuyavzgreqdw" class="tab tab-DIY" type="radio" name="tabs-hjbxmlcsiokztfnuyavzgreqdw" checked>
+        <label for="tab-DIY-hjbxmlcsiokztfnuyavzgreqdw" class="tab">DIY</label>
     
-        <input id="tab-Embark-gavlfbrzzkdewcnjmtqioysxhu" class="tab tab-Embark" type="radio" name="tabs-gavlfbrzzkdewcnjmtqioysxhu" checked>
-        <label for="tab-Embark-gavlfbrzzkdewcnjmtqioysxhu" class="tab">Embark</label>
+        <input id="tab-Embark-hjbxmlcsiokztfnuyavzgreqdw" class="tab tab-Embark" type="radio" name="tabs-hjbxmlcsiokztfnuyavzgreqdw" checked>
+        <label for="tab-Embark-hjbxmlcsiokztfnuyavzgreqdw" class="tab">Embark</label>
     
-        <input id="tab-Truffle-gavlfbrzzkdewcnjmtqioysxhu" class="tab tab-Truffle" type="radio" name="tabs-gavlfbrzzkdewcnjmtqioysxhu" checked>
-        <label for="tab-Truffle-gavlfbrzzkdewcnjmtqioysxhu" class="tab">Truffle</label>
+        <input id="tab-Truffle-hjbxmlcsiokztfnuyavzgreqdw" class="tab tab-Truffle" type="radio" name="tabs-hjbxmlcsiokztfnuyavzgreqdw" checked>
+        <label for="tab-Truffle-hjbxmlcsiokztfnuyavzgreqdw" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
@@ -602,6 +602,8 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;bo
 
 <p>First, go back to the <code>embark_demo/</code> directory we created <a href="#my-first-dapp">earlier</a>, where we set up the correct configuration for Embark and Status. Essentially, you just want to make sure - as with the Truffle Box example - that you put the javascript file in the right place so that you can reference it correctly.</p>
 
+<p>Instead of adding a new DApp, we can now include a <code>bot-url</code> parameter in our call to <code>status-dev-cli</code>. The chatbot url targets a <code>js</code> file, and this file will be loaded in the Otto VM shown in the anatomy. Code in this file сan interact with the input field, messages and react however we program it to.</p>
+
 <p>TODO</p>
 
 </div>
@@ -610,12 +612,12 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;bo
 <h3 id="truffle">Truffle</h3>
 
 <p>Let&rsquo;s see what it looks like to add the same, flattering little chatbot to Status through the Truffle Box we set up earlier. Navigate back to that directory, ensure that <code>testrpc</code> is switched on and that you have opened all the right ports if you&rsquo;re on Android.</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># Android only</span>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># Android device only</span>
 adb forward tcp:5561 tcp:5561
 
 testrpc -p <span class="m">8546</span>
 
-<span class="c1"># Android only</span>
+<span class="c1"># Android device only</span>
 adb reverse tcp:8546 tcp:8546
 
 status-dev-cli switch-node <span class="s2">&quot;http://localhost:8546&quot;</span>
@@ -648,7 +650,7 @@ nano bot/bot.js
 <span class="p">});</span>
 </code></pre></div>
 
-<p>This time, rather than running the <code>npm</code> task, we&rsquo;ll just start a quick server with <code>truffle</code> itself. Writing the correct <code>start</code> script is left as an exercise for the reader ;)</p>
+<p>This time, rather than running the <code>npm</code> task, we&rsquo;ll just start a quick server with <code>truffle</code> itself. Writing the correct <code>start</code> script is left as an exercise for the reader. Instead of adding a new DApp, we can now include a <code>bot-url</code> parameter in our call to <code>status-dev-cli</code>. The chatbot url targets a <code>js</code> file, and this file will be loaded in the Otto VM shown in the anatomy. Code in this file сan interact with the input field, messages and react however we program it to.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># Make sure you&#39;re in the truflle-box-status/ directory</span>
 <span class="nb">cd</span> ..
 
@@ -690,14 +692,14 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;tr
 <div class="content tabs">
    
     
-        <input id="tab-DIY-cdvzojhxqzrmegsbikunwflaty" class="tab tab-DIY" type="radio" name="tabs-cdvzojhxqzrmegsbikunwflaty" checked>
-        <label for="tab-DIY-cdvzojhxqzrmegsbikunwflaty" class="tab">DIY</label>
+        <input id="tab-DIY-wqkcmynzujflhgsirzaxvdeobt" class="tab tab-DIY" type="radio" name="tabs-wqkcmynzujflhgsirzaxvdeobt" checked>
+        <label for="tab-DIY-wqkcmynzujflhgsirzaxvdeobt" class="tab">DIY</label>
     
-        <input id="tab-Embark-cdvzojhxqzrmegsbikunwflaty" class="tab tab-Embark" type="radio" name="tabs-cdvzojhxqzrmegsbikunwflaty" checked>
-        <label for="tab-Embark-cdvzojhxqzrmegsbikunwflaty" class="tab">Embark</label>
+        <input id="tab-Embark-wqkcmynzujflhgsirzaxvdeobt" class="tab tab-Embark" type="radio" name="tabs-wqkcmynzujflhgsirzaxvdeobt" checked>
+        <label for="tab-Embark-wqkcmynzujflhgsirzaxvdeobt" class="tab">Embark</label>
     
-        <input id="tab-Truffle-cdvzojhxqzrmegsbikunwflaty" class="tab tab-Truffle" type="radio" name="tabs-cdvzojhxqzrmegsbikunwflaty" checked>
-        <label for="tab-Truffle-cdvzojhxqzrmegsbikunwflaty" class="tab">Truffle</label>
+        <input id="tab-Truffle-wqkcmynzujflhgsirzaxvdeobt" class="tab tab-Truffle" type="radio" name="tabs-wqkcmynzujflhgsirzaxvdeobt" checked>
+        <label for="tab-Truffle-wqkcmynzujflhgsirzaxvdeobt" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
