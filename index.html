@@ -184,11 +184,11 @@ input:checked + label {
 <div class="content tabs">
    
     
-        <input id="tab-Device-qozdrhfgwklivmxtucajbzneys" class="tab tab-Device" type="radio" name="tabs-qozdrhfgwklivmxtucajbzneys" checked>
-        <label for="tab-Device-qozdrhfgwklivmxtucajbzneys" class="tab">Device</label>
+        <input id="tab-Device-bzolgxyzinwtkhasmfvuqrjedc" class="tab tab-Device" type="radio" name="tabs-bzolgxyzinwtkhasmfvuqrjedc" checked>
+        <label for="tab-Device-bzolgxyzinwtkhasmfvuqrjedc" class="tab">Device</label>
     
-        <input id="tab-Emulator-qozdrhfgwklivmxtucajbzneys" class="tab tab-Emulator" type="radio" name="tabs-qozdrhfgwklivmxtucajbzneys" checked>
-        <label for="tab-Emulator-qozdrhfgwklivmxtucajbzneys" class="tab">Emulator</label>
+        <input id="tab-Emulator-bzolgxyzinwtkhasmfvuqrjedc" class="tab tab-Emulator" type="radio" name="tabs-bzolgxyzinwtkhasmfvuqrjedc" checked>
+        <label for="tab-Emulator-bzolgxyzinwtkhasmfvuqrjedc" class="tab">Emulator</label>
     
 <div class="content tab-content content-Device">
 <p>First, connect your phone to your Wi-Fi network (do not use USB). Development machine and phone should be in the same network. Navigate to the Console, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools.</p>
@@ -250,14 +250,14 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <div class="content tabs">
    
     
-        <input id="tab-DIY-ojybczxmzgvuwflirnkthadseq" class="tab tab-DIY" type="radio" name="tabs-ojybczxmzgvuwflirnkthadseq" checked>
-        <label for="tab-DIY-ojybczxmzgvuwflirnkthadseq" class="tab">DIY</label>
+        <input id="tab-DIY-ifgnjmuycezqzlvxsdkbhratow" class="tab tab-DIY" type="radio" name="tabs-ifgnjmuycezqzlvxsdkbhratow" checked>
+        <label for="tab-DIY-ifgnjmuycezqzlvxsdkbhratow" class="tab">DIY</label>
     
-        <input id="tab-Embark-ojybczxmzgvuwflirnkthadseq" class="tab tab-Embark" type="radio" name="tabs-ojybczxmzgvuwflirnkthadseq" checked>
-        <label for="tab-Embark-ojybczxmzgvuwflirnkthadseq" class="tab">Embark</label>
+        <input id="tab-Embark-ifgnjmuycezqzlvxsdkbhratow" class="tab tab-Embark" type="radio" name="tabs-ifgnjmuycezqzlvxsdkbhratow" checked>
+        <label for="tab-Embark-ifgnjmuycezqzlvxsdkbhratow" class="tab">Embark</label>
     
-        <input id="tab-Truffle-ojybczxmzgvuwflirnkthadseq" class="tab tab-Truffle" type="radio" name="tabs-ojybczxmzgvuwflirnkthadseq" checked>
-        <label for="tab-Truffle-ojybczxmzgvuwflirnkthadseq" class="tab">Truffle</label>
+        <input id="tab-Truffle-ifgnjmuycezqzlvxsdkbhratow" class="tab tab-Truffle" type="radio" name="tabs-ifgnjmuycezqzlvxsdkbhratow" checked>
+        <label for="tab-Truffle-ifgnjmuycezqzlvxsdkbhratow" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -456,9 +456,9 @@ adb reverse tcp:3000 tcp:3000
     <span class="s2">&quot;mineWhenNeeded&quot;</span>: true,
     <span class="s2">&quot;nodiscover&quot;</span>: true,
     <span class="s2">&quot;maxpeers&quot;</span>: <span class="m">0</span>,
-    <span class="s2">&quot;rpcHost&quot;</span>: <span class="s2">&quot;localhost&quot;</span>,
+    <span class="s2">&quot;rpcHost&quot;</span>: <span class="s2">&quot;&lt;MACHINE-IP&gt;&quot;</span>,
     <span class="s2">&quot;rpcPort&quot;</span>: <span class="m">8546</span>,
-    <span class="s2">&quot;rpcCorsDomain&quot;</span>: <span class="s2">&quot;http://localhost:8000&quot;</span>,
+    <span class="s2">&quot;rpcCorsDomain&quot;</span>: <span class="s2">&quot;http://&lt;MACHINE-IP&gt;:8000&quot;</span>,
     <span class="s2">&quot;account&quot;</span>: <span class="o">{</span>
       <span class="s2">&quot;password&quot;</span>: <span class="s2">&quot;config/development/password&quot;</span>
     <span class="o">}</span>
@@ -487,7 +487,7 @@ npm install embark-status --save
 <span class="p">}</span>
 </code></pre></div>
 
-<p>Also, you may need to tell Embark the IP of the DApp host if you&rsquo;re not using <code>localhost</code> as a default. Navigate to and change the <code>config/webserver.js</code> file so that it reflects your development machine&rsquo;s IP address:</p>
+<p>Navigate to and change the <code>config/webserver.js</code> file so that it reflects your development machine&rsquo;s IP address:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">{</span>
   <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
   <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;MACHINE-IP&gt;&quot;</span><span class="p">,</span>
@@ -546,14 +546,14 @@ adb reverse tcp:8000 tcp:8000
 <div class="content tabs">
    
     
-        <input id="tab-DIY-rhtbvseujolaxyzwzigckfqmdn" class="tab tab-DIY" type="radio" name="tabs-rhtbvseujolaxyzwzigckfqmdn" checked>
-        <label for="tab-DIY-rhtbvseujolaxyzwzigckfqmdn" class="tab">DIY</label>
+        <input id="tab-DIY-fswzxzthogylerkbjnmiqdavcu" class="tab tab-DIY" type="radio" name="tabs-fswzxzthogylerkbjnmiqdavcu" checked>
+        <label for="tab-DIY-fswzxzthogylerkbjnmiqdavcu" class="tab">DIY</label>
     
-        <input id="tab-Embark-rhtbvseujolaxyzwzigckfqmdn" class="tab tab-Embark" type="radio" name="tabs-rhtbvseujolaxyzwzigckfqmdn" checked>
-        <label for="tab-Embark-rhtbvseujolaxyzwzigckfqmdn" class="tab">Embark</label>
+        <input id="tab-Embark-fswzxzthogylerkbjnmiqdavcu" class="tab tab-Embark" type="radio" name="tabs-fswzxzthogylerkbjnmiqdavcu" checked>
+        <label for="tab-Embark-fswzxzthogylerkbjnmiqdavcu" class="tab">Embark</label>
     
-        <input id="tab-Truffle-rhtbvseujolaxyzwzigckfqmdn" class="tab tab-Truffle" type="radio" name="tabs-rhtbvseujolaxyzwzigckfqmdn" checked>
-        <label for="tab-Truffle-rhtbvseujolaxyzwzigckfqmdn" class="tab">Truffle</label>
+        <input id="tab-Truffle-fswzxzthogylerkbjnmiqdavcu" class="tab tab-Truffle" type="radio" name="tabs-fswzxzthogylerkbjnmiqdavcu" checked>
+        <label for="tab-Truffle-fswzxzthogylerkbjnmiqdavcu" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
@@ -701,14 +701,14 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
 <div class="content tabs">
    
     
-        <input id="tab-DIY-hdrqywzuxsgfoabtcvimelkzjn" class="tab tab-DIY" type="radio" name="tabs-hdrqywzuxsgfoabtcvimelkzjn" checked>
-        <label for="tab-DIY-hdrqywzuxsgfoabtcvimelkzjn" class="tab">DIY</label>
+        <input id="tab-DIY-uowlvkazfnridygbtmxzhcseqj" class="tab tab-DIY" type="radio" name="tabs-uowlvkazfnridygbtmxzhcseqj" checked>
+        <label for="tab-DIY-uowlvkazfnridygbtmxzhcseqj" class="tab">DIY</label>
     
-        <input id="tab-Embark-hdrqywzuxsgfoabtcvimelkzjn" class="tab tab-Embark" type="radio" name="tabs-hdrqywzuxsgfoabtcvimelkzjn" checked>
-        <label for="tab-Embark-hdrqywzuxsgfoabtcvimelkzjn" class="tab">Embark</label>
+        <input id="tab-Embark-uowlvkazfnridygbtmxzhcseqj" class="tab tab-Embark" type="radio" name="tabs-uowlvkazfnridygbtmxzhcseqj" checked>
+        <label for="tab-Embark-uowlvkazfnridygbtmxzhcseqj" class="tab">Embark</label>
     
-        <input id="tab-Truffle-hdrqywzuxsgfoabtcvimelkzjn" class="tab tab-Truffle" type="radio" name="tabs-hdrqywzuxsgfoabtcvimelkzjn" checked>
-        <label for="tab-Truffle-hdrqywzuxsgfoabtcvimelkzjn" class="tab">Truffle</label>
+        <input id="tab-Truffle-uowlvkazfnridygbtmxzhcseqj" class="tab tab-Truffle" type="radio" name="tabs-uowlvkazfnridygbtmxzhcseqj" checked>
+        <label for="tab-Truffle-uowlvkazfnridygbtmxzhcseqj" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
