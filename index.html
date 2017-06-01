@@ -184,11 +184,11 @@ input:checked + label {
 <div class="content tabs">
    
     
-        <input id="tab-Device-bojgnusayzrzcidlwtmevfhkxq" class="tab tab-Device" type="radio" name="tabs-bojgnusayzrzcidlwtmevfhkxq" checked>
-        <label for="tab-Device-bojgnusayzrzcidlwtmevfhkxq" class="tab">Device</label>
+        <input id="tab-Device-qozdrhfgwklivmxtucajbzneys" class="tab tab-Device" type="radio" name="tabs-qozdrhfgwklivmxtucajbzneys" checked>
+        <label for="tab-Device-qozdrhfgwklivmxtucajbzneys" class="tab">Device</label>
     
-        <input id="tab-Emulator-bojgnusayzrzcidlwtmevfhkxq" class="tab tab-Emulator" type="radio" name="tabs-bojgnusayzrzcidlwtmevfhkxq" checked>
-        <label for="tab-Emulator-bojgnusayzrzcidlwtmevfhkxq" class="tab">Emulator</label>
+        <input id="tab-Emulator-qozdrhfgwklivmxtucajbzneys" class="tab tab-Emulator" type="radio" name="tabs-qozdrhfgwklivmxtucajbzneys" checked>
+        <label for="tab-Emulator-qozdrhfgwklivmxtucajbzneys" class="tab">Emulator</label>
     
 <div class="content tab-content content-Device">
 <p>First, connect your phone to your Wi-Fi network (do not use USB). Development machine and phone should be in the same network. Navigate to the Console, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools.</p>
@@ -204,6 +204,13 @@ input:checked + label {
 <p>You can check <code>&lt;DEVICE-IP&gt;</code> by running the <code>scan</code> command in the terminal. Another useful command we will be using a lot later on is <code>list</code> which will return a list of all DApps you have added to Status.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli scan
 status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to use the IPv4 address</span>
+</code></pre></div>
+
+<p>You will see that these tutorials also use <code>&lt;MACHINE-IP&gt;</code> throughout. This refers to the INTERNAL IPv4 address of your development machine. You can find that by running the command provided.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>ifconfig <span class="p">|</span> grep inet
+
+<span class="c1"># Look for this line - i.e. your IPv4 address - and use the equivalent of 192.168.0.103</span>
+--&gt; inet <span class="m">192</span>.168.0.103 netmask 0xffffff00 broadcast <span class="m">192</span>.168.0.255
 </code></pre></div>
 
 </div>
@@ -243,14 +250,14 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <div class="content tabs">
    
     
-        <input id="tab-DIY-ztbqfjoigdaysluexhcmvrnkwz" class="tab tab-DIY" type="radio" name="tabs-ztbqfjoigdaysluexhcmvrnkwz" checked>
-        <label for="tab-DIY-ztbqfjoigdaysluexhcmvrnkwz" class="tab">DIY</label>
+        <input id="tab-DIY-ojybczxmzgvuwflirnkthadseq" class="tab tab-DIY" type="radio" name="tabs-ojybczxmzgvuwflirnkthadseq" checked>
+        <label for="tab-DIY-ojybczxmzgvuwflirnkthadseq" class="tab">DIY</label>
     
-        <input id="tab-Embark-ztbqfjoigdaysluexhcmvrnkwz" class="tab tab-Embark" type="radio" name="tabs-ztbqfjoigdaysluexhcmvrnkwz" checked>
-        <label for="tab-Embark-ztbqfjoigdaysluexhcmvrnkwz" class="tab">Embark</label>
+        <input id="tab-Embark-ojybczxmzgvuwflirnkthadseq" class="tab tab-Embark" type="radio" name="tabs-ojybczxmzgvuwflirnkthadseq" checked>
+        <label for="tab-Embark-ojybczxmzgvuwflirnkthadseq" class="tab">Embark</label>
     
-        <input id="tab-Truffle-ztbqfjoigdaysluexhcmvrnkwz" class="tab tab-Truffle" type="radio" name="tabs-ztbqfjoigdaysluexhcmvrnkwz" checked>
-        <label for="tab-Truffle-ztbqfjoigdaysluexhcmvrnkwz" class="tab">Truffle</label>
+        <input id="tab-Truffle-ojybczxmzgvuwflirnkthadseq" class="tab tab-Truffle" type="radio" name="tabs-ojybczxmzgvuwflirnkthadseq" checked>
+        <label for="tab-Truffle-ojybczxmzgvuwflirnkthadseq" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -299,7 +306,7 @@ touch index.html app.js
 
 <p>Open a new terminal session, navigate back to your <code>my-dapp</code> directory, and go ahead and add your dapp to Status! Make sure to pass in the <code>--ip</code> flag using the address returned to you by Console, when you <a href="#enabling-debugging">enabled debugging</a>.</p>
 
-<p><code>&lt;MACHINE-IP&gt;</code> needs to be <code>localhost</code> or <code>127.0.0.1</code>, if you are using a simulator, or whatever your PC&rsquo;s (internal) IP is if you are using a connected phone.</p>
+<p><code>&lt;MACHINE-IP&gt;</code> needs to be the internal IPv4 address returned when you run <code>ifconfig | grep inet</code>.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install http-server -g
 http-server
 </code></pre></div>
@@ -343,15 +350,12 @@ http-server
 <p>Firstly, we&rsquo;ll need a network to develop against, so let&rsquo;s go get <code>testrpc</code> - a neat little simulation of the rules and logic of the Ethereum network that runs much faster than the live network (because it&rsquo;s only simulating things) and is very useful for quick and dirty iterations.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm install -g ethereumjs-testrpc
 testrpc -p <span class="m">8546</span>
-
-<span class="c1"># If you&#39;re using Android (device only)</span>
-adb reverse tcp:8546 tcp:8546
 </code></pre></div>
 
 <p>That’s it! It will show you a list of available accounts, private keys, your HD wallet and mnemonic. Please note that we&rsquo;re running testrpc on (non-default) RPC port 8546, just to avoid potential conflict with the node running inside Status. If using android, you need to open the connection from your PC to your phone on that port, so Status can listen for changes there.</p>
 
 <p>We also need to make sure that our Status client is listening to our new <code>testrpc</code> network, rather than Ropsten, so that we can get the information we need about our contracts etc. Luckily, this is as easy as running:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli switch-node <span class="s2">&quot;http://localhost:8546&quot;</span> --ip &lt;DEVICE-IP&gt;
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli switch-node <span class="s2">&quot;http://&lt;MACHINE-IP&gt;:8546&quot;</span> --ip &lt;DEVICE-IP&gt;
 
 <span class="c1"># Of course, there are options. You can use go-ethereum instead of TestRPC, and instead of port forwarding you can switch to any other accessible node using its IP address.</span>
 </code></pre></div>
@@ -385,11 +389,6 @@ adb reverse tcp:8546 tcp:8546
 
 <p>As you run the <code>migrate</code> command - which is what deploys your contracts to the network - you can look at the window with <code>testrpc</code> running, and you’ll see your transactions being published. If you get <code>Error: Invalid JSON RPC response</code>, you probably forgot to run <code>testrpc</code>.</p>
 
-<p>If you&rsquo;re using an Android device, the application won&rsquo;t be accessible automatically, since it runs on port 3000 and your device/emulator knows nothing about it. Execute the following to make web application accessible:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># If you&#39;re using Android (device only)</span>
-adb reverse tcp:3000 tcp:3000
-</code></pre></div>
-
 <p>Now we are ready to see our DApp running on Status. From within your DApp directory, run:</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># Run your Javascript</span>
 npm run start
@@ -410,7 +409,7 @@ npm run start
 
 <p>Once everything is running, leave it as is and move on directly to the next truffle tutorial to see the power of the <code>status-dev-cli watch</code> command.</p>
 
-<p><em>Known problems:</em></p>
+<p><em>Known problems and Notes:</em></p>
 
 <p>1) If you are running on a real iOS device, you need to configure Truffle Box to use the network on your computer. In <code>truffle.js</code>, change <code>host</code> to the IP of your computer:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="p">{</span>
@@ -423,6 +422,11 @@ npm run start
     <span class="p">}</span>
   <span class="p">}</span>
 <span class="p">};</span>
+</code></pre></div>
+
+<p>2) You can always use <code>localhost</code> instead of <code>&lt;MACHINE-IP&gt;</code>, but the application won&rsquo;t be accessible automatically, since it runs on port 3000 and your device/emulator knows nothing about it. Execute the following to induce black magic and make the web application accessible:</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>adb reverse tcp:8546 tcp:8546
+adb reverse tcp:3000 tcp:3000
 </code></pre></div>
 
 </div>
@@ -466,10 +470,8 @@ npm run start
 <span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> embark simulator
 </code></pre></div>
 
-<p>Open a new shell tab, navigate to the same DApp directory, and - after ensuring you Android device has access to <code>testrpc</code> - install Status Embark:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># Android only </span>
-adb reverse tcp:8546 tcp:8546 
-
+<p>Open a new shell tab and switch the RPC node. Once that is done, you need to install the <code>embark-status</code> package.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli switch-node <span class="s2">&quot;http://&lt;MACHINE-IP&gt;:8546&quot;</span> --ip &lt;DEVICE-IP&gt;
 npm install embark-status --save
 </code></pre></div>
 
@@ -478,7 +480,7 @@ npm install embark-status --save
 <p>Open the file <code>embark.json</code> and edit the <code>plugins</code> key to reflects your DEVICE&rsquo;s IP address:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="s2">&quot;plugins&quot;</span><span class="o">:</span> <span class="p">{</span>
   <span class="s2">&quot;embark-status&quot;</span><span class="o">:</span> <span class="p">{</span>
-    <span class="s2">&quot;deviceIp&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;your-device-ip&gt;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;deviceIp&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;DEVICE-IP&gt;&quot;</span><span class="p">,</span>
     <span class="s2">&quot;whisperIdentity&quot;</span><span class="o">:</span> <span class="s2">&quot;dapp-embark-test&quot;</span><span class="p">,</span>
     <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;MyEmbarkDapp&quot;</span>
   <span class="p">}</span>
@@ -488,13 +490,9 @@ npm install embark-status --save
 <p>Also, you may need to tell Embark the IP of the DApp host if you&rsquo;re not using <code>localhost</code> as a default. Navigate to and change the <code>config/webserver.js</code> file so that it reflects your development machine&rsquo;s IP address:</p>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="p">{</span>
   <span class="s2">&quot;enabled&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
-  <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;your-machines-ip&gt;&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;host&quot;</span><span class="o">:</span> <span class="s2">&quot;&lt;MACHINE-IP&gt;&quot;</span><span class="p">,</span>
   <span class="s2">&quot;port&quot;</span><span class="o">:</span> <span class="mi">8000</span>
 <span class="p">}</span>
-</code></pre></div>
-
-<p>If you’re running Status on Android, remember to give your device access to the right ports again:</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>adb reverse tcp:8000 tcp:8000
 </code></pre></div>
 
 <p>Now we’re ready to run the DApp on Status. From within your DApp directory, run:</p>
@@ -511,9 +509,14 @@ npm install embark-status --save
 
 <p><em>The Embark simulator runs in one Terminal window on the top, and the Embark console on the bottom</em></p>
 
-<p><em>Known Issues:</em></p>
+<p><em>Known Issues and Notes:</em></p>
 
 <p>1) To deploy the DApp successfully on a device you may need to patch <a href="https://github.com/status-im/embark-status/blob/master/index.js#L13" target="_blank">this line</a> in embark-status to include <code>+ &quot; --dapp-port 5561&quot;</code>.</p>
+
+<p><p>2) You can always use <code>localhost</code> instead of <code>&lt;MACHINE-IP&gt;</code>, but the application won&rsquo;t be accessible automatically, since it runs on port 8000 and your device/emulator knows nothing about it. Execute the following to induce black magic and make the web application accessible:</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>adb reverse tcp:8546 tcp:8546
+adb reverse tcp:8000 tcp:8000
+</code></pre></div></p>
 
 <p></div></p>
 
@@ -543,14 +546,14 @@ npm install embark-status --save
 <div class="content tabs">
    
     
-        <input id="tab-DIY-vjymuatilerxdsocbgwnhzfzqk" class="tab tab-DIY" type="radio" name="tabs-vjymuatilerxdsocbgwnhzfzqk" checked>
-        <label for="tab-DIY-vjymuatilerxdsocbgwnhzfzqk" class="tab">DIY</label>
+        <input id="tab-DIY-rhtbvseujolaxyzwzigckfqmdn" class="tab tab-DIY" type="radio" name="tabs-rhtbvseujolaxyzwzigckfqmdn" checked>
+        <label for="tab-DIY-rhtbvseujolaxyzwzigckfqmdn" class="tab">DIY</label>
     
-        <input id="tab-Embark-vjymuatilerxdsocbgwnhzfzqk" class="tab tab-Embark" type="radio" name="tabs-vjymuatilerxdsocbgwnhzfzqk" checked>
-        <label for="tab-Embark-vjymuatilerxdsocbgwnhzfzqk" class="tab">Embark</label>
+        <input id="tab-Embark-rhtbvseujolaxyzwzigckfqmdn" class="tab tab-Embark" type="radio" name="tabs-rhtbvseujolaxyzwzigckfqmdn" checked>
+        <label for="tab-Embark-rhtbvseujolaxyzwzigckfqmdn" class="tab">Embark</label>
     
-        <input id="tab-Truffle-vjymuatilerxdsocbgwnhzfzqk" class="tab tab-Truffle" type="radio" name="tabs-vjymuatilerxdsocbgwnhzfzqk" checked>
-        <label for="tab-Truffle-vjymuatilerxdsocbgwnhzfzqk" class="tab">Truffle</label>
+        <input id="tab-Truffle-rhtbvseujolaxyzwzigckfqmdn" class="tab tab-Truffle" type="radio" name="tabs-rhtbvseujolaxyzwzigckfqmdn" checked>
+        <label for="tab-Truffle-rhtbvseujolaxyzwzigckfqmdn" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
@@ -587,17 +590,20 @@ mkdir bots <span class="o">&amp;&amp;</span> <span class="nb">cd</span> bots <sp
 <span class="c1">#start the server and then open a new shell window</span>
 http-server
 </code></pre></div>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span><span class="c1"># android only</span>
-adb reverse tcp:8080 tcp:8080
-
-status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;botler&quot;,  &quot;name&quot;: &quot;Botler&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bots/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;botler&quot;,  &quot;name&quot;: &quot;Botler&quot; ,&quot;bot-url&quot;: &quot;http://&lt;MACHINE-IP&gt;:8080/bots/bot.js&quot;}&#39;</span> --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
 <p>This is pretty much the simplest responsive chatbot we can write, using only the <code>addListener</code> function from the API. All it&rsquo;s listening for is a message-send event, to which it will try to respond with the test <code>You're amazing, master!</code>.</p>
 
 <p>Obviously, there&rsquo;s much more we can do than simply listen for messages and send flattering responses. All will be revealed in the next tutorial. If you&rsquo;re feeling impatient, you can find a full Demo Bot <a href="https://github.com/status-im/status-react/tree/34b77022f7926dbabbb0e8c5e8471eaea5ed812f/bots/demo_bot" target="_blank">here</a>.</p>
 
-<p></div></p>
+<p><em>Known Issues and Notes:</em></p>
+
+<p>1) You can always use <code>localhost</code> instead of <code>&lt;MACHINE-IP&gt;</code>, but the application won&rsquo;t be accessible automatically, since it runs on port 8080 and your device/emulator knows nothing about it. Execute the following to induce black magic and make the web application accessible:</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>adb reverse tcp:8080 tcp:8080
+</code></pre></div>
+
+</div>
 
 <div class="content tab-content content-Embark">
 <h3 id="embark">Embark</h3>
@@ -610,7 +616,7 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;bo
 
 <p>TODO</p>
 
-</div>
+<p></div></p>
 
 <div class="content tab-content content-Truffle">
 <h3 id="truffle">Truffle</h3>
@@ -622,10 +628,7 @@ status-dev-cli add <span class="s1">&#39;{&quot;whisper-identity&quot;: &quot;bo
 </blockquote>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>testrpc -p <span class="m">8546</span>
 
-<span class="c1"># Android device only</span>
-adb reverse tcp:8546 tcp:8546
-
-status-dev-cli switch-node <span class="s2">&quot;http://localhost:8546&quot;</span>
+status-dev-cli switch-node <span class="s2">&quot;http://&lt;MACINE-IP&gt;:8546&quot;</span>
 
 <span class="nb">cd</span> ~/truffle-box-status
 
@@ -657,7 +660,7 @@ nano bot/bot.js
 
 <p>If you look on line 42-43 of the <code>npm start</code> script, you&rsquo;ll see that we already passed in a <code>bot-url</code> when adding the Truffle Box in the previous tutorial. So, all we need to do now is <code>status-dev-cli watch</code> that same DApp to activate the live-reloading and start chatting to our bot through the chat, or interacting with our contracts through the webView. However, we need to know what to tell <code>status-dev-cli</code> to watch for, so let&rsquo;s try <code>list</code> our DApps currently in Status.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli list --ip &lt;DEVICE-IP&gt;
-<span class="c1"># dapp-0x74727566666c652d626f782d737461747573 (Name: &quot;truffle-box-status&quot;, DApp URL: &quot;http://localhost:3000&quot;)</span>
+<span class="c1"># dapp-0x74727566666c652d626f782d737461747573 (Name: &quot;truffle-box-status&quot;, DApp URL: &quot;http://&lt;MACINE-IP&gt;:3000&quot;)</span>
 </code></pre></div>
 
 <p>The first value returned there is the DApp&rsquo;s <code>whisper-identity</code>, which is what we need to pass to the <code>watch</code> command to tell it what to look for. Using it, we can now tell <code>status-dev-cli</code> to watch for our changes and go find that brand new bot.</p>
@@ -698,14 +701,14 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
 <div class="content tabs">
    
     
-        <input id="tab-DIY-lmabyvxdiqcjszetznrfouwghk" class="tab tab-DIY" type="radio" name="tabs-lmabyvxdiqcjszetznrfouwghk" checked>
-        <label for="tab-DIY-lmabyvxdiqcjszetznrfouwghk" class="tab">DIY</label>
+        <input id="tab-DIY-hdrqywzuxsgfoabtcvimelkzjn" class="tab tab-DIY" type="radio" name="tabs-hdrqywzuxsgfoabtcvimelkzjn" checked>
+        <label for="tab-DIY-hdrqywzuxsgfoabtcvimelkzjn" class="tab">DIY</label>
     
-        <input id="tab-Embark-lmabyvxdiqcjszetznrfouwghk" class="tab tab-Embark" type="radio" name="tabs-lmabyvxdiqcjszetznrfouwghk" checked>
-        <label for="tab-Embark-lmabyvxdiqcjszetznrfouwghk" class="tab">Embark</label>
+        <input id="tab-Embark-hdrqywzuxsgfoabtcvimelkzjn" class="tab tab-Embark" type="radio" name="tabs-hdrqywzuxsgfoabtcvimelkzjn" checked>
+        <label for="tab-Embark-hdrqywzuxsgfoabtcvimelkzjn" class="tab">Embark</label>
     
-        <input id="tab-Truffle-lmabyvxdiqcjszetznrfouwghk" class="tab tab-Truffle" type="radio" name="tabs-lmabyvxdiqcjszetznrfouwghk" checked>
-        <label for="tab-Truffle-lmabyvxdiqcjszetznrfouwghk" class="tab">Truffle</label>
+        <input id="tab-Truffle-hdrqywzuxsgfoabtcvimelkzjn" class="tab tab-Truffle" type="radio" name="tabs-hdrqywzuxsgfoabtcvimelkzjn" checked>
+        <label for="tab-Truffle-hdrqywzuxsgfoabtcvimelkzjn" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -747,9 +750,6 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
 
 <p>Go ahead and serve your dapp again:</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>http-server
-
-<span class="c1"># In another shell if on android</span>
-adb reverse tcp:8080 tcp:8080
 
 status-dev-cli list --ip &lt;DEVICE-IP&gt;
 
@@ -794,7 +794,7 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
 
 <p><p>Much like we did last time, just find the <code>whisper-identity</code> of your DApp and <code>watch</code> for changes.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli list &ndash;ip &lt;DEVICE-IP&gt;
-<span class="c1"># dapp-0x74727566666c652d626f782d737461747573 (Name: &quot;truffle-box-status&quot;, DApp URL: &quot;<a href="http://localhost:3000&quot;" target="_blank">http://localhost:3000&quot;</a>)</span></p>
+<span class="c1"># dapp-0x74727566666c652d626f782d737461747573 (Name: &quot;truffle-box-status&quot;, DApp URL: &quot;http://&lt;MACHINE-IP&gt;:3000&quot;)</span></p>
 
 <p><span class="c1"># Make sure you&#39;re in the truflle-box-status/ directory as that is what $PWD refers to below</span>
 <span class="nb">cd</span> ~/truffle-box-status</p>
