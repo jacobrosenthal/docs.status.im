@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-	<meta name="generator" content="Hugo 0.20.7" />
+	<meta name="generator" content="Hugo 0.18.1" />
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -162,13 +162,24 @@ input:checked + label {
 
 <h2 id="installing-status">Installing Status</h2>
 
-<p>OK, let&rsquo;s learn how to build our first DApp on Status (mobile-first ftw!). To progress further, you need to have Status running.</p>
+<p>OK, let&rsquo;s learn how to build our first DApp on Status (mobile-first ftw!). To progress further, you need to have Status running either:</p>
 
-<aside class="success">
- Please note that these documents are intended for the latest version of "status-dev-cli" and the nightly developer builds of Status itself (available only on Android). To update "status-dev-cli" please run "npm uninstall -g status-dev-cli" and then "npm i -g status-dev-cli". Our nightly builds can be found here: http://artifacts.status.im:8081/artifactory/nightlies-local/.
-</aside>
+<ul>
+<li><p>on a real phone,</p></li>
 
-<p>If you are on Android, please use the <code>.apk</code> files linked above. If you’re on iOS, you can <a href="https://wiki.status.im/contributing/development/building-status/" target="_blank">build Status yourself</a>. Our wiki guidelines should be all you need, but if you get lost come ask around in <a href="https://slack.status.im" target="_blank">our Slack</a>. You can also use and adapt this <a href="https://gist.github.com/andytudhope/a06e1c9916e23909321f6ac427aaf348" target="_blank">gist</a>, though you will need to change the UUID by running <code>instruments -s devices</code>, choosing the simulator you want to use and replacing the UUID in the script with your own. You will also need iTerm2.</p>
+<li><p>in an Android simulator, or</p></li>
+
+<li><p>in an iOS simulator.</p></li>
+</ul>
+
+<p>You can go to <a href="https://test.status.im" target="_blank">https://test.status.im</a> to download for Android.
+Or you can DM @jarradhope with your email in our <a href="status-im.slack" target="_blank">Slack</a> for ios Testflight.</p>
+
+<p><aside class="success">
+Please note that these documents are intended for the latest version of &ldquo;status-dev-cli&rdquo; (^3.2.8) and the latest release of Status app (^0.9.8). To update <code>status-dev-cli</code> please run &ldquo;npm uninstall -g status-dev-cli&rdquo; and then &ldquo;npm i -g status-dev-cli&rdquo;.
+ </aside></p>
+
+<p>You can build Status yourself for either Android or iOS by following <a href="https://wiki.status.im/contributing/development/building-status/" target="_blank">these guidelines</a>. There, you will find instructions for installing an Android simulator, or starting up Status in the Xcode simulator.</p>
 
 <h2 id="networking-and-debugging">Networking and Debugging</h2>
 
@@ -184,11 +195,11 @@ input:checked + label {
 <div class="content tabs">
    
     
-        <input id="tab-Device-bzolgxyzinwtkhasmfvuqrjedc" class="tab tab-Device" type="radio" name="tabs-bzolgxyzinwtkhasmfvuqrjedc" checked>
-        <label for="tab-Device-bzolgxyzinwtkhasmfvuqrjedc" class="tab">Device</label>
+        <input id="tab-Device-nxshlyaedgizormtqufvwkjbzc" class="tab tab-Device" type="radio" name="tabs-nxshlyaedgizormtqufvwkjbzc" checked>
+        <label for="tab-Device-nxshlyaedgizormtqufvwkjbzc" class="tab">Device</label>
     
-        <input id="tab-Emulator-bzolgxyzinwtkhasmfvuqrjedc" class="tab tab-Emulator" type="radio" name="tabs-bzolgxyzinwtkhasmfvuqrjedc" checked>
-        <label for="tab-Emulator-bzolgxyzinwtkhasmfvuqrjedc" class="tab">Emulator</label>
+        <input id="tab-Emulator-nxshlyaedgizormtqufvwkjbzc" class="tab tab-Emulator" type="radio" name="tabs-nxshlyaedgizormtqufvwkjbzc" checked>
+        <label for="tab-Emulator-nxshlyaedgizormtqufvwkjbzc" class="tab">Emulator</label>
     
 <div class="content tab-content content-Device">
 <p>First, connect your phone to your Wi-Fi network (do not use USB). Development machine and phone should be in the same network. Navigate to the Console, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools.</p>
@@ -250,14 +261,14 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <div class="content tabs">
    
     
-        <input id="tab-DIY-ifgnjmuycezqzlvxsdkbhratow" class="tab tab-DIY" type="radio" name="tabs-ifgnjmuycezqzlvxsdkbhratow" checked>
-        <label for="tab-DIY-ifgnjmuycezqzlvxsdkbhratow" class="tab">DIY</label>
+        <input id="tab-DIY-ihzsfwuteczvqgrlbdjoayxkmn" class="tab tab-DIY" type="radio" name="tabs-ihzsfwuteczvqgrlbdjoayxkmn" checked>
+        <label for="tab-DIY-ihzsfwuteczvqgrlbdjoayxkmn" class="tab">DIY</label>
     
-        <input id="tab-Embark-ifgnjmuycezqzlvxsdkbhratow" class="tab tab-Embark" type="radio" name="tabs-ifgnjmuycezqzlvxsdkbhratow" checked>
-        <label for="tab-Embark-ifgnjmuycezqzlvxsdkbhratow" class="tab">Embark</label>
+        <input id="tab-Embark-ihzsfwuteczvqgrlbdjoayxkmn" class="tab tab-Embark" type="radio" name="tabs-ihzsfwuteczvqgrlbdjoayxkmn" checked>
+        <label for="tab-Embark-ihzsfwuteczvqgrlbdjoayxkmn" class="tab">Embark</label>
     
-        <input id="tab-Truffle-ifgnjmuycezqzlvxsdkbhratow" class="tab tab-Truffle" type="radio" name="tabs-ifgnjmuycezqzlvxsdkbhratow" checked>
-        <label for="tab-Truffle-ifgnjmuycezqzlvxsdkbhratow" class="tab">Truffle</label>
+        <input id="tab-Truffle-ihzsfwuteczvqgrlbdjoayxkmn" class="tab tab-Truffle" type="radio" name="tabs-ihzsfwuteczvqgrlbdjoayxkmn" checked>
+        <label for="tab-Truffle-ihzsfwuteczvqgrlbdjoayxkmn" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -546,14 +557,14 @@ adb reverse tcp:8000 tcp:8000
 <div class="content tabs">
    
     
-        <input id="tab-DIY-fswzxzthogylerkbjnmiqdavcu" class="tab tab-DIY" type="radio" name="tabs-fswzxzthogylerkbjnmiqdavcu" checked>
-        <label for="tab-DIY-fswzxzthogylerkbjnmiqdavcu" class="tab">DIY</label>
+        <input id="tab-DIY-flzqevgskmhuodijynrwzaxbct" class="tab tab-DIY" type="radio" name="tabs-flzqevgskmhuodijynrwzaxbct" checked>
+        <label for="tab-DIY-flzqevgskmhuodijynrwzaxbct" class="tab">DIY</label>
     
-        <input id="tab-Embark-fswzxzthogylerkbjnmiqdavcu" class="tab tab-Embark" type="radio" name="tabs-fswzxzthogylerkbjnmiqdavcu" checked>
-        <label for="tab-Embark-fswzxzthogylerkbjnmiqdavcu" class="tab">Embark</label>
+        <input id="tab-Embark-flzqevgskmhuodijynrwzaxbct" class="tab tab-Embark" type="radio" name="tabs-flzqevgskmhuodijynrwzaxbct" checked>
+        <label for="tab-Embark-flzqevgskmhuodijynrwzaxbct" class="tab">Embark</label>
     
-        <input id="tab-Truffle-fswzxzthogylerkbjnmiqdavcu" class="tab tab-Truffle" type="radio" name="tabs-fswzxzthogylerkbjnmiqdavcu" checked>
-        <label for="tab-Truffle-fswzxzthogylerkbjnmiqdavcu" class="tab">Truffle</label>
+        <input id="tab-Truffle-flzqevgskmhuodijynrwzaxbct" class="tab tab-Truffle" type="radio" name="tabs-flzqevgskmhuodijynrwzaxbct" checked>
+        <label for="tab-Truffle-flzqevgskmhuodijynrwzaxbct" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
@@ -701,14 +712,14 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
 <div class="content tabs">
    
     
-        <input id="tab-DIY-uowlvkazfnridygbtmxzhcseqj" class="tab tab-DIY" type="radio" name="tabs-uowlvkazfnridygbtmxzhcseqj" checked>
-        <label for="tab-DIY-uowlvkazfnridygbtmxzhcseqj" class="tab">DIY</label>
+        <input id="tab-DIY-kwzyvhxtnbefaluojmdigqrscz" class="tab tab-DIY" type="radio" name="tabs-kwzyvhxtnbefaluojmdigqrscz" checked>
+        <label for="tab-DIY-kwzyvhxtnbefaluojmdigqrscz" class="tab">DIY</label>
     
-        <input id="tab-Embark-uowlvkazfnridygbtmxzhcseqj" class="tab tab-Embark" type="radio" name="tabs-uowlvkazfnridygbtmxzhcseqj" checked>
-        <label for="tab-Embark-uowlvkazfnridygbtmxzhcseqj" class="tab">Embark</label>
+        <input id="tab-Embark-kwzyvhxtnbefaluojmdigqrscz" class="tab tab-Embark" type="radio" name="tabs-kwzyvhxtnbefaluojmdigqrscz" checked>
+        <label for="tab-Embark-kwzyvhxtnbefaluojmdigqrscz" class="tab">Embark</label>
     
-        <input id="tab-Truffle-uowlvkazfnridygbtmxzhcseqj" class="tab tab-Truffle" type="radio" name="tabs-uowlvkazfnridygbtmxzhcseqj" checked>
-        <label for="tab-Truffle-uowlvkazfnridygbtmxzhcseqj" class="tab">Truffle</label>
+        <input id="tab-Truffle-kwzyvhxtnbefaluojmdigqrscz" class="tab tab-Truffle" type="radio" name="tabs-kwzyvhxtnbefaluojmdigqrscz" checked>
+        <label for="tab-Truffle-kwzyvhxtnbefaluojmdigqrscz" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
