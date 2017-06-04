@@ -102,11 +102,11 @@ Please note that these documents are intended for the latest version of &amp;ldq
 &lt;div class=&#34;content tabs&#34;&gt;
    
     
-        &lt;input id=&#34;tab-Device-nxshlyaedgizormtqufvwkjbzc&#34; class=&#34;tab tab-Device&#34; type=&#34;radio&#34; name=&#34;tabs-nxshlyaedgizormtqufvwkjbzc&#34; checked&gt;
-        &lt;label for=&#34;tab-Device-nxshlyaedgizormtqufvwkjbzc&#34; class=&#34;tab&#34;&gt;Device&lt;/label&gt;
+        &lt;input id=&#34;tab-Device-idquftxenajrbyzvlcosgkzhwm&#34; class=&#34;tab tab-Device&#34; type=&#34;radio&#34; name=&#34;tabs-idquftxenajrbyzvlcosgkzhwm&#34; checked&gt;
+        &lt;label for=&#34;tab-Device-idquftxenajrbyzvlcosgkzhwm&#34; class=&#34;tab&#34;&gt;Device&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Emulator-nxshlyaedgizormtqufvwkjbzc&#34; class=&#34;tab tab-Emulator&#34; type=&#34;radio&#34; name=&#34;tabs-nxshlyaedgizormtqufvwkjbzc&#34; checked&gt;
-        &lt;label for=&#34;tab-Emulator-nxshlyaedgizormtqufvwkjbzc&#34; class=&#34;tab&#34;&gt;Emulator&lt;/label&gt;
+        &lt;input id=&#34;tab-Emulator-idquftxenajrbyzvlcosgkzhwm&#34; class=&#34;tab tab-Emulator&#34; type=&#34;radio&#34; name=&#34;tabs-idquftxenajrbyzvlcosgkzhwm&#34; checked&gt;
+        &lt;label for=&#34;tab-Emulator-idquftxenajrbyzvlcosgkzhwm&#34; class=&#34;tab&#34;&gt;Emulator&lt;/label&gt;
     
 &lt;div class=&#34;content tab-content content-Device&#34;&gt;
 &lt;p&gt;First, connect your phone to your Wi-Fi network (do not use USB). Development machine and phone should be in the same network. Navigate to the Console, select the &lt;code&gt;/debug&lt;/code&gt; command and choose the &lt;code&gt;On&lt;/code&gt; suggestion. You’ll get back a message telling you that debugging is on, and that you can use the &lt;a href=&#34;https://github.com/status-im/status-dev-cli&#34; target=&#34;_blank&#34;&gt;status-dev-cli&lt;/a&gt; tools.&lt;/p&gt;
@@ -168,14 +168,14 @@ status-dev-cli list --ip &amp;lt;DEVICE-IP&amp;gt;       &lt;span class=&#34;c1&
 &lt;div class=&#34;content tabs&#34;&gt;
    
     
-        &lt;input id=&#34;tab-DIY-ihzsfwuteczvqgrlbdjoayxkmn&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-ihzsfwuteczvqgrlbdjoayxkmn&#34; checked&gt;
-        &lt;label for=&#34;tab-DIY-ihzsfwuteczvqgrlbdjoayxkmn&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
+        &lt;input id=&#34;tab-DIY-ctlmheqynbzrowzvdiskgafxuj&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-ctlmheqynbzrowzvdiskgafxuj&#34; checked&gt;
+        &lt;label for=&#34;tab-DIY-ctlmheqynbzrowzvdiskgafxuj&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Embark-ihzsfwuteczvqgrlbdjoayxkmn&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-ihzsfwuteczvqgrlbdjoayxkmn&#34; checked&gt;
-        &lt;label for=&#34;tab-Embark-ihzsfwuteczvqgrlbdjoayxkmn&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
+        &lt;input id=&#34;tab-Embark-ctlmheqynbzrowzvdiskgafxuj&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-ctlmheqynbzrowzvdiskgafxuj&#34; checked&gt;
+        &lt;label for=&#34;tab-Embark-ctlmheqynbzrowzvdiskgafxuj&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Truffle-ihzsfwuteczvqgrlbdjoayxkmn&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-ihzsfwuteczvqgrlbdjoayxkmn&#34; checked&gt;
-        &lt;label for=&#34;tab-Truffle-ihzsfwuteczvqgrlbdjoayxkmn&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
+        &lt;input id=&#34;tab-Truffle-ctlmheqynbzrowzvdiskgafxuj&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-ctlmheqynbzrowzvdiskgafxuj&#34; checked&gt;
+        &lt;label for=&#34;tab-Truffle-ctlmheqynbzrowzvdiskgafxuj&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
     
 &lt;div class=&#34;content tab-content content-DIY&#34;&gt;
 &lt;h3 id=&#34;do-it-yourself-with-status-dev-cli&#34;&gt;Do It Yourself with &lt;code&gt;status-dev-cli&lt;/code&gt;&lt;/h3&gt;
@@ -440,7 +440,7 @@ adb reverse tcp:8000 tcp:8000
 
 &lt;/div&gt;
 
-&lt;p&gt;If you want to remove your DApp because you&amp;rsquo;re unhappy with it for some reason, just run &lt;code&gt;status-dev-cli list --ip &amp;lt;DEVICE-IP&amp;gt;&lt;/code&gt; and then &lt;code&gt;status-dev-cli remove [my-dapp]&lt;/code&gt; where [my-dapp] is the &lt;code&gt;whisper-identity&lt;/code&gt; returned by the &lt;code&gt;list&lt;/code&gt; command.&lt;/p&gt;
+&lt;p&gt;If you want to remove your DApp because you&amp;rsquo;re unhappy with it for some reason, just run &lt;code&gt;status-dev-cli list --ip &amp;lt;DEVICE-IP&amp;gt;&lt;/code&gt; and then &lt;code&gt;status-dev-cli remove --ip &amp;lt;DEVICE-IP&amp;gt; [my-dapp]&lt;/code&gt; where [my-dapp] is the &lt;code&gt;whisper-identity&lt;/code&gt; returned by the &lt;code&gt;list&lt;/code&gt; command.&lt;/p&gt;
 
 &lt;p&gt;Using Status, you can now develop mobile DApps as easily as developing for MetaMask or Mist! But Status offers extra goodies as well.&lt;/p&gt;
 
@@ -464,14 +464,14 @@ adb reverse tcp:8000 tcp:8000
 &lt;div class=&#34;content tabs&#34;&gt;
    
     
-        &lt;input id=&#34;tab-DIY-flzqevgskmhuodijynrwzaxbct&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-flzqevgskmhuodijynrwzaxbct&#34; checked&gt;
-        &lt;label for=&#34;tab-DIY-flzqevgskmhuodijynrwzaxbct&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
+        &lt;input id=&#34;tab-DIY-idrgxfwnzzvmblsuytcqakhjeo&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-idrgxfwnzzvmblsuytcqakhjeo&#34; checked&gt;
+        &lt;label for=&#34;tab-DIY-idrgxfwnzzvmblsuytcqakhjeo&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Embark-flzqevgskmhuodijynrwzaxbct&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-flzqevgskmhuodijynrwzaxbct&#34; checked&gt;
-        &lt;label for=&#34;tab-Embark-flzqevgskmhuodijynrwzaxbct&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
+        &lt;input id=&#34;tab-Embark-idrgxfwnzzvmblsuytcqakhjeo&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-idrgxfwnzzvmblsuytcqakhjeo&#34; checked&gt;
+        &lt;label for=&#34;tab-Embark-idrgxfwnzzvmblsuytcqakhjeo&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Truffle-flzqevgskmhuodijynrwzaxbct&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-flzqevgskmhuodijynrwzaxbct&#34; checked&gt;
-        &lt;label for=&#34;tab-Truffle-flzqevgskmhuodijynrwzaxbct&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
+        &lt;input id=&#34;tab-Truffle-idrgxfwnzzvmblsuytcqakhjeo&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-idrgxfwnzzvmblsuytcqakhjeo&#34; checked&gt;
+        &lt;label for=&#34;tab-Truffle-idrgxfwnzzvmblsuytcqakhjeo&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
     
 &lt;div class=&#34;content tab-content content-DIY&#34;&gt;
 &lt;h3 id=&#34;do-it-yourself&#34;&gt;Do It Yourself&lt;/h3&gt;
@@ -619,14 +619,14 @@ status-dev-cli watch &lt;span class=&#34;nv&#34;&gt;$PWD&lt;/span&gt; &lt;span c
 &lt;div class=&#34;content tabs&#34;&gt;
    
     
-        &lt;input id=&#34;tab-DIY-kwzyvhxtnbefaluojmdigqrscz&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-kwzyvhxtnbefaluojmdigqrscz&#34; checked&gt;
-        &lt;label for=&#34;tab-DIY-kwzyvhxtnbefaluojmdigqrscz&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
+        &lt;input id=&#34;tab-DIY-qozdrvtznfxwmseghcyjbliuak&#34; class=&#34;tab tab-DIY&#34; type=&#34;radio&#34; name=&#34;tabs-qozdrvtznfxwmseghcyjbliuak&#34; checked&gt;
+        &lt;label for=&#34;tab-DIY-qozdrvtznfxwmseghcyjbliuak&#34; class=&#34;tab&#34;&gt;DIY&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Embark-kwzyvhxtnbefaluojmdigqrscz&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-kwzyvhxtnbefaluojmdigqrscz&#34; checked&gt;
-        &lt;label for=&#34;tab-Embark-kwzyvhxtnbefaluojmdigqrscz&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
+        &lt;input id=&#34;tab-Embark-qozdrvtznfxwmseghcyjbliuak&#34; class=&#34;tab tab-Embark&#34; type=&#34;radio&#34; name=&#34;tabs-qozdrvtznfxwmseghcyjbliuak&#34; checked&gt;
+        &lt;label for=&#34;tab-Embark-qozdrvtznfxwmseghcyjbliuak&#34; class=&#34;tab&#34;&gt;Embark&lt;/label&gt;
     
-        &lt;input id=&#34;tab-Truffle-kwzyvhxtnbefaluojmdigqrscz&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-kwzyvhxtnbefaluojmdigqrscz&#34; checked&gt;
-        &lt;label for=&#34;tab-Truffle-kwzyvhxtnbefaluojmdigqrscz&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
+        &lt;input id=&#34;tab-Truffle-qozdrvtznfxwmseghcyjbliuak&#34; class=&#34;tab tab-Truffle&#34; type=&#34;radio&#34; name=&#34;tabs-qozdrvtznfxwmseghcyjbliuak&#34; checked&gt;
+        &lt;label for=&#34;tab-Truffle-qozdrvtznfxwmseghcyjbliuak&#34; class=&#34;tab&#34;&gt;Truffle&lt;/label&gt;
     
 &lt;div class=&#34;content tab-content content-DIY&#34;&gt;
 &lt;h3 id=&#34;do-it-yourself-with-status-dev-cli&#34;&gt;Do It Yourself with &lt;code&gt;status-dev-cli&lt;/code&gt;&lt;/h3&gt;
