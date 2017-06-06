@@ -181,6 +181,16 @@ Please note that these documents are intended for the latest version of &ldquo;s
 
 <p>You can build Status yourself for either Android or iOS by following <a href="https://wiki.status.im/contributing/development/building-status/" target="_blank">these guidelines</a>. There, you will find instructions for installing an Android simulator, or starting up Status in the Xcode simulator.</p>
 
+<p>Then, connect your phone to your Wi-Fi network (do not use USB). Development machine and phone should be in the same network. Navigate to the Console, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools.</p>
+
+<p>You also need to install <code>status-dev-cli</code> to make talking between Status and your machine a breeze.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm i -g status-dev-cli
+</code></pre></div>
+
+<p><img src="images/starting-a-dapp-on-status-with-frameworks_01.png" alt="With your phone connected, /debug &quot;On&quot;" /></p>
+
+<p><em>With your phone connected, /debug &ldquo;On&rdquo;</em></p>
+
 <h2 id="networking-and-debugging">Networking and Debugging</h2>
 
 <style>
@@ -195,22 +205,14 @@ Please note that these documents are intended for the latest version of &ldquo;s
 <div class="content tabs">
    
     
-        <input id="tab-Device-cqtioglzemxfvdujzyabkwhrns" class="tab tab-Device" type="radio" name="tabs-cqtioglzemxfvdujzyabkwhrns" checked>
-        <label for="tab-Device-cqtioglzemxfvdujzyabkwhrns" class="tab">Device</label>
+        <input id="tab-Device-clgxksjdoeyqrvhifzntaumwbz" class="tab tab-Device" type="radio" name="tabs-clgxksjdoeyqrvhifzntaumwbz" checked>
+        <label for="tab-Device-clgxksjdoeyqrvhifzntaumwbz" class="tab">Device</label>
     
-        <input id="tab-Emulator-cqtioglzemxfvdujzyabkwhrns" class="tab tab-Emulator" type="radio" name="tabs-cqtioglzemxfvdujzyabkwhrns" checked>
-        <label for="tab-Emulator-cqtioglzemxfvdujzyabkwhrns" class="tab">Emulator</label>
+        <input id="tab-Emulator-clgxksjdoeyqrvhifzntaumwbz" class="tab tab-Emulator" type="radio" name="tabs-clgxksjdoeyqrvhifzntaumwbz" checked>
+        <label for="tab-Emulator-clgxksjdoeyqrvhifzntaumwbz" class="tab">Emulator</label>
     
 <div class="content tab-content content-Device">
-<p>First, connect your phone to your Wi-Fi network (do not use USB). Development machine and phone should be in the same network. Navigate to the Console, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools.</p>
-
-<p>You also need to install <code>status-dev-cli</code> to make talking between Status and your machine a breeze.</p>
-<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm i -g status-dev-cli
-</code></pre></div>
-
-<p><img src="images/starting-a-dapp-on-status-with-frameworks_01.png" alt="With your phone connected, /debug &quot;On&quot;" /></p>
-
-<p><em>With your phone connected, /debug &ldquo;On&rdquo;</em></p>
+<p>OK, so Status is installed, but how do we interact with it?</p>
 
 <p>You can check <code>&lt;DEVICE-IP&gt;</code> by running the <code>scan</code> command in the terminal. Another useful command we will be using a lot later on is <code>list</code> which will return a list of all DApps you have added to Status.</p>
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli scan
@@ -222,6 +224,16 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 
 <span class="c1"># Look for this line - i.e. your IPv4 address - and use the equivalent of 192.168.0.103</span>
 --&gt; inet <span class="m">192</span>.168.0.103 netmask 0xffffff00 broadcast <span class="m">192</span>.168.0.255
+</code></pre></div>
+
+<p>Even more importantly though, how can we actually debug the code we write? We know how important this is for good developers and we&rsquo;re still working on it. Currently, the options are limited, but we ask you to work with us here as it will improve rapidly over the next little while.</p>
+
+<p>The first and the most powerful option is the development tools included in your browser. Chrome supports remote debugging, and you can easily connect to any web view on your mobile and debug it right from the browser. The detailed instructions can be found <a href="https://developers.google.com/web/tools/chrome-devtools/remote-debugging/" target="_blank">here</a>.</p>
+
+<p>If you use iOS, you can use Safari on your Mac to debug any remote web page. <a href="http://developer.telerik.com/featured/a-concise-guide-to-remote-debugging-on-ios-android-and-windows-phone/" target="_blank">Here</a> is a nice guide that will explain everything to you.</p>
+
+<p>Unfortunately, you cannot use your browser&rsquo;s development tools to debug bots, as switching the node only works for DApps currently. So, the option we provide for bots is the ability to extract logs.</p>
+<div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli log &lt;DAPP-IDENTITY&gt; --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
 </div>
@@ -261,14 +273,14 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <div class="content tabs">
    
     
-        <input id="tab-DIY-sjhuxwbkcigztzdonrqevlamfy" class="tab tab-DIY" type="radio" name="tabs-sjhuxwbkcigztzdonrqevlamfy" checked>
-        <label for="tab-DIY-sjhuxwbkcigztzdonrqevlamfy" class="tab">DIY</label>
+        <input id="tab-DIY-txbmozusqraiedkcwgfynzjlvh" class="tab tab-DIY" type="radio" name="tabs-txbmozusqraiedkcwgfynzjlvh" checked>
+        <label for="tab-DIY-txbmozusqraiedkcwgfynzjlvh" class="tab">DIY</label>
     
-        <input id="tab-Embark-sjhuxwbkcigztzdonrqevlamfy" class="tab tab-Embark" type="radio" name="tabs-sjhuxwbkcigztzdonrqevlamfy" checked>
-        <label for="tab-Embark-sjhuxwbkcigztzdonrqevlamfy" class="tab">Embark</label>
+        <input id="tab-Embark-txbmozusqraiedkcwgfynzjlvh" class="tab tab-Embark" type="radio" name="tabs-txbmozusqraiedkcwgfynzjlvh" checked>
+        <label for="tab-Embark-txbmozusqraiedkcwgfynzjlvh" class="tab">Embark</label>
     
-        <input id="tab-Truffle-sjhuxwbkcigztzdonrqevlamfy" class="tab tab-Truffle" type="radio" name="tabs-sjhuxwbkcigztzdonrqevlamfy" checked>
-        <label for="tab-Truffle-sjhuxwbkcigztzdonrqevlamfy" class="tab">Truffle</label>
+        <input id="tab-Truffle-txbmozusqraiedkcwgfynzjlvh" class="tab tab-Truffle" type="radio" name="tabs-txbmozusqraiedkcwgfynzjlvh" checked>
+        <label for="tab-Truffle-txbmozusqraiedkcwgfynzjlvh" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -561,14 +573,14 @@ adb reverse tcp:8000 tcp:8000
 <div class="content tabs">
    
     
-        <input id="tab-DIY-hmougskbqjcznwvxrziealydft" class="tab tab-DIY" type="radio" name="tabs-hmougskbqjcznwvxrziealydft" checked>
-        <label for="tab-DIY-hmougskbqjcznwvxrziealydft" class="tab">DIY</label>
+        <input id="tab-DIY-crnmlvehxsakqbjtigyuwzfdoz" class="tab tab-DIY" type="radio" name="tabs-crnmlvehxsakqbjtigyuwzfdoz" checked>
+        <label for="tab-DIY-crnmlvehxsakqbjtigyuwzfdoz" class="tab">DIY</label>
     
-        <input id="tab-Embark-hmougskbqjcznwvxrziealydft" class="tab tab-Embark" type="radio" name="tabs-hmougskbqjcznwvxrziealydft" checked>
-        <label for="tab-Embark-hmougskbqjcznwvxrziealydft" class="tab">Embark</label>
+        <input id="tab-Embark-crnmlvehxsakqbjtigyuwzfdoz" class="tab tab-Embark" type="radio" name="tabs-crnmlvehxsakqbjtigyuwzfdoz" checked>
+        <label for="tab-Embark-crnmlvehxsakqbjtigyuwzfdoz" class="tab">Embark</label>
     
-        <input id="tab-Truffle-hmougskbqjcznwvxrziealydft" class="tab tab-Truffle" type="radio" name="tabs-hmougskbqjcznwvxrziealydft" checked>
-        <label for="tab-Truffle-hmougskbqjcznwvxrziealydft" class="tab">Truffle</label>
+        <input id="tab-Truffle-crnmlvehxsakqbjtigyuwzfdoz" class="tab tab-Truffle" type="radio" name="tabs-crnmlvehxsakqbjtigyuwzfdoz" checked>
+        <label for="tab-Truffle-crnmlvehxsakqbjtigyuwzfdoz" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
@@ -757,14 +769,14 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
 <div class="content tabs">
    
     
-        <input id="tab-DIY-cdoaexywinjlstgurbqzhmzkvf" class="tab tab-DIY" type="radio" name="tabs-cdoaexywinjlstgurbqzhmzkvf" checked>
-        <label for="tab-DIY-cdoaexywinjlstgurbqzhmzkvf" class="tab">DIY</label>
+        <input id="tab-DIY-joezytgsqnkrhwbafmlcdizxuv" class="tab tab-DIY" type="radio" name="tabs-joezytgsqnkrhwbafmlcdizxuv" checked>
+        <label for="tab-DIY-joezytgsqnkrhwbafmlcdizxuv" class="tab">DIY</label>
     
-        <input id="tab-Embark-cdoaexywinjlstgurbqzhmzkvf" class="tab tab-Embark" type="radio" name="tabs-cdoaexywinjlstgurbqzhmzkvf" checked>
-        <label for="tab-Embark-cdoaexywinjlstgurbqzhmzkvf" class="tab">Embark</label>
+        <input id="tab-Embark-joezytgsqnkrhwbafmlcdizxuv" class="tab tab-Embark" type="radio" name="tabs-joezytgsqnkrhwbafmlcdizxuv" checked>
+        <label for="tab-Embark-joezytgsqnkrhwbafmlcdizxuv" class="tab">Embark</label>
     
-        <input id="tab-Truffle-cdoaexywinjlstgurbqzhmzkvf" class="tab tab-Truffle" type="radio" name="tabs-cdoaexywinjlstgurbqzhmzkvf" checked>
-        <label for="tab-Truffle-cdoaexywinjlstgurbqzhmzkvf" class="tab">Truffle</label>
+        <input id="tab-Truffle-joezytgsqnkrhwbafmlcdizxuv" class="tab tab-Truffle" type="radio" name="tabs-joezytgsqnkrhwbafmlcdizxuv" checked>
+        <label for="tab-Truffle-joezytgsqnkrhwbafmlcdizxuv" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
