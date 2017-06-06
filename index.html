@@ -187,31 +187,12 @@ Please note that these documents are intended for the latest version of &ldquo;s
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>npm i -g status-dev-cli
 </code></pre></div>
 
-<p><img src="images/starting-a-dapp-on-status-with-frameworks_01.png" alt="With your phone connected, /debug &quot;On&quot;" /></p>
+<p><img src="images/starting.png" alt="With your phone connected, /debug &quot;On&quot;" /></p>
 
 <p><em>With your phone connected, /debug &ldquo;On&rdquo;</em></p>
 
-<h2 id="networking-and-debugging">Networking and Debugging</h2>
+<h2 id="debugging">Debugging</h2>
 
-<style>
-
-.tab-Device:checked ~ .content-Device , 
-
-.tab-Emulator:checked ~ .content-Emulator 
- {
-    display: block;
-}
-</style>
-<div class="content tabs">
-   
-    
-        <input id="tab-Device-clgxksjdoeyqrvhifzntaumwbz" class="tab tab-Device" type="radio" name="tabs-clgxksjdoeyqrvhifzntaumwbz" checked>
-        <label for="tab-Device-clgxksjdoeyqrvhifzntaumwbz" class="tab">Device</label>
-    
-        <input id="tab-Emulator-clgxksjdoeyqrvhifzntaumwbz" class="tab tab-Emulator" type="radio" name="tabs-clgxksjdoeyqrvhifzntaumwbz" checked>
-        <label for="tab-Emulator-clgxksjdoeyqrvhifzntaumwbz" class="tab">Emulator</label>
-    
-<div class="content tab-content content-Device">
 <p>OK, so Status is installed, but how do we interact with it?</p>
 
 <p>You can check <code>&lt;DEVICE-IP&gt;</code> by running the <code>scan</code> command in the terminal. Another useful command we will be using a lot later on is <code>list</code> which will return a list of all DApps you have added to Status.</p>
@@ -236,15 +217,19 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <div class="highlight"><pre><code class="language-shell" data-lang="shell"><span></span>status-dev-cli log &lt;DAPP-IDENTITY&gt; --ip &lt;DEVICE-IP&gt;
 </code></pre></div>
 
-</div>
+<h2 id="networking">Networking</h2>
 
-<div class="content tab-content content-Emulator">
 <p>We give instructions here for Genymotion (a popular Android emulator).</p>
 
 <ol>
 <li>Install genymotion</li>
 <li>Create a genymotion virtual device</li>
-<li>Switch to network bridge mode (in settings of virtual device)</li>
+<li>Switch to network bridge mode (in the settings of your virtual device)</li>
+</ol>
+
+<p><img src="images/networking.png" alt="Switch to &quot;Bridge&quot;" /></p>
+
+<ol>
 <li>Start virtual device</li>
 <li>Install status.im apk from nightly builds by dragging onto emulator window</li>
 <li>Start status.im app on virtual device</li>
@@ -252,10 +237,6 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <li>Open terminal and run <code>status-dev-cli scan</code> it returns two <code>&lt;DEVICE-IP&gt;</code> addresses, use <code>192.168.1.*</code>, and ignore <code>192.168.56.*</code>. Alternately retrieve the device ip from the emulator window <code>Settings &gt; About phone &gt; Status &gt; IP address</code>.</li>
 <li>Run <code>status-dev-cli add [dapp] --ip &lt;DEVICE-IP&gt;</code>. <strong>Replace</strong> <code>[dapp]</code> with your dapp details (<code>whisper-identity</code>, etc) as stringified json or <strong>remove</strong> <code>[dapp]</code> if those details are specified in a <code>package.json</code> in the current directory.</li>
 </ol>
-
-<p></div></p>
-
-</div>
 
 <h2 id="my-first-dapp">My First DApp</h2>
 
@@ -273,14 +254,14 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <div class="content tabs">
    
     
-        <input id="tab-DIY-txbmozusqraiedkcwgfynzjlvh" class="tab tab-DIY" type="radio" name="tabs-txbmozusqraiedkcwgfynzjlvh" checked>
-        <label for="tab-DIY-txbmozusqraiedkcwgfynzjlvh" class="tab">DIY</label>
+        <input id="tab-DIY-smirwxdlyfnvztoeakgjhuzcqb" class="tab tab-DIY" type="radio" name="tabs-smirwxdlyfnvztoeakgjhuzcqb" checked>
+        <label for="tab-DIY-smirwxdlyfnvztoeakgjhuzcqb" class="tab">DIY</label>
     
-        <input id="tab-Embark-txbmozusqraiedkcwgfynzjlvh" class="tab tab-Embark" type="radio" name="tabs-txbmozusqraiedkcwgfynzjlvh" checked>
-        <label for="tab-Embark-txbmozusqraiedkcwgfynzjlvh" class="tab">Embark</label>
+        <input id="tab-Embark-smirwxdlyfnvztoeakgjhuzcqb" class="tab tab-Embark" type="radio" name="tabs-smirwxdlyfnvztoeakgjhuzcqb" checked>
+        <label for="tab-Embark-smirwxdlyfnvztoeakgjhuzcqb" class="tab">Embark</label>
     
-        <input id="tab-Truffle-txbmozusqraiedkcwgfynzjlvh" class="tab tab-Truffle" type="radio" name="tabs-txbmozusqraiedkcwgfynzjlvh" checked>
-        <label for="tab-Truffle-txbmozusqraiedkcwgfynzjlvh" class="tab">Truffle</label>
+        <input id="tab-Truffle-smirwxdlyfnvztoeakgjhuzcqb" class="tab tab-Truffle" type="radio" name="tabs-smirwxdlyfnvztoeakgjhuzcqb" checked>
+        <label for="tab-Truffle-smirwxdlyfnvztoeakgjhuzcqb" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -559,7 +540,7 @@ adb reverse tcp:8000 tcp:8000
 
 <h2 id="my-first-1-1-chatbot">My First 1-1 Chatbot</h2>
 
-<p><style>
+<style>
 
 .tab-DIY:checked ~ .content-DIY , 
 
@@ -573,14 +554,14 @@ adb reverse tcp:8000 tcp:8000
 <div class="content tabs">
    
     
-        <input id="tab-DIY-crnmlvehxsakqbjtigyuwzfdoz" class="tab tab-DIY" type="radio" name="tabs-crnmlvehxsakqbjtigyuwzfdoz" checked>
-        <label for="tab-DIY-crnmlvehxsakqbjtigyuwzfdoz" class="tab">DIY</label>
+        <input id="tab-DIY-fscqmzgwbtyjurihvzdoknxael" class="tab tab-DIY" type="radio" name="tabs-fscqmzgwbtyjurihvzdoknxael" checked>
+        <label for="tab-DIY-fscqmzgwbtyjurihvzdoknxael" class="tab">DIY</label>
     
-        <input id="tab-Embark-crnmlvehxsakqbjtigyuwzfdoz" class="tab tab-Embark" type="radio" name="tabs-crnmlvehxsakqbjtigyuwzfdoz" checked>
-        <label for="tab-Embark-crnmlvehxsakqbjtigyuwzfdoz" class="tab">Embark</label>
+        <input id="tab-Embark-fscqmzgwbtyjurihvzdoknxael" class="tab tab-Embark" type="radio" name="tabs-fscqmzgwbtyjurihvzdoknxael" checked>
+        <label for="tab-Embark-fscqmzgwbtyjurihvzdoknxael" class="tab">Embark</label>
     
-        <input id="tab-Truffle-crnmlvehxsakqbjtigyuwzfdoz" class="tab tab-Truffle" type="radio" name="tabs-crnmlvehxsakqbjtigyuwzfdoz" checked>
-        <label for="tab-Truffle-crnmlvehxsakqbjtigyuwzfdoz" class="tab">Truffle</label>
+        <input id="tab-Truffle-fscqmzgwbtyjurihvzdoknxael" class="tab tab-Truffle" type="radio" name="tabs-fscqmzgwbtyjurihvzdoknxael" checked>
+        <label for="tab-Truffle-fscqmzgwbtyjurihvzdoknxael" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
@@ -743,7 +724,7 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
 
 <p></div></p>
 
-</div></p>
+</div>
 
 <p>Once you have worked through the first tutorials and understood the basic steps to building a DApp and adding it into Status, it&rsquo;s time to get our hands a little more dirty by actually writing a simple, one-response chatbot that will begin to utilise the awesome power of the Status API.</p>
 
@@ -769,14 +750,14 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
 <div class="content tabs">
    
     
-        <input id="tab-DIY-joezytgsqnkrhwbafmlcdizxuv" class="tab tab-DIY" type="radio" name="tabs-joezytgsqnkrhwbafmlcdizxuv" checked>
-        <label for="tab-DIY-joezytgsqnkrhwbafmlcdizxuv" class="tab">DIY</label>
+        <input id="tab-DIY-soirhxflybavgwzzncqktedmju" class="tab tab-DIY" type="radio" name="tabs-soirhxflybavgwzzncqktedmju" checked>
+        <label for="tab-DIY-soirhxflybavgwzzncqktedmju" class="tab">DIY</label>
     
-        <input id="tab-Embark-joezytgsqnkrhwbafmlcdizxuv" class="tab tab-Embark" type="radio" name="tabs-joezytgsqnkrhwbafmlcdizxuv" checked>
-        <label for="tab-Embark-joezytgsqnkrhwbafmlcdizxuv" class="tab">Embark</label>
+        <input id="tab-Embark-soirhxflybavgwzzncqktedmju" class="tab tab-Embark" type="radio" name="tabs-soirhxflybavgwzzncqktedmju" checked>
+        <label for="tab-Embark-soirhxflybavgwzzncqktedmju" class="tab">Embark</label>
     
-        <input id="tab-Truffle-joezytgsqnkrhwbafmlcdizxuv" class="tab tab-Truffle" type="radio" name="tabs-joezytgsqnkrhwbafmlcdizxuv" checked>
-        <label for="tab-Truffle-joezytgsqnkrhwbafmlcdizxuv" class="tab">Truffle</label>
+        <input id="tab-Truffle-soirhxflybavgwzzncqktedmju" class="tab tab-Truffle" type="radio" name="tabs-soirhxflybavgwzzncqktedmju" checked>
+        <label for="tab-Truffle-soirhxflybavgwzzncqktedmju" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -1056,6 +1037,146 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
     <span class="k">return</span> <span class="nx">result</span><span class="p">;</span>
 <span class="p">}</span>
 </code></pre></div>
+
+<h2 id="frequently-asked-questions-faq">Frequently Asked Questions (FAQ)</h2>
+
+<h3 id="my-bot-has-been-deployed-but-it-does-not-appear-to-work">My bot has been deployed but it does not appear to work.</h3>
+
+<p>Make sure that the <code>bot-url</code> you provided when adding your bot is accessible from your device. For example, open it in mobile browser.</p>
+
+<h3 id="is-there-a-way-to-debug-my-bot">Is there a way to debug my bot?</h3>
+
+<p><code>status-dev-cli log</code> allows to access outputs from <code>console.log()</code>. So, just add in the necessary <code>console.log()</code>s and read them in your terminal. The team is working actively to make this easier.</p>
+
+<h3 id="can-i-connect-to-a-different-rpc-server">Can I connect to a different RPC server?</h3>
+
+<p><code>status-dev-cli switch-node</code> only works for <code>dapp-url</code>s at the moment. Due to the restrictions of the Otto VM jail that the bots <code>js</code> is run in, it still connects by default to Ropsten and your Status account. The team is actively working on ways around this.</p>
+
+<h3 id="can-custom-commands-be-added-to-normal-chat">Can custom commands be added to normal chat?</h3>
+
+<p>Currently they are only available to 1-1 chat with bots. At some stage in the future we will implement group chats and all your dreams will come true.</p>
+
+<h2 id="status-api-faqs">Status API FAQs</h2>
+
+<h3 id="how-can-i-set-the-text-input-value">How can I set the text input value?</h3>
+
+<p>You can use <code>status.components.dispatch</code> in tandem with the <code>SET_VALUE</code> object. For instance, if you wanted to sugeest a url, you would do the following: <code>status.components.dispatch([status.events.SET_VALUE, &quot;@browse url&quot;])}</code>. A more complete example is also given alongside.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">touchable</span><span class="p">(</span>
+            <span class="p">{</span><span class="nx">onPress</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">dispatch</span><span class="p">([</span><span class="nx">status</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">SET_VALUE</span><span class="p">,</span> <span class="s2">&quot;@browse url&quot;</span><span class="p">])},</span>
+            <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">(</span> <span class="p">{},</span>
+                        <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                            <span class="p">{},</span>
+                            <span class="s2">&quot;Click me&quot;</span>
+                        <span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">)};</span>
+</code></pre></div>
+
+<h3 id="how-can-i-send-a-command-a-display-result-back">How can I send a command a display result back?</h3>
+
+<p>This one is fairly self-explanantory, and just reuses code from the above tutorials in a slightly different pattern.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+     <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span>
+     <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;HelloBot&quot;</span><span class="p">,</span>
+     <span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;Helps you say hello&quot;</span><span class="p">,</span>
+     <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#CCCCCC&quot;</span><span class="p">,</span>
+     <span class="nx">onSend</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+                 <span class="nx">result</span><span class="p">[</span><span class="s2">&quot;text-message&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;You&#39;re amazing, master!&quot;</span><span class="p">;</span>
+     <span class="p">},</span>
+     <span class="nx">preview</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+             <span class="kd">var</span> <span class="nx">text</span> <span class="o">=</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">text</span><span class="p">(</span>
+                 <span class="p">{</span>
+                     <span class="nx">style</span><span class="o">:</span> <span class="p">{</span>
+                         <span class="nx">marginTop</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>
+                         <span class="nx">marginHorizontal</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+                         <span class="nx">fontSize</span><span class="o">:</span> <span class="mi">14</span><span class="p">,</span>
+                         <span class="nx">fontFamily</span><span class="o">:</span> <span class="s2">&quot;font&quot;</span><span class="p">,</span>
+                         <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;black&quot;</span>
+                     <span class="p">}</span>
+                 <span class="p">},</span> <span class="s2">&quot;Hello from the other side!&quot;</span><span class="p">);</span>
+             <span class="k">return</span> <span class="p">{</span><span class="nx">markup</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">view</span><span class="p">({},</span> <span class="p">[</span><span class="nx">text</span><span class="p">])};</span>
+         <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h3 id="can-i-send-a-message-asynchrounously-after-a-request-has-been-sent">Can I send a message asynchrounously after a request has been sent?</h3>
+
+<p>Use the latest nightlies and <code>status.sendMessage</code> will now be available.</p>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span></span> <span class="nx">status</span><span class="p">.</span><span class="nx">command</span><span class="p">({</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="nx">icon</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="nx">description</span><span class="o">:</span> <span class="s2">&quot;test&quot;</span><span class="p">,</span>
+    <span class="nx">color</span><span class="o">:</span> <span class="s2">&quot;#a187d5&quot;</span><span class="p">,</span>
+    <span class="nx">sequentialParams</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">params</span><span class="o">:</span> <span class="p">[{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;address&quot;</span><span class="p">,</span>
+        <span class="nx">type</span><span class="o">:</span> <span class="nx">status</span><span class="p">.</span><span class="nx">types</span><span class="p">.</span><span class="nx">TEXT</span><span class="p">,</span>
+        <span class="nx">placeholder</span><span class="o">:</span> <span class="s2">&quot;address&quot;</span>
+    <span class="p">}],</span>
+    <span class="nx">handler</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">status</span><span class="p">.</span><span class="nx">sendMessage</span><span class="p">(</span><span class="s2">&quot;Address &quot;</span> <span class="o">+</span> <span class="nx">params</span><span class="p">.</span><span class="nx">address</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h2 id="js-and-web3-api-faq">JS and web3 API FAQ</h2>
+
+<h3 id="how-can-data-be-stored-and-retrieved">How can data be stored and retrieved?</h3>
+
+<p>Yes it can be, using <code>localStorage</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s2">&quot;on-message-send&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cnt</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;cnt&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">cnt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">cnt</span><span class="o">++</span><span class="p">;</span>
+
+    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&quot;cnt&quot;</span><span class="p">,</span> <span class="nx">cnt</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">message</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;text-message&quot;</span><span class="o">:</span> <span class="s2">&quot;Seems that you don&#39;t want to send money :(. cnt = &quot;</span> <span class="o">+</span> <span class="nx">cnt</span><span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">balance</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">weiValue</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">toWei</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="s2">&quot;ether&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">bn</span><span class="p">(</span><span class="nx">weiValue</span><span class="p">).</span><span class="nx">greaterThan</span><span class="p">(</span><span class="nx">bn</span><span class="p">(</span><span class="nx">balance</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;text-message&quot;</span><span class="o">:</span> <span class="s2">&quot;No way man, you don&#39;t have enough money! :)&quot;</span><span class="p">};</span>
+    <span class="p">}</span>
+    <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sendTransaction</span><span class="p">({</span>
+        <span class="nx">from</span><span class="o">:</span> <span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span>
+        <span class="nx">to</span><span class="o">:</span> <span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span>
+        <span class="nx">value</span><span class="o">:</span> <span class="nx">weiValue</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">hash</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">status</span><span class="p">.</span><span class="nx">sendMessage</span><span class="p">(</span><span class="s2">&quot;Something went wrong, try again :(&quot;</span><span class="p">);</span>
+            <span class="nx">status</span><span class="p">.</span><span class="nx">showSuggestions</span><span class="p">(</span><span class="nx">demoSuggestions</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">).</span><span class="nx">markup</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">status</span><span class="p">.</span><span class="nx">sendMessage</span><span class="p">(</span><span class="s2">&quot;You are the hero, you sent &quot;</span> <span class="o">+</span> <span class="nx">value</span> <span class="o">+</span> <span class="s2">&quot; ETH to yourself!&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
+
+<h3 id="can-i-interract-with-web3-object">Can I interract with <code>web3</code> object?</h3>
+
+<p>Yes! The snippet provided showcases both <code>localStrage</code> and the <code>web3</code> object operating in tandem.</p>
+
+<h3 id="can-i-parse-json-data">Can I parse JSON data?</h3>
+
+<p>Yes JSON.parse()is supported.</p>
+
+<h3 id="is-xmlhttprequest-supported">Is XMLHttpRequest supported?</h3>
+
+<p>Not yet.</p>
+
+<h3 id="any-examples">Any examples ?</h3>
+
+<ul>
+<li><a href="https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js" target="_blank">https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js</a></li>
+<li><a href="https://github.com/status-im/status-react/blob/develop/bots/console/bot.js" target="_blank">https://github.com/status-im/status-react/blob/develop/bots/console/bot.js</a></li>
+</ul>
 
     
         
@@ -1718,7 +1839,40 @@ In the example provided, the variable <code>view</code> is what we mean by marku
 
 <h2 id="status-sendmessage">status.sendMessage</h2>
 
-<p>Not currently implemented, but will be soon to avoid unnecessary complexities for API users wanting to perform simple actions, who currently need to use the <code>setSuggestions</code> method.</p>
+<p>This has just been implemented in the latest nightlies! Go and grab one of those and you&rsquo;ll have access to this route, as demonstrated by our updated <a href="https://github.com/status-im/status-react/blob/develop/bots/demo_bot/bot.js#L106" target="_blank">demo bot</a>. The snippet provided also reveals how to work with the javascript concept of <code>localStorage</code>.</p>
+<div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="nx">status</span><span class="p">.</span><span class="nx">addListener</span><span class="p">(</span><span class="s2">&quot;on-message-send&quot;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">cnt</span> <span class="o">=</span> <span class="nx">localStorage</span><span class="p">.</span><span class="nx">getItem</span><span class="p">(</span><span class="s2">&quot;cnt&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">cnt</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">cnt</span><span class="o">++</span><span class="p">;</span>
+
+    <span class="nx">localStorage</span><span class="p">.</span><span class="nx">setItem</span><span class="p">(</span><span class="s2">&quot;cnt&quot;</span><span class="p">,</span> <span class="nx">cnt</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">isNaN</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">message</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;text-message&quot;</span><span class="o">:</span> <span class="s2">&quot;Seems that you don&#39;t want to send money :(. cnt = &quot;</span> <span class="o">+</span> <span class="nx">cnt</span><span class="p">};</span>
+    <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nx">balance</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">getBalance</span><span class="p">(</span><span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="nb">parseFloat</span><span class="p">(</span><span class="nx">params</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">weiValue</span> <span class="o">=</span> <span class="nx">web3</span><span class="p">.</span><span class="nx">toWei</span><span class="p">(</span><span class="nx">value</span><span class="p">,</span> <span class="s2">&quot;ether&quot;</span><span class="p">);</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">bn</span><span class="p">(</span><span class="nx">weiValue</span><span class="p">).</span><span class="nx">greaterThan</span><span class="p">(</span><span class="nx">bn</span><span class="p">(</span><span class="nx">balance</span><span class="p">)))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;text-message&quot;</span><span class="o">:</span> <span class="s2">&quot;No way man, you don&#39;t have enough money! :)&quot;</span><span class="p">};</span>
+    <span class="p">}</span>
+    <span class="nx">web3</span><span class="p">.</span><span class="nx">eth</span><span class="p">.</span><span class="nx">sendTransaction</span><span class="p">({</span>
+        <span class="nx">from</span><span class="o">:</span> <span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span>
+        <span class="nx">to</span><span class="o">:</span> <span class="nx">context</span><span class="p">.</span><span class="nx">from</span><span class="p">,</span>
+        <span class="nx">value</span><span class="o">:</span> <span class="nx">weiValue</span>
+    <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">hash</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">status</span><span class="p">.</span><span class="nx">sendMessage</span><span class="p">(</span><span class="s2">&quot;Something went wrong, try again :(&quot;</span><span class="p">);</span>
+            <span class="nx">status</span><span class="p">.</span><span class="nx">showSuggestions</span><span class="p">(</span><span class="nx">demoSuggestions</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">context</span><span class="p">).</span><span class="nx">markup</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="nx">status</span><span class="p">.</span><span class="nx">sendMessage</span><span class="p">(</span><span class="s2">&quot;You are the hero, you sent &quot;</span> <span class="o">+</span> <span class="nx">value</span> <span class="o">+</span> <span class="s2">&quot; ETH to yourself!&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div>
 
 <h2 id="status-definesubscription">status.defineSubscription</h2>
 <div class="highlight"><pre><code class="language-js" data-lang="js"><span></span><span class="kd">function</span> <span class="nx">round</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span> <span class="p">{</span>
