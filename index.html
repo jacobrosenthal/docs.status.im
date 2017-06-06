@@ -195,11 +195,11 @@ Please note that these documents are intended for the latest version of &ldquo;s
 <div class="content tabs">
    
     
-        <input id="tab-Device-eywzhcngaliumjtxzrkvdosfqb" class="tab tab-Device" type="radio" name="tabs-eywzhcngaliumjtxzrkvdosfqb" checked>
-        <label for="tab-Device-eywzhcngaliumjtxzrkvdosfqb" class="tab">Device</label>
+        <input id="tab-Device-cqtioglzemxfvdujzyabkwhrns" class="tab tab-Device" type="radio" name="tabs-cqtioglzemxfvdujzyabkwhrns" checked>
+        <label for="tab-Device-cqtioglzemxfvdujzyabkwhrns" class="tab">Device</label>
     
-        <input id="tab-Emulator-eywzhcngaliumjtxzrkvdosfqb" class="tab tab-Emulator" type="radio" name="tabs-eywzhcngaliumjtxzrkvdosfqb" checked>
-        <label for="tab-Emulator-eywzhcngaliumjtxzrkvdosfqb" class="tab">Emulator</label>
+        <input id="tab-Emulator-cqtioglzemxfvdujzyabkwhrns" class="tab tab-Emulator" type="radio" name="tabs-cqtioglzemxfvdujzyabkwhrns" checked>
+        <label for="tab-Emulator-cqtioglzemxfvdujzyabkwhrns" class="tab">Emulator</label>
     
 <div class="content tab-content content-Device">
 <p>First, connect your phone to your Wi-Fi network (do not use USB). Development machine and phone should be in the same network. Navigate to the Console, select the <code>/debug</code> command and choose the <code>On</code> suggestion. You’ll get back a message telling you that debugging is on, and that you can use the <a href="https://github.com/status-im/status-dev-cli" target="_blank">status-dev-cli</a> tools.</p>
@@ -237,8 +237,8 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <li>Install status.im apk from nightly builds by dragging onto emulator window</li>
 <li>Start status.im app on virtual device</li>
 <li>Turn on debugging in console (/debug On).</li>
-<li>Open terminal and run <code>status-dev-cli scan</code> it returns two <code>&lt;DEVICE-IP&gt;</code> addresses, use <code>192.168.1.*</code>, and ignore <code>192.168.56.*</code></li>
-<li><code>status-dev-cli add [dapp] --ip &lt;DEVICE-IP&gt;</code> where dapp is your json file with <code>whisper-identity</code> etc.</li>
+<li>Open terminal and run <code>status-dev-cli scan</code> it returns two <code>&lt;DEVICE-IP&gt;</code> addresses, use <code>192.168.1.*</code>, and ignore <code>192.168.56.*</code>. Alternately retrieve the device ip from the emulator window <code>Settings &gt; About phone &gt; Status &gt; IP address</code>.</li>
+<li>Run <code>status-dev-cli add [dapp] --ip &lt;DEVICE-IP&gt;</code>. <strong>Replace</strong> <code>[dapp]</code> with your dapp details (<code>whisper-identity</code>, etc) as stringified json or <strong>remove</strong> <code>[dapp]</code> if those details are specified in a <code>package.json</code> in the current directory.</li>
 </ol>
 
 <p></div></p>
@@ -261,14 +261,14 @@ status-dev-cli list --ip &lt;DEVICE-IP&gt;       <span class="c1">#be sure to us
 <div class="content tabs">
    
     
-        <input id="tab-DIY-szmykhnodfzguwacilrvbxqejt" class="tab tab-DIY" type="radio" name="tabs-szmykhnodfzguwacilrvbxqejt" checked>
-        <label for="tab-DIY-szmykhnodfzguwacilrvbxqejt" class="tab">DIY</label>
+        <input id="tab-DIY-sjhuxwbkcigztzdonrqevlamfy" class="tab tab-DIY" type="radio" name="tabs-sjhuxwbkcigztzdonrqevlamfy" checked>
+        <label for="tab-DIY-sjhuxwbkcigztzdonrqevlamfy" class="tab">DIY</label>
     
-        <input id="tab-Embark-szmykhnodfzguwacilrvbxqejt" class="tab tab-Embark" type="radio" name="tabs-szmykhnodfzguwacilrvbxqejt" checked>
-        <label for="tab-Embark-szmykhnodfzguwacilrvbxqejt" class="tab">Embark</label>
+        <input id="tab-Embark-sjhuxwbkcigztzdonrqevlamfy" class="tab tab-Embark" type="radio" name="tabs-sjhuxwbkcigztzdonrqevlamfy" checked>
+        <label for="tab-Embark-sjhuxwbkcigztzdonrqevlamfy" class="tab">Embark</label>
     
-        <input id="tab-Truffle-szmykhnodfzguwacilrvbxqejt" class="tab tab-Truffle" type="radio" name="tabs-szmykhnodfzguwacilrvbxqejt" checked>
-        <label for="tab-Truffle-szmykhnodfzguwacilrvbxqejt" class="tab">Truffle</label>
+        <input id="tab-Truffle-sjhuxwbkcigztzdonrqevlamfy" class="tab tab-Truffle" type="radio" name="tabs-sjhuxwbkcigztzdonrqevlamfy" checked>
+        <label for="tab-Truffle-sjhuxwbkcigztzdonrqevlamfy" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -371,6 +371,10 @@ testrpc -p <span class="m">8546</span>
 <span class="c1"># Of course, there are options. You can use go-ethereum instead of TestRPC, and instead of port forwarding you can switch to any other accessible node using its IP address.</span>
 </code></pre></div>
 
+<aside class="success">
+    Please note that "switch-node" only works for DApps, and NOT for bots. You javascript is still confined to the Otto VM jail for now. We are working on a solution, but please use "dapp-url" if developing against a local network for now.
+</aside>
+
 <p>Open a new shell (i.e. a new Terminal window or tab) for the next part. You’ll leave <code>testrpc</code> running in the first window, and use the second window for the rest of the tutorial.</p>
 
 <p>Now that you have <code>testrpc</code> is going, and a new shell is open, run:</p>
@@ -389,7 +393,7 @@ testrpc -p <span class="m">8546</span>
 
 <span class="c1"># Compile the contracts from Solidity (much like JavaScript) into runnable EVM code</span>
  truffle compile
- 
+
 <span class="c1"># Publish the compiled contracts to your network. testrpc must already be running</span>
  truffle migrate
 </code></pre></div>
@@ -474,7 +478,7 @@ adb reverse tcp:3000 tcp:3000
       <span class="s2">&quot;password&quot;</span>: <span class="s2">&quot;config/development/password&quot;</span>
     <span class="o">}</span>
   <span class="o">}</span>
-  
+
 <span class="c1"># ctrl+O will write your changes to file, ctrl+X will exit the file.</span>
 <span class="c1"># Now, navigate back to the root of your project and start testrpc</span>
 
@@ -557,14 +561,14 @@ adb reverse tcp:8000 tcp:8000
 <div class="content tabs">
    
     
-        <input id="tab-DIY-ltdjaychqekinfzmubsgxvrzwo" class="tab tab-DIY" type="radio" name="tabs-ltdjaychqekinfzmubsgxvrzwo" checked>
-        <label for="tab-DIY-ltdjaychqekinfzmubsgxvrzwo" class="tab">DIY</label>
+        <input id="tab-DIY-hmougskbqjcznwvxrziealydft" class="tab tab-DIY" type="radio" name="tabs-hmougskbqjcznwvxrziealydft" checked>
+        <label for="tab-DIY-hmougskbqjcznwvxrziealydft" class="tab">DIY</label>
     
-        <input id="tab-Embark-ltdjaychqekinfzmubsgxvrzwo" class="tab tab-Embark" type="radio" name="tabs-ltdjaychqekinfzmubsgxvrzwo" checked>
-        <label for="tab-Embark-ltdjaychqekinfzmubsgxvrzwo" class="tab">Embark</label>
+        <input id="tab-Embark-hmougskbqjcznwvxrziealydft" class="tab tab-Embark" type="radio" name="tabs-hmougskbqjcznwvxrziealydft" checked>
+        <label for="tab-Embark-hmougskbqjcznwvxrziealydft" class="tab">Embark</label>
     
-        <input id="tab-Truffle-ltdjaychqekinfzmubsgxvrzwo" class="tab tab-Truffle" type="radio" name="tabs-ltdjaychqekinfzmubsgxvrzwo" checked>
-        <label for="tab-Truffle-ltdjaychqekinfzmubsgxvrzwo" class="tab">Truffle</label>
+        <input id="tab-Truffle-hmougskbqjcznwvxrziealydft" class="tab tab-Truffle" type="radio" name="tabs-hmougskbqjcznwvxrziealydft" checked>
+        <label for="tab-Truffle-hmougskbqjcznwvxrziealydft" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself">Do It Yourself</h3>
@@ -753,14 +757,14 @@ status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whi
 <div class="content tabs">
    
     
-        <input id="tab-DIY-mianqewtgkfrjbcxohdluvsyzz" class="tab tab-DIY" type="radio" name="tabs-mianqewtgkfrjbcxohdluvsyzz" checked>
-        <label for="tab-DIY-mianqewtgkfrjbcxohdluvsyzz" class="tab">DIY</label>
+        <input id="tab-DIY-cdoaexywinjlstgurbqzhmzkvf" class="tab tab-DIY" type="radio" name="tabs-cdoaexywinjlstgurbqzhmzkvf" checked>
+        <label for="tab-DIY-cdoaexywinjlstgurbqzhmzkvf" class="tab">DIY</label>
     
-        <input id="tab-Embark-mianqewtgkfrjbcxohdluvsyzz" class="tab tab-Embark" type="radio" name="tabs-mianqewtgkfrjbcxohdluvsyzz" checked>
-        <label for="tab-Embark-mianqewtgkfrjbcxohdluvsyzz" class="tab">Embark</label>
+        <input id="tab-Embark-cdoaexywinjlstgurbqzhmzkvf" class="tab tab-Embark" type="radio" name="tabs-cdoaexywinjlstgurbqzhmzkvf" checked>
+        <label for="tab-Embark-cdoaexywinjlstgurbqzhmzkvf" class="tab">Embark</label>
     
-        <input id="tab-Truffle-mianqewtgkfrjbcxohdluvsyzz" class="tab tab-Truffle" type="radio" name="tabs-mianqewtgkfrjbcxohdluvsyzz" checked>
-        <label for="tab-Truffle-mianqewtgkfrjbcxohdluvsyzz" class="tab">Truffle</label>
+        <input id="tab-Truffle-cdoaexywinjlstgurbqzhmzkvf" class="tab tab-Truffle" type="radio" name="tabs-cdoaexywinjlstgurbqzhmzkvf" checked>
+        <label for="tab-Truffle-cdoaexywinjlstgurbqzhmzkvf" class="tab">Truffle</label>
     
 <div class="content tab-content content-DIY">
 <h3 id="do-it-yourself-with-status-dev-cli">Do It Yourself with <code>status-dev-cli</code></h3>
@@ -848,7 +852,7 @@ embark run
 
 status-dev-cli list --ip &lt;DEVICE-IP&gt;
 
-status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whisper-identity&gt;&quot;</span> --ip 
+status-dev-cli watch <span class="nv">$PWD</span> <span class="s2">&quot;&lt;whisper-identity&gt;&quot;</span> --ip
 </code></pre></div>
 
 <p>And there you go - we are now capable of greeting and interacting with our bot in two ways! You should be able to see your DApp, navigate to it, tap the new <code>/hello</code> command you see above the text input field and see your new Dapp respond.</p>
